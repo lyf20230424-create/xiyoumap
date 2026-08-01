@@ -1,6 +1,6 @@
 // 主逻辑 - D3.js 可视化
 // 浏览器环境中直接使用全局变量
-const journeyData = window.journeyData || [];
+const journeyData = window.journeyData;
 const tooltip = window.tooltip;
 
 console.log('journeyData length:', journeyData.length);
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 缩小按钮
     controls.append("rect")
-        .attr("y", 40")
+        .attr("y", 40)
         .attr("width", 40)
         .attr("height", 30)
         .attr("fill", "#8b4513")
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 重置按钮
     controls.append("rect")
-        .attr("y", 80")
+        .attr("y", 40)
         .attr("width", 40)
         .attr("height", 30)
         .attr("fill", "#daa520")
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     controls.append("text")
         .attr("x", 20)
-        .attr("y", 100")
+        .attr("y", 40)
         .attr("text-anchor", "middle")
         .style("fill", "white")
         .style("font-size", "12px")
