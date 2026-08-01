@@ -309,3 +309,14 @@ function addDemonTypes() {
 }
 
 addDemonTypes();
+
+// 导出数据（浏览器和Node.js环境）
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        journeyData: journeyData,
+        demonTypes: demonTypes
+    };
+} else {
+    window.journeyData = journeyData;
+    window.demonTypes = demonTypes;
+}

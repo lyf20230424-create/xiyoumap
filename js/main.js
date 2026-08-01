@@ -1,4 +1,9 @@
 // 主逻辑 - D3.js 可视化
+// 浏览器环境中直接使用全局变量
+const journeyData = window.journeyData || [];
+const tooltip = window.tooltip;
+
+console.log('journeyData length:', journeyData.length);
 
 document.addEventListener('DOMContentLoaded', function() {
     // 设置 SVG 容器
@@ -274,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     controls.append("text")
         .attr("x", 20)
-        .attr("y", 100)
+        .attr("y", 100")
         .attr("text-anchor", "middle")
         .style("fill", "white")
         .style("font-size", "12px")

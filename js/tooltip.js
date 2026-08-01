@@ -28,5 +28,5 @@ class Tooltip {
     }
 }
 
-// 创建提示框实例
-const tooltip = new Tooltip();
+// 创建提示框实例并暴露到全局
+window.tooltip = new Tooltip();
