@@ -34,8 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 添加路径到 SVG
     pathsGroup.append("path")
         .datum(pathData)
-        .attr("class", "path")
-        .attr("d", path);
+        .attr("class", "path path-animated")
+        .attr("d", path)
+        .style("stroke", "url(#pathGradient)")
+        .style("stroke-width", 3)
+        .style("fill", "none")
+        .style("opacity", 0.7);
 
     // 创建节点
     const nodes = nodesGroup.selectAll(".location-node")

@@ -212,7 +212,7 @@ const journeyData = [
   {
     id: 24,
     name: "比丘国",
-    type: "国RY",
+    type: "国家",
     demons: ["寿星鹿", "白鹿精"],
     events: ["悟空救小儿，寿星收鹿"],
     position: { x: 1250, y: 750 },

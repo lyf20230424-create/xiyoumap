@@ -348,6 +348,31 @@ body {
     .header h1 {
         font-size: 2em;
     }
+}
+
+/* 缩放控制按钮 */
+.zoom-controls rect {
+    stroke: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.zoom-controls rect:hover {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    transform: scale(1.05);
+}
+
+/* 路径动画 */
+.path-animated {
+    stroke-dasharray: 5, 5;
+    animation: dash 20s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
 
     #journey-map {
         max-height: 600px;
