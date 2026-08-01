@@ -12,17 +12,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const pathsGroup = mapGroup.select("#paths");
     const nodesGroup = mapGroup.select("#nodes");
 
-    // 地图尺寸
-    const mapWidth = 1500;
-    const mapHeight = 1000;
+    // 地图尺寸 - 响应式调整
+    function getMapDimensions() {
+        const width = Math.min(window.innerWidth - 40, 1500);
+        const height = Math.min(window.innerHeight - 300, 1000);
+
+        // 根据屏幕大小动态调整
+        if (window.innerWidth <= 768) {
+            return { width: width * 0.8, height: height * 0.6 };
+        } else if (window.innerWidth <= 1024) {
+            return { width: width * 0.9, height: height * 0.8 };
+        } else {
+            return { width: width, height: height };
+        }
+    }
+
+    let currentMapSize = getMapDimensions();
 
     // 缩放和平移
     const zoom = d3.zoom()
         .scaleExtent([0.5, 3])
-        .translateExtent([[-mapWidth, -mapHeight], [mapWidth * 2, mapHeight * 2]])
+        .translateExtent([[-currentMapSize.width, -currentMapSize.height],
+                        [currentMapSize.width * 2, currentMapSize.height * 2]])
         .on("zoom", function(event) {
             mapGroup.attr("transform", event.transform);
         });
+
+    // 触摸设备支持
+    if ('ontouchstart' in window) {
+        svg.style('touch-action', 'none');
+    }
 
     svg.call(zoom);
 
@@ -212,6 +231,49 @@ document.addEventListener('DOMContentLoaded', function() {
             nodes.classed("active", false);
         }
     };
+
+    // 响应式调整地图尺寸
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            updateMapSize();
+        }, 250);
+    });
+
+    function updateMapSize() {
+        const newSize = getMapDimensions();
+
+        // 更新 SVG 尺寸
+        svg.attr("viewBox", `0 0 ${newSize.width} ${newSize.height}`);
+
+        // 调整路径数据比例
+        const scaleFactor = newSize.width / currentMapSize.width;
+
+        // 重新绘制路径
+        const newPath = d3.line()
+            .x(d => d.position.x * scaleFactor)
+            .y(d => d.position.y * scaleFactor)
+            .curve(d3.curveMonotoneX);
+
+        pathsGroup.select(".path")
+            .datum(journeyData.map(d => ({
+                x: d.position.x * scaleFactor,
+                y: d.position.y * scaleFactor
+            })))
+            .attr("d", newPath);
+
+        // 更新节点位置
+        nodes.attr("transform", function(d) {
+            return `translate(${d.position.x * scaleFactor}, ${d.position.y * scaleFactor})`;
+        });
+
+        // 更新缩放控制按钮位置
+        const controlsX = newSize.width - 150;
+        controls.attr("transform", `translate(${controlsX}, 40)`);
+
+        currentMapSize = newSize;
+    }
 
     // 添加缩放控制按钮
     const controls = svg.append("g")

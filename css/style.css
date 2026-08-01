@@ -335,18 +335,122 @@ body {
     left: 0;
 }
 
-/* 响应式设计 */
-@media (max-width: 1024px) {
-    .main-content {
-        flex-direction: column;
+/* 响应式设计 - 针对不同设备尺寸优化 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
     }
 
-    .legend {
-        width: 100%;
+    .header {
+        padding: 20px;
+        margin-bottom: 20px;
     }
 
     .header h1 {
         font-size: 2em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .main-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .map-container {
+        padding: 15px;
+    }
+
+    #journey-map {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+
+    .zoom-controls {
+        transform: scale(0.8);
+    }
+
+    .controls rect {
+        width: 30px;
+        height: 25px;
+    }
+
+    .controls text {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5em;
+    }
+
+    .header {
+        padding: 15px;
+    }
+
+    .map-container {
+        padding: 10px;
+    }
+
+    #journey-map {
+        max-height: 300px;
+    }
+
+    .zoom-controls {
+        transform: scale(0.7);
+    }
+
+    .tooltip {
+        font-size: 12px;
+        max-width: 250px;
+        padding: 8px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .header h1 {
+        font-size: 2.5em;
+    }
+
+    #journey-map {
+        width: 100%;
+        height: auto;
+        max-height: 700px;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .location-node {
+        cursor: pointer;
+    }
+
+    .location-node circle {
+        stroke-width: 2;
+    }
+
+    .tooltip::after {
+        display: none;
+    }
+}
+
+/* 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .header h1 {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .location-node text {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
 
