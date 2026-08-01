@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const nodesGroup = mapGroup.select("#nodes");
 
     // 地图尺寸
-    const mapWidth = 1100;
-    const mapHeight = 600;
+    const mapWidth = 1500;
+    const mapHeight = 1000;
 
     // 缩放和平移
     const zoom = d3.zoom()

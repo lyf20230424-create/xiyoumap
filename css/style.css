@@ -7,6 +7,34 @@
     box-sizing: border-box;
 }
 
+/* 提示框样式 */
+.tooltip {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #daa520;
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 300px;
+    backdrop-filter: blur(5px);
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(0, 0, 0, 0.9);
+}
+
 body {
     font-family: "Microsoft YaHei", "SimSun", "宋体", serif;
     background: #f5f5dc;
