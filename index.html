@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西游记取经路线地图</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>西游记取经路线地图</h1>
+            <p class="subtitle">唐僧师徒四人西天取经之路</p>
+        </header>
+
+        <div class="main-content">
+            <div class="map-container">
+                <svg id="journey-map" width="1200" height="800">
+                    <!-- 背景和装饰 -->
+                    <defs>
+                        <!-- 卷轴背景 -->
+                        <pattern id="parchment" patternUnits="userSpaceOnUse" width="100" height="100">
+                            <rect width="100" height="100" fill="#f4e8d0"/>
+                            <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="#d4c4a8" stroke-width="0.5" opacity="0.3"/>
+                        </pattern>
+
+                        <!-- 路径渐变 -->
+                        <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8b4513;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#daa520;stop-opacity:1" />
+                        </linearGradient>
+
+                        <!-- 妖怪类型颜色 -->
+                        <linearGradient id="spirit" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#9932cc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ba55d3;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="god" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4169e1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6495ed;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="animal" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#228b22;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#32cd32;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="devil" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#dc143c;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff6347;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="other" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#696969;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#a9a9a9;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- 背景层 -->
+                    <rect width="100%" height="100%" fill="url(#parchment)" />
+
+                    <!-- 装饰边框 -->
+                    <rect x="20" y="20" width="1160" height="760" fill="none" stroke="#8b4513" stroke-width="3" rx="10"/>
+                    <rect x="30" y="30" width="1140" height="740" fill="none" stroke="#daa520" stroke-width="1" rx="8"/>
+
+                    <!-- 标题装饰 -->
+                    <text x="600" y="60" text-anchor="middle" class="title-decoration">西 游 记</text>
+                    <text x="600" y="85" text-anchor="middle" class="subtitle-decoration">Journey to the West</text>
+
+                    <!-- 地图容器 -->
+                    <g id="map" transform="translate(50, 100)">
+                        <!-- 路径将在这里绘制 -->
+                        <g id="paths"></g>
+                        <!-- 节点将在这里绘制 -->
+                        <g id="nodes"></g>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- 图例 -->
+            <div class="legend">
+                <h3>妖怪类型</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: url(#spirit)"></div>
+                        <span>精怪</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: url(#god)"></div>
+                        <span>神仙/妖仙</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: url(#animal)"></div>
+                        <span>动物</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: url(#devil)"></div>
+                        <span>魔王</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: url(#other)"></div>
+                        <span>其他</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 详情弹窗 -->
+        <div id="detail-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-body">
+                    <h2 id="modal-title"></h2>
+                    <div id="modal-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

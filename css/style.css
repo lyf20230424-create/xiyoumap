@@ -1,0 +1,338 @@
+/* 西游记取经路线地图 - 样式 */
+
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", "SimSun", "宋体", serif;
+    background: #f5f5dc;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #8b4513 0%, #daa520 100%);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.header h1 {
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #f0e68c;
+    font-style: italic;
+}
+
+/* 标题装饰 */
+.title-decoration {
+    font-size: 1.8em;
+    fill: #8b4513;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+.subtitle-decoration {
+    font-size: 1em;
+    fill: #a0522d;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+/* 主内容区域 */
+.main-content {
+    display: flex;
+    gap: 30px;
+    position: relative;
+}
+
+/* 地图容器 */
+.map-container {
+    flex: 1;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+}
+
+#journey-map {
+    width: 100%;
+    height: auto;
+    cursor: grab;
+}
+
+#journey-map:active {
+    cursor: grabbing;
+}
+
+/* 图例 */
+.legend {
+    width: 250px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: fit-content;
+}
+
+.legend h3 {
+    color: #8b4513;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    text-align: center;
+    border-bottom: 2px solid #daa520;
+    padding-bottom: 10px;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.legend-item:hover {
+    background-color: #f0e68c;
+}
+
+.legend-box {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #8b4513;
+    border-radius: 5px;
+}
+
+.legend-item span {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 路径样式 */
+.path {
+    fill: none;
+    stroke: url(#pathGradient);
+    stroke-width: 3;
+    stroke-dasharray: 5, 5;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.path:hover {
+    stroke-width: 5;
+    opacity: 1;
+}
+
+/* 节点样式 */
+.location-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.location-node:hover {
+    filter: brightness(1.2);
+}
+
+.location-node circle {
+    stroke: #8b4513;
+    stroke-width: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.location-node text {
+    font-size: 12px;
+    font-weight: bold;
+    text-anchor: middle;
+    pointer-events: none;
+    fill: #333;
+}
+
+/* 起点和终点特殊样式 */
+.start circle,
+.end circle {
+    fill: #ffd700 !important;
+    stroke: #b8860b !important;
+    stroke-width: 3;
+}
+
+/* 妖怪类型颜色 */
+.spirit circle { fill: url(#spirit); }
+.god circle { fill: url(#god); }
+.animal circle { fill: url(#animal); }
+.devil circle { fill: url(#devil); }
+.other circle { fill: url(#other); }
+
+/* 详情弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #f4e8d0;
+    margin: 5% auto;
+    padding: 30px;
+    border: 3px solid #8b4513;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    background: linear-gradient(135deg, #faf5e6 0%, #f4e8d0 100%);
+}
+
+.close {
+    color: #8b4513;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #dc143c;
+}
+
+.modal-body {
+    margin-top: 20px;
+}
+
+#modal-title {
+    color: #8b4513;
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#modal-info {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #daa520;
+}
+
+.info-section {
+    margin-bottom: 15px;
+}
+
+.info-section h4 {
+    color: #8b4513;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.demon-list,
+.event-list {
+    list-style: none;
+    padding-left: 10px;
+}
+
+.demon-list li,
+.event-list li {
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.demon-list li::before {
+    content: "👹";
+    position: absolute;
+    left: 0;
+}
+
+.event-list li::before {
+    content: "📜";
+    position: absolute;
+    left: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .legend {
+        width: 100%;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    #journey-map {
+        max-height: 600px;
+    }
+}
+
+/* 动画效果 */
+@keyframes nodePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.location-node.active circle {
+    animation: nodePulse 1s infinite;
+}
