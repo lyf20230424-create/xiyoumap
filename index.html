@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>西游记取经路线地图</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -117,11 +117,32 @@
 
     <script src="js/data.js"></script>
     <script src="js/tooltip.js"></script>
-    <script>
-        // 将数据暴露到全局变量
-        window.journeyData = journeyData;
-        window.demonTypes = demonTypes;
-    </script>
     <script src="js/main.js"></script>
+
+    <!-- 调试信息 -->
+    <div id="debug" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 9999;">
+        <div>d3 loaded: <span id="d3-status">Loading...</span></div>
+        <div>journeyData length: <span id="data-length">Loading...</span></div>
+        <div>tooltip loaded: <span id="tooltip-status">Loading...</span></div>
+    </div>
+    <script>
+        // 调试信息
+        window.addEventListener('load', function() {
+            document.getElementById('d3-status').textContent = typeof d3 !== 'undefined' ? 'Yes' : 'No';
+            document.getElementById('data-length').textContent = typeof journeyData !== 'undefined' ? journeyData.length : 'N/A';
+            document.getElementById('tooltip-status').textContent = typeof tooltip !== 'undefined' ? 'Yes' : 'No';
+        });
+    </script>
+
+    <!-- 调试信息 -->
+    <div id="debug" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 9999;">
+        <div>journeyData length: <span id="data-length">Loading...</span></div>
+        <div>d3 loaded: <span id="d3-status">Loading...</span></div>
+    </div>
+    <script>
+        // 调试信息
+        document.getElementById('data-length').textContent = window.journeyData ? window.journeyData.length : 'N/A';
+        document.getElementById('d3-status').textContent = typeof d3 !== 'undefined' ? 'Yes' : 'No';
+    </script>
 </body>
 </html>
