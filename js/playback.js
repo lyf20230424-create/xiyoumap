@@ -18,6 +18,7 @@
         this.pathPulse = opts.pathPulse;// d3 选择 .path-pulse
         this.nodes = opts.nodes;        // d3 选择 .location-node
         this.centerFn = opts.centerFn;  // (viewBoxPoint) => 平移视图居中
+        this.onVisit = opts.onVisit;    // (loc) => 到达节点时回调（自动弹窗等）
 
         this.playing = false;
         this.speed = 1;
