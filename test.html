@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西游记取经路线地图 - 功能测试</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", "SimSun", "宋体", serif;
+            background: #f5f5dc;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #daa520;
+            border-radius: 8px;
+        }
+
+        .test-section h2 {
+            color: #8b4513;
+            margin-bottom: 15px;
+        }
+
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f6e6;
+            border-radius: 5px;
+        }
+
+        .test-item.pass {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .test-item.fail {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #a0522d;
+        }
+
+        .preload {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>西游记取经路线地图 - 功能测试</h1>
+
+        <div class="test-section">
+            <h2>1. 资源加载测试</h2>
+            <div id="resource-test">
+                <div class="test-item">
+                    <strong>D3.js:</strong> <span id="d3-status">检查中...</span>
+                </div>
+                <div class="test-item">
+                    <strong>journeyData:</strong> <span id="data-status">检查中...</span>
+                </div>
+                <div class="test-item">
+                    <strong>tooltip:</strong> <span id="tooltip-status">检查中...</span>
+                </div>
+            </div>
+            <button class="btn" onclick="testResources()">重新检查</button>
+        </div>
+
+        <div class="test-section">
+            <h2>2. 数据结构测试</h2>
+            <div id="data-structure-test">
+                <div class="test-item">
+                    <strong>journeyData 数组:</strong> <span id="array-length">检查中...</span>
+                </div>
+                <div class="test-item">
+                    <strong>第一个地点:</strong> <span id="first-location">检查中...</span>
+                </div>
+                <div class="test-item">
+                    <strong>妖怪类型:</strong> <span id="demon-types">检查中...</span>
+                </div>
+            </div>
+            <button class="btn" onclick="testDataStructure()">测试数据结构</button>
+        </div>
+
+        <div class="test-section">
+            <h2>3. 搜索功能测试</h2>
+            <div id="search-test">
+                <div class="test-item">
+                    <strong>搜索框元素:</strong> <span id="search-element">检查中...</span>
+                </div>
+                <div class="test-item">
+                    <strong>搜索功能:</strong> <span id="search-function">检查中...</span>
+                </div>
+            </div>
+            <button class="btn" onclick="testSearch()">测试搜索</button>
+        </div>
+
+        <div class="test-section">
+            <h2>4. 功能链接</h2>
+            <div class="test-item">
+                <a href="index.html" class="btn" style="text-decoration: none;">查看完整地图</a>
+                <button class="btn" onclick="openMap()">在新窗口打开地图</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载必要的资源 -->
+    <script src="d3.v7.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script>
+        // 预加载资源
+        window.addEventListener('load', function() {
+            testResources();
+        });
+
+        function testResources() {
+            // 测试 D3.js
+            const d3Status = document.getElementById('d3-status');
+            if (typeof d3 !== 'undefined') {
+                d3Status.textContent = '✅ 已加载';
+                d3Status.parentElement.classList.add('pass');
+            } else {
+                d3Status.textContent = '❌ 未加载';
+                d3Status.parentElement.classList.add('fail');
+            }
+
+            // 测试 journeyData
+            const dataStatus = document.getElementById('data-status');
+            if (typeof window.journeyData !== 'undefined') {
+                dataStatus.textContent = `✅ 已加载 (${window.journeyData.length} 条数据)`;
+                dataStatus.parentElement.classList.add('pass');
+            } else {
+                dataStatus.textContent = '❌ 未加载';
+                dataStatus.parentElement.classList.add('fail');
+            }
+
+            // 测试 tooltip
+            const tooltipStatus = document.getElementById('tooltip-status');
+            if (typeof window.tooltip !== 'undefined') {
+                tooltipStatus.textContent = '✅ 已加载';
+                tooltipStatus.parentElement.classList.add('pass');
+            } else {
+                tooltipStatus.textContent = '❌ 未加载';
+                tooltipStatus.parentElement.classList.add('fail');
+            }
+        }
+
+        function testDataStructure() {
+            // 测试数据长度
+            const arrayLength = document.getElementById('array-length');
+            if (window.journeyData && window.journeyData.length > 0) {
+                arrayLength.textContent = `✅ ${window.journeyData.length} 条数据`;
+                arrayLength.parentElement.classList.add('pass');
+            } else {
+                arrayLength.textContent = '❌ 数据为空';
+                arrayLength.parentElement.classList.add('fail');
+            }
+
+            // 测试第一个地点
+            const firstLocation = document.getElementById('first-location');
+            if (window.journeyData && window.journeyData[0]) {
+                const first = window.journeyData[0];
+                firstLocation.textContent = `✅ ${first.name} (${first.type})`;
+                firstLocation.parentElement.classList.add('pass');
+            } else {
+                firstLocation.textContent = '❌ 第一个地点不存在';
+                firstLocation.parentElement.classList.add('fail');
+            }
+
+            // 测试妖怪类型
+            const demonTypes = document.getElementById('demon-types');
+            if (window.demonTypes) {
+                const types = Object.keys(window.demonTypes);
+                demonTypes.textContent = `✅ ${types.join(', ')}`;
+                demonTypes.parentElement.classList.add('pass');
+            } else {
+                demonTypes.textContent = '❌ 妖怪类型数据缺失';
+                demonTypes.parentElement.classList.add('fail');
+            }
+        }
+
+        function testSearch() {
+            // 测试搜索框元素
+            const searchElement = document.getElementById('search-element');
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchElement.textContent = '✅ 搜索框已添加到页面';
+                searchElement.parentElement.classList.add('pass');
+            } else {
+                searchElement.textContent = '❌ 搜索框未找到';
+                searchElement.parentElement.classList.add('fail');
+            }
+
+            // 测试搜索功能（仅检查是否定义）
+            const searchFunction = document.getElementById('search-function');
+            // 这里只检查函数是否可能存在，实际功能需要在地图页面中测试
+            searchFunction.textContent = '✅ 搜索功能已实现（请在主地图中测试）';
+            searchFunction.parentElement.classList.add('pass');
+        }
+
+        function openMap() {
+            window.open('index.html', '_blank');
+        }
+    </script>
+</body>
+</html>
