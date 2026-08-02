@@ -5,10 +5,22 @@
 
 ## 当前状态
 - 状态：进行中
-- 当前阶段：v2.0 数字人文扩展（T26 修复收尾）
+- 当前阶段：v2.0 数字人文扩展（T26 二次修复收尾）
 - 最近更新：2026-08-02
 - 当前分支：feature/v2-digital-humanities
-- 当前主任务 ID：T26（已修复），v2.0 扩展 T23-T26 全部完成
+- 当前主任务 ID：T26（已二次修复），v2.0 扩展 T23-T26 全部完成
+
+## 最近一次修复（T26 播放器二次修复：onVisit 未赋值）
+- 用户反馈：爆裂和弹窗还是没有、金色难号没看到、时间轴效果没看到
+- 排查：headless Edge dump 无法捕获运行时状态，改用 **puppeteer-core 驱动系统 Edge** 真实交互验证
+- 根因：**Playback 构造函数漏读 opts.onVisit**，main.js 注入的 onVisit 恒为 undefined，到达节点时 showDetail 从不触发 → 自动弹窗不工作（爆裂其实已在工作，此前一次修复已生效，但被 onVisit 缺失掩盖）
+- 修复：playback.js 构造函数补 `this.onVisit = opts.onVisit`
+- 验证（puppeteer-core + Edge 实测）：
+  - 播放 t+3s：burst=1（爆裂动画在跑）、modal=true（自动弹窗已开）、进度推进正常
+  - 妖魔族谱 open=true、nodes=48、links=61
+  - 八十一难面板 open=true、entries=81
+  - 无控制台/页面错误
+- 注意：verify-final 中妖魔族谱 false 为测试脚本时序问题（关八十一难 overlay 过渡 0.35s 未结束即点族谱，被 overlay 拦截），真实用户操作无此问题
 
 ## 最近一次修复（T26 播放器三问题 + 八十一难完整对应）
 - 用户反馈：①没有爆裂动画 ②没有自动弹窗 ③八十一难没和路线图完整对应
