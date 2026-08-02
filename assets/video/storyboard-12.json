@@ -15,7 +15,7 @@
       "camera": "缓慢推近",
       "characters": [],
       "props": [],
-      "narration": "第12难 · 收降八戒。天蓬元帅调戏嫦娥，被贬下凡，错投猪胎——",
+      "narration": "",
       "subtitle": "第12难 · 收降八戒",
       "durationSec": 6,
       "prompt": {
@@ -41,7 +41,7 @@
         "gao-cai"
       ],
       "props": [],
-      "narration": "——栖身云栈洞的猪妖强娶我家高翠兰，搅得高老庄不得安宁。",
+      "narration": "那猪妖强娶我家高翠兰，搅得高老庄不得安宁……",
       "subtitle": "高太公：那猪妖强娶小女……",
       "durationSec": 10,
       "prompt": {
@@ -69,7 +69,7 @@
         "gao-taigong"
       ],
       "props": [],
-      "narration": "取经路过的高僧徒弟孙悟空闻言，拍胸脯应下：『老高放心，包俺老孙身上！』",
+      "narration": "老高放心，包在俺老孙身上！",
       "subtitle": "悟空：包在俺老孙身上！",
       "durationSec": 12,
       "prompt": {
@@ -99,7 +99,7 @@
       "props": [
         "hong-gai-tou"
       ],
-      "narration": "悟空摇身一变，化作翠兰模样。夜深人静，猪八戒兴冲冲前来——",
+      "narration": "",
       "subtitle": "盖头下……是张猴脸！",
       "durationSec": 12,
       "prompt": {
@@ -128,7 +128,7 @@
         "sun-wukong"
       ],
       "props": [],
-      "narration": "八戒背起新娘就往云栈洞走，却不知背上早换了块顽石！",
+      "narration": "娘子，俺背你回洞去！",
       "subtitle": "八戒：娘子，俺背你回洞！",
       "durationSec": 12,
       "prompt": {
@@ -159,7 +159,7 @@
         "ru-yi-jin-gu-bang",
         "jiu-chi-ding-pa"
       ],
-      "narration": "到了云栈洞前，悟空现出本相。八戒这才知道中了计——",
+      "narration": "你是何方妖怪！",
       "subtitle": "八戒：你是何方妖怪！",
       "durationSec": 12,
       "prompt": {
@@ -192,7 +192,7 @@
         "ru-yi-jin-gu-bang",
         "jiu-chi-ding-pa"
       ],
-      "narration": "金箍棒对九齿钉耙，八戒哪里是齐天大圣的对手？几回合败下阵来，跪地请降——",
+      "narration": "",
       "subtitle": "悟空：服不服？八戒：服了服了！",
       "durationSec": 14,
       "prompt": {
@@ -226,7 +226,7 @@
       "props": [
         "jiu-chi-ding-pa"
       ],
-      "narration": "观音赐名『悟能』，八戒拜入佛门。师徒四人，继续西行——",
+      "narration": "共赴西天，成正果去也！",
       "subtitle": "赐名悟能 · 共赴西天",
       "durationSec": 12,
       "prompt": {

@@ -30,7 +30,7 @@
 </head>
 <body>
 <h1>动态故事板预演 · 第12难「收降八戒」</h1>
-<div class="sub">8 镜头 · 90 秒 · 关键帧+转场+字幕+旁白（程序化预演，非 AI 视频）</div><div style="color:#a58a5e;font-size:12px;margin-bottom:14px">🎙 旁白：浏览器 TTS 朗读 · 转场淡入 · 轻运镜缩放模拟推拉（零成本预演）</div>
+<div class="sub">8 镜头 · 90 秒 · 关键帧+转场+字幕+对白（程序化预演，非 AI 视频）</div><div style="color:#a58a5e;font-size:12px;margin-bottom:14px">🎙 对白：人物开口才配音（动作/场景镜头静音，字幕+配乐表达）· 转场淡入 · 轻运镜</div>
 
 <div id="stage">
   <img id="f1" src="frames-12/S01.png">
@@ -49,7 +49,7 @@
   <button id="play">▶ 播放预演</button>
   <button id="pause">⏸ 暂停</button>
   <button id="reset">↺ 重播</button>
-  <span style="color:#a58a5e;font-size:13px">旁白</span><input type="checkbox" id="narrToggle" checked>
+  <span style="color:#a58a5e;font-size:13px">对白</span><input type="checkbox" id="narrToggle" checked>
   <span style="color:#a58a5e;font-size:13px">运镜</span><input type="checkbox" id="kbToggle" checked>
   <span style="color:#a58a5e;font-size:13px">配乐</span><input type="checkbox" id="musicToggle" checked>
 </div>
@@ -58,15 +58,16 @@
 
 <script>
 // 分镜数据（与 storyboard-12.json 一致）
+// narration = 人物对白/独白（才配音）；空串 = 动作/场景镜头（静音，字幕+配乐表达）
 const SHOTS = [
-  { id:'S01', dur:6,  subtitle:'第12难 · 收降八戒', narration:'第12难 · 收降八戒。天蓬元帅调戏嫦娥，被贬下凡，错投猪胎——' },
-  { id:'S02', dur:10, subtitle:'高太公：那猪妖强娶小女……', narration:'栖身云栈洞的猪妖强娶我家高翠兰，搅得高老庄不得安宁。' },
-  { id:'S03', dur:12, subtitle:'悟空：包在俺老孙身上！', narration:'取经路过的高僧徒弟孙悟空闻言，拍胸脯应下：老高放心，包俺老孙身上！' },
-  { id:'S04', dur:12, subtitle:'盖头下……是张猴脸！', narration:'悟空摇身一变，化作翠兰模样。夜深人静，猪八戒兴冲冲前来——' },
-  { id:'S05', dur:12, subtitle:'八戒：娘子，俺背你回洞！', narration:'八戒背起新娘就往云栈洞走，却不知背上早换了块顽石！' },
-  { id:'S06', dur:12, subtitle:'八戒：你是何方妖怪！', narration:'到了云栈洞前，悟空现出本相。八戒这才知道中了计——' },
-  { id:'S07', dur:14, subtitle:'悟空：服不服？八戒：服了服了！', narration:'金箍棒对九齿钉耙，八戒哪里是齐天大圣的对手？几回合败下阵来，跪地请降——' },
-  { id:'S08', dur:12, subtitle:'赐名悟能 · 共赴西天', narration:'观音赐名悟能，八戒拜入佛门。师徒四人，继续西行——' }
+  { id:'S01', dur:6,  subtitle:'第12难 · 收降八戒', narration:'' },
+  { id:'S02', dur:10, subtitle:'高太公：那猪妖强娶小女……', narration:'那猪妖强娶我家高翠兰，搅得高老庄不得安宁……' },
+  { id:'S03', dur:12, subtitle:'悟空：包在俺老孙身上！', narration:'老高放心，包在俺老孙身上！' },
+  { id:'S04', dur:12, subtitle:'盖头下……是张猴脸！', narration:'' },
+  { id:'S05', dur:12, subtitle:'八戒：娘子，俺背你回洞！', narration:'娘子，俺背你回洞去！' },
+  { id:'S06', dur:12, subtitle:'八戒：你是何方妖怪！', narration:'你是何方妖怪！' },
+  { id:'S07', dur:14, subtitle:'悟空：服不服？八戒：服了服了！', narration:'' },
+  { id:'S08', dur:12, subtitle:'赐名悟能 · 共赴西天', narration:'共赴西天，成正果去也！' }
 ];
 const TOTAL = SHOTS.reduce((s,x)=>s+x.dur, 0);
 
@@ -138,13 +139,16 @@ function renderShot(idx) {
   });
   document.getElementById('subtitle').textContent = sh.subtitle;
   const narrOn = document.getElementById('narrToggle').checked;
-  document.getElementById('narration').textContent = narrOn ? sh.narration : '';
+  // 有对白才显示解说条 + 朗读；动作/场景镜头静音
+  const narration = narrOn ? (sh.narration || '') : '';
+  document.getElementById('narration').textContent = narration;
+  document.getElementById('narration').style.display = narration ? '' : 'none';
   document.getElementById('shot-info').textContent = '镜头 ' + sh.id + ' · ' + sh.dur + 's · ' + sh.subtitle;
   // tab 高亮
   document.querySelectorAll('.shot-tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
-  // 旁白 TTS
+  // 对白 TTS
   stopSpeech();
-  if (narrOn && sh.narration) speak(sh.narration);
+  if (narration) speak(narration);
 }
 
 // 浏览器 TTS 旁白
