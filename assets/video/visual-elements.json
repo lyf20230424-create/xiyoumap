@@ -53,42 +53,6 @@
       "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/9149e6a82d064c66b7ad3d66a2f8a8e0.png"
     },
     {
-      "id": "gao-cuilan",
-      "name": "高翠兰",
-      "role": "mortal",
-      "iconic": false,
-      "species": "高太公之女",
-      "appearance": "年轻村妇、秀丽端庄",
-      "costume": "红嫁衣或青布襦裙",
-      "props": [],
-      "keyPose": "娇羞低首",
-      "mood": "惊恐哀怨"
-    },
-    {
-      "id": "gao-taigong",
-      "name": "高太公",
-      "role": "mortal",
-      "iconic": false,
-      "species": "高老庄富户",
-      "appearance": "白发老者、富家员外",
-      "costume": "员外帽、绸缎长袍",
-      "props": [],
-      "keyPose": "愁眉拱手",
-      "mood": "焦灼无奈"
-    },
-    {
-      "id": "gao-cai",
-      "name": "高才",
-      "role": "mortal",
-      "iconic": false,
-      "species": "高家仆人",
-      "appearance": "机灵小厮",
-      "costume": "短褐布衣",
-      "props": [],
-      "keyPose": "陪侍侧立",
-      "mood": "机敏"
-    },
-    {
       "id": "sha-seng",
       "name": "沙僧",
       "role": "protagonist",
@@ -129,7 +93,30 @@
         "红灯笼",
         "堂内桌椅"
       ],
-      "timeOfDay": "night"
+      "timeOfDay": "night",
+      "characters": [
+        {
+          "id": "gao-cuilan",
+          "name": "高翠兰",
+          "role": "mortal",
+          "appearance": "年轻村妇、秀丽端庄",
+          "costume": "红嫁衣或青布襦裙"
+        },
+        {
+          "id": "gao-taigong",
+          "name": "高太公",
+          "role": "mortal",
+          "appearance": "白发老者、富家员外",
+          "costume": "员外帽、绸缎长袍"
+        },
+        {
+          "id": "gao-cai",
+          "name": "高才",
+          "role": "mortal",
+          "appearance": "机灵小厮",
+          "costume": "短褐布衣"
+        }
+      ]
     },
     {
       "id": "scene-3",
@@ -142,7 +129,16 @@
         "纱帐",
         "嫁妆"
       ],
-      "timeOfDay": "night"
+      "timeOfDay": "night",
+      "characters": [
+        {
+          "id": "gao-cuilan",
+          "name": "高翠兰",
+          "role": "mortal",
+          "appearance": "年轻村妇、秀丽端庄",
+          "costume": "红嫁衣或青布襦裙"
+        }
+      ]
     },
     {
       "id": "scene-4",
