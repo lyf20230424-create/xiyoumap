@@ -198,6 +198,14 @@
       "importance": 2,
       "prompt": "中国风精致动漫风格，武器道具设定图，东方美学，流畅线条，饱满色彩，8K高清\n\n月牙铲（降妖宝杖）：长杆顶端月牙形铲刃，寒光凛凛，铲身金属质感，杆身深色木纹\n\n纯白背景，柔和棚拍光，居中构图，武器完整入画\n\n画面极其纯净，无文字、无水印、无标注，线条流畅，商用级道具设定图",
       "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/558a107da851471f991e0a9ce18490c0.png"
+    },
+    {
+      "id": "hong-gai-tou",
+      "name": "红盖头",
+      "owner": "高翠兰/悟空",
+      "importance": 2,
+      "prompt": "中国风精致动漫风格，道具设定图，东方美学，流畅线条，饱满色彩，8K高清\n\n红色绣花盖头（新娘红盖头）：大红绸缎，四角垂金线流苏，中央绣金线团花，边缘绣祥云纹，喜庆精美\n\n纯白背景，柔和棚拍光，居中构图，盖头完整入画\n\n画面极其纯净，无文字、无水印、无标注，线条流畅，商用级道具设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/83f3333ee3f1410fb782d708dc0fa060.png"
     }
   ]
 }

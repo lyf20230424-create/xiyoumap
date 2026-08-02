@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.0",
+  "difficultyId": 12,
+  "name": "收降八戒",
+  "chapter": "第18-19回",
+  "durationSec": 90,
+  "aspectRatio": "16:9",
+  "style": "中国风精致动漫",
+  "shots": [
+    {
+      "id": "S01",
+      "scene": "高老庄夜景空镜",
+      "sceneId": "scene-village-entrance",
+      "shotType": "远景空镜",
+      "camera": "缓慢推近",
+      "characters": [],
+      "props": [],
+      "narration": "第12难 · 收降八戒。天蓬元帅调戏嫦娥，被贬下凡，错投猪胎——",
+      "subtitle": "第12难 · 收降八戒",
+      "durationSec": 6
+    },
+    {
+      "id": "S02",
+      "scene": "高太公愁诉",
+      "sceneId": "scene-gao-mansion",
+      "shotType": "中景",
+      "camera": "固定+微摇",
+      "characters": ["gao-taigong", "gao-cai"],
+      "props": [],
+      "narration": "——栖身云栈洞的猪妖强娶我家高翠兰，搅得高老庄不得安宁。",
+      "subtitle": "高太公：那猪妖强娶小女……",
+      "durationSec": 10
+    },
+    {
+      "id": "S03",
+      "scene": "悟空听报·自信应答",
+      "sceneId": "scene-gao-mansion",
+      "shotType": "中近景",
+      "camera": "过肩镜头",
+      "characters": ["sun-wukong", "gao-taigong"],
+      "props": [],
+      "narration": "取经路过的高僧徒弟孙悟空闻言，拍胸脯应下：『老高放心，包俺老孙身上！』",
+      "subtitle": "悟空：包在俺老孙身上！",
+      "durationSec": 12
+    },
+    {
+      "id": "S04",
+      "scene": "悟空变翠兰·红盖头露猴脸",
+      "sceneId": "scene-cuilan-room",
+      "shotType": "近景",
+      "camera": "推近盖头→露出猴脸",
+      "characters": ["sun-wukong", "gao-cuilan"],
+      "props": ["hong-gai-tou"],
+      "narration": "悟空摇身一变，化作翠兰模样。夜深人静，猪八戒兴冲冲前来——",
+      "subtitle": "盖头下……是张猴脸！",
+      "durationSec": 12
+    },
+    {
+      "id": "S05",
+      "scene": "八戒背新娘·背上是石头",
+      "sceneId": "scene-cuilan-room",
+      "shotType": "中景",
+      "camera": "跟随平移",
+      "characters": ["zhu-bajie", "sun-wukong"],
+      "props": [],
+      "narration": "八戒背起新娘就往云栈洞走，却不知背上早换了块顽石！",
+      "subtitle": "八戒：娘子，俺背你回洞！",
+      "durationSec": 12
+    },
+    {
+      "id": "S06",
+      "scene": "云栈洞前对峙",
+      "sceneId": "scene-cloud-cave-ground",
+      "shotType": "中景",
+      "camera": "环绕镜头",
+      "characters": ["sun-wukong", "zhu-bajie"],
+      "props": ["ru-yi-jin-gu-bang", "jiu-chi-ding-pa"],
+      "narration": "到了云栈洞前，悟空现出本相。八戒这才知道中了计——",
+      "subtitle": "八戒：你是何方妖怪！",
+      "durationSec": 12
+    },
+    {
+      "id": "S07",
+      "scene": "金箍棒vs九齿钉耙·收服",
+      "sceneId": "scene-cloud-cave-ground",
+      "shotType": "近景/特写",
+      "camera": "快速剪辑+慢动作",
+      "characters": ["sun-wukong", "zhu-bajie"],
+      "props": ["ru-yi-jin-gu-bang", "jiu-chi-ding-pa"],
+      "narration": "金箍棒对九齿钉耙，八戒哪里是齐天大圣的对手？几回合败下阵来，跪地请降——",
+      "subtitle": "悟空：服不服？八戒：服了服了！",
+      "durationSec": 14
+    },
+    {
+      "id": "S08",
+      "scene": "师徒四人启程",
+      "sceneId": "scene-gao-road",
+      "shotType": "远景",
+      "camera": "拉远+上升",
+      "characters": ["tang-seng", "sun-wukong", "zhu-bajie", "sha-seng"],
+      "props": ["jiu-chi-ding-pa"],
+      "narration": "观音赐名『悟能』，八戒拜入佛门。师徒四人，继续西行——",
+      "subtitle": "赐名悟能 · 共赴西天",
+      "durationSec": 12
+    }
+  ]
+}
