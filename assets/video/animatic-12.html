@@ -16,6 +16,12 @@
   @keyframes kb { from { transform:scale(1); } to { transform:scale(1.12); } }
   #subtitle { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,.85)); color:#fff; font-size:20px; padding:40px 24px 18px; text-align:center; letter-spacing:2px; }
   #narration { position:absolute; top:12px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.6); color:#e8b84b; font-size:13px; padding:6px 16px; border-radius:20px; letter-spacing:1px; white-space:nowrap; }
+  /* 幕标题卡 */
+  #act-card { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(0,0,0,.88); opacity:0; pointer-events:none; transition:opacity .5s; z-index:5; }
+  #act-card.show { opacity:1; }
+  #act-card .act-no { font-size:15px; color:#a58a5e; letter-spacing:4px; margin-bottom:10px; }
+  #act-card .act-title { font-size:34px; color:#e8b84b; letter-spacing:6px; font-weight:bold; }
+  #act-card .act-role { font-size:13px; color:#a58a5e; margin-top:12px; letter-spacing:2px; }
   #progress { width:960px; max-width:92vw; height:4px; background:#2a2013; margin-top:14px; border-radius:2px; overflow:hidden; }
   #progress-bar { height:100%; width:0; background:#e8b84b; transition:width .1s linear; }
   #controls { display:flex; gap:12px; margin-top:16px; align-items:center; flex-wrap:wrap; justify-content:center; }
@@ -42,6 +48,7 @@
   <img id="f7" src="frames-12/S07.png">
   <img id="f8" src="frames-12/S08.png">
   <div id="narration"></div>
+  <div id="act-card" class="act-card"></div>
   <div id="subtitle"></div>
 </div>
 <div id="progress"><div id="progress-bar"></div></div>
@@ -69,6 +76,30 @@ const SHOTS = [
   { id:'S08', dur:12, subtitle:'赐名悟能 · 共赴西天', narration:'观音赐名悟能，八戒拜入佛门。师徒四人，继续西行——' }
 ];
 const TOTAL = SHOTS.reduce((s,x)=>s+x.dur, 0);
+
+// 幕结构（与 storyboard-12.json 一致）
+const ACTS = [
+  { id:'A1', no:'第一幕', title:'高老庄之厄', role:'起 · 背景立约', shots:['S01','S02','S03'] },
+  { id:'A2', no:'第二幕', title:'变戏弄妖',   role:'承 · 喜剧反转', shots:['S04','S05'] },
+  { id:'A3', no:'第三幕', title:'云栈洞之战', role:'转 · 冲突高潮', shots:['S06','S07'] },
+  { id:'A4', no:'第四幕', title:'收徒启程',   role:'合 · 收尾',     shots:['S08'] }
+];
+let currentAct = null;
+
+function showAct(actId) {
+  if (actId === currentAct) return;
+  currentAct = actId;
+  const act = ACTS.find(a=>a.id===actId);
+  if (!act) return;
+  const card = document.getElementById('act-card');
+  card.innerHTML = '<div class="act-no">' + act.no + '</div>' +
+                   '<div class="act-title">' + act.title + '</div>' +
+                   '<div class="act-role">' + act.role + '</div>';
+  card.classList.add('show');
+  // 2.5s 后淡出
+  clearTimeout(window._actTimer);
+  window._actTimer = setTimeout(()=> card.classList.remove('show'), 2500);
+}
 
 // ==== Web Audio 配乐（古风五声音阶氛围音，零外部文件）====
 let audioCtx = null;
@@ -128,6 +159,14 @@ let shotStart = 0;
 function renderShot(idx) {
   currentShot = idx;
   const sh = SHOTS[idx];
+  // 幕检测：镜头属于哪一幕
+  const act = ACTS.find(a=>a.shots.includes(sh.id));
+  if (act && act.id !== currentAct) {
+    // 新幕开始 → 显示幕标题卡
+    showAct(act.id);
+  } else if (currentAct === null) {
+    currentAct = act ? act.id : null;
+  }
   // 切图
   document.querySelectorAll('#stage img').forEach((img,i)=>{
     img.classList.toggle('active', i===idx);
