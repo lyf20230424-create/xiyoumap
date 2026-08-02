@@ -66,6 +66,54 @@
       "keyPose": "岸上观望",
       "mood": "沉稳",
       "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/5984a2da39914f5fb8df3a5394f50d69.png"
+    },
+    {
+      "iconic": false,
+      "species": "高太公之女",
+      "age": "",
+      "body": "纤巧身段",
+      "face": "秀美清丽，蛾眉杏眼，娇柔神态",
+      "headwear": "",
+      "costume": "红嫁衣或青布襦裙",
+      "props": [],
+      "keyPose": "娇羞低首",
+      "mood": "惊恐哀怨",
+      "id": "gao-cuilan",
+      "name": "高翠兰",
+      "role": "mortal",
+      "appearance": "年轻村妇、秀丽端庄"
+    },
+    {
+      "iconic": false,
+      "species": "高老庄富户",
+      "age": "",
+      "body": "清瘦长者",
+      "face": "白发银须，慈眉中带愁容",
+      "headwear": "",
+      "costume": "员外帽，绸缎长袍",
+      "props": [],
+      "keyPose": "愁眉拱手",
+      "mood": "焦灼无奈",
+      "id": "gao-taigong",
+      "name": "高太公",
+      "role": "mortal",
+      "appearance": "白发老者、富家员外"
+    },
+    {
+      "iconic": false,
+      "species": "高家仆人",
+      "age": "",
+      "body": "瘦小敏捷",
+      "face": "机灵清秀，小厮模样",
+      "headwear": "",
+      "costume": "短褐布衣",
+      "props": [],
+      "keyPose": "陪侍侧立",
+      "mood": "机敏",
+      "id": "gao-cai",
+      "name": "高才",
+      "role": "mortal",
+      "appearance": "机灵小厮"
     }
   ],
   "scenes": [
@@ -98,23 +146,17 @@
         {
           "id": "gao-cuilan",
           "name": "高翠兰",
-          "role": "mortal",
-          "appearance": "年轻村妇、秀丽端庄",
-          "costume": "红嫁衣或青布襦裙"
+          "role": "mortal"
         },
         {
           "id": "gao-taigong",
           "name": "高太公",
-          "role": "mortal",
-          "appearance": "白发老者、富家员外",
-          "costume": "员外帽、绸缎长袍"
+          "role": "mortal"
         },
         {
           "id": "gao-cai",
           "name": "高才",
-          "role": "mortal",
-          "appearance": "机灵小厮",
-          "costume": "短褐布衣"
+          "role": "mortal"
         }
       ]
     },
@@ -134,9 +176,7 @@
         {
           "id": "gao-cuilan",
           "name": "高翠兰",
-          "role": "mortal",
-          "appearance": "年轻村妇、秀丽端庄",
-          "costume": "红嫁衣或青布襦裙"
+          "role": "mortal"
         }
       ]
     },
