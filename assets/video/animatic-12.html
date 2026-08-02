@@ -11,6 +11,9 @@
   #stage { position:relative; width:960px; max-width:92vw; aspect-ratio:16/9; background:#000; border:2px solid #5a4426; border-radius:8px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.7); }
   #stage img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; }
   #stage img.active { opacity:1; }
+  /* 轻运镜：每镜头播放期间缓慢缩放模拟推拉 */
+  #stage img.kenburns { animation: kb 12s ease-out forwards; }
+  @keyframes kb { from { transform:scale(1); } to { transform:scale(1.12); } }
   #subtitle { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,.85)); color:#fff; font-size:20px; padding:40px 24px 18px; text-align:center; letter-spacing:2px; }
   #narration { position:absolute; top:12px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.6); color:#e8b84b; font-size:13px; padding:6px 16px; border-radius:20px; letter-spacing:1px; white-space:nowrap; }
   #progress { width:960px; max-width:92vw; height:4px; background:#2a2013; margin-top:14px; border-radius:2px; overflow:hidden; }
@@ -27,7 +30,7 @@
 </head>
 <body>
 <h1>动态故事板预演 · 第12难「收降八戒」</h1>
-<div class="sub">8 镜头 · 90 秒 · 关键帧+转场+字幕（节奏预演，非最终视频）</div><div style="color:#a58a5e;font-size:12px;margin-bottom:14px">⚠ 旁白配音将在 T32 最终合成时统一添加（预演阶段仅视觉+字幕节奏）</div>
+<div class="sub">8 镜头 · 90 秒 · 关键帧+转场+字幕+旁白（程序化预演，非 AI 视频）</div><div style="color:#a58a5e;font-size:12px;margin-bottom:14px">🎙 旁白：浏览器 TTS 朗读 · 转场淡入 · 轻运镜缩放模拟推拉（零成本预演）</div>
 
 <div id="stage">
   <img id="f1" src="frames-12/S01.png">
@@ -46,7 +49,8 @@
   <button id="play">▶ 播放预演</button>
   <button id="pause">⏸ 暂停</button>
   <button id="reset">↺ 重播</button>
-  <span style="color:#a58a5e;font-size:13px">旁白开</span><input type="checkbox" id="narrToggle" checked>
+  <span style="color:#a58a5e;font-size:13px">旁白</span><input type="checkbox" id="narrToggle" checked>
+  <span style="color:#a58a5e;font-size:13px">运镜</span><input type="checkbox" id="kbToggle" checked>
 </div>
 <div id="shot-info"></div>
 <div class="shot-tabs" id="shot-tabs"></div>
@@ -76,6 +80,10 @@ function renderShot(idx) {
   // 切图
   document.querySelectorAll('#stage img').forEach((img,i)=>{
     img.classList.toggle('active', i===idx);
+    // 运镜：播放中当前帧加 kenburns 缩放
+    const kb = document.getElementById('kbToggle').checked;
+    img.classList.toggle('kenburns', i===idx && kb);
+    if (i===idx) img.style.animationDuration = (sh.dur+1) + 's';
   });
   document.getElementById('subtitle').textContent = sh.subtitle;
   const narrOn = document.getElementById('narrToggle').checked;
@@ -83,6 +91,27 @@ function renderShot(idx) {
   document.getElementById('shot-info').textContent = '镜头 ' + sh.id + ' · ' + sh.dur + 's · ' + sh.subtitle;
   // tab 高亮
   document.querySelectorAll('.shot-tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
+  // 旁白 TTS
+  stopSpeech();
+  if (narrOn && sh.narration) speak(sh.narration);
+}
+
+// 浏览器 TTS 旁白
+function speak(text) {
+  try {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    u.rate = 1.0;
+    // 选中文语音
+    const voices = window.speechSynthesis.getVoices();
+    const zh = voices.find(v=>/zh|Chinese|Mandarin/i.test(v.lang+v.name));
+    if (zh) u.voice = zh;
+    window.speechSynthesis.speak(u);
+  } catch(e) {}
+}
+function stopSpeech() {
+  try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
 }
 
 function tick() {
@@ -119,6 +148,7 @@ function stop() {
   playing = false;
   if (playTimer) clearInterval(playTimer);
   playTimer = null;
+  stopSpeech();
   document.getElementById('play').textContent = '▶ 播放预演';
 }
 
