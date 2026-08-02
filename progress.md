@@ -5,10 +5,18 @@
 
 ## 当前状态
 - 状态：进行中
-- 当前阶段：v2.0 数字人文扩展（T26 二次修复收尾）
+- 当前阶段：v2.0 数字人文扩展（T26 三次修复：脉动停止）
 - 最近更新：2026-08-02
 - 当前分支：feature/v2-digital-humanities
-- 当前主任务 ID：T26（已二次修复），v2.0 扩展 T23-T26 全部完成
+- 当前主任务 ID：T26（已三次修复），v2.0 扩展 T23-T26 全部完成
+
+## 最近一次修复（T26 播放结束脉动不停止）
+- 用户反馈：播放到最后的点一直在跳
+- 根因：`.location-node.current` / `.location-node.active` 的 CSS `nodePulse` 无限动画（1.2s infinite），播放到终点后 `.current` 留在灵山节点，动画持续运行 → 一直在跳
+- 修复：
+  1. 移除 CSS nodePulse 无限动画与 @keyframes，`.current`/`.active` 改静态金色高亮
+  2. 脉动全部改 JS 驱动（d3.transition），引入 `_pulseToken` 版本号失效机制：`_stopPulse` 递增 token，所有递归脉动链下一迭代自检退出，彻底停止
+- 验证（puppeteer-core + Edge 实测）：4x 速播放到终点，r 值 500ms/1s 均稳定=15 无脉动，playing=false，无错误
 
 ## 最近一次修复（T26 播放器二次修复：onVisit 未赋值）
 - 用户反馈：爆裂和弹窗还是没有、金色难号没看到、时间轴效果没看到
