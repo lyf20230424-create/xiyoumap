@@ -348,17 +348,10 @@ body {
     stroke-width: 3;
 }
 
-/* 选中节点脉动 */
+/* 选中节点高亮（脉动由 JS 驱动，避免 SVG transform 无限动画不可控） */
 .location-node.active .node-circle {
-    animation: nodePulse 1.2s infinite;
     stroke: var(--gold-bright);
     stroke-width: 3;
-}
-
-@keyframes nodePulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
 }
 
 /* 搜索高亮 */
@@ -1260,9 +1253,10 @@ body {
 }
 
 .location-node.current .node-circle {
-    animation: nodePulse 1.2s infinite;
+    /* 当前播放节点：静态金色高亮，脉动由 JS 驱动（可停止） */
     stroke: var(--gold-bright);
     stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(232,184,75,0.7));
 }
 
 /* 战斗爆裂 */

@@ -325,11 +325,22 @@
     };
 
     // 当前节点脉动（JS 驱动，替代 CSS transform 动画对 SVG 的不稳支持）
+    // 用 _pulseToken 版本号做失效标记：_stopPulse 递增 token，
+    // 使所有进行中的递归脉动在下一次迭代时自检退出，彻底停止
     Playback.prototype._pulse = function () {
         var self = this;
+        var token = this._pulseToken;
+        // 未播放 / 已被 _stopPulse 失效 → 直接退出
         if (!this.playing) return;
+
         var circle = this.mapGroup.select('.location-node.current .node-circle');
-        if (circle.empty()) { this._pulseTimer = setTimeout(function(){ self._pulse(); }, 120); return; }
+        // 当前节点不存在（播放中节点切换的间隙）→ 短暂重试，但受 token/playing 双重约束
+        if (circle.empty()) {
+            if (token !== this._pulseToken) return;
+            this._pulseTimer = setTimeout(function () { self._pulse(); }, 120);
+            return;
+        }
+
         var base = circle.attr('r');
         circle.transition()
             .duration(600).ease(d3.easeQuadOut)
@@ -337,10 +348,17 @@
             .transition()
             .duration(600).ease(d3.easeQuadIn)
             .attr('r', base)
-            .on('end', function () { self._pulseTimer = setTimeout(function(){ self._pulse(); }, 80); });
+            .on('end', function () {
+                // 若已被停止或 token 过期，不再续循环
+                if (token !== self._pulseToken) return;
+                if (!self.playing) return;
+                self._pulseTimer = setTimeout(function () { self._pulse(); }, 80);
+            });
     };
 
     Playback.prototype._stopPulse = function () {
+        // 递增 token 使所有进行中的脉动链失效
+        this._pulseToken = (this._pulseToken || 0) + 1;
         if (this._pulseTimer) { clearTimeout(this._pulseTimer); this._pulseTimer = null; }
         var circle = this.mapGroup.select('.location-node.current .node-circle');
         if (!circle.empty()) circle.interrupt();
