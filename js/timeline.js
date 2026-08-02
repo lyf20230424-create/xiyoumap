@@ -101,6 +101,7 @@
     Timeline.prototype._render = function () {
         var frag = document.createDocumentFragment();
         this.items = [];
+        var self = this;
 
         this.data.forEach(function (diff) {
             var entry = document.createElement('div');
@@ -118,13 +119,13 @@
                 '</span>';
 
             entry.addEventListener('click', function () {
-                this.activeId = diff.id;
-                this._markActive();
-                if (this.onSelect) this.onSelect(diff);
-            }.bind(this));
+                self.activeId = diff.id;
+                self._markActive();
+                if (self.onSelect) self.onSelect(diff);
+            });
 
             frag.appendChild(entry);
-            this.items.push({ entry: entry, data: diff });
+            self.items.push({ entry: entry, data: diff });
         });
 
         this.list.appendChild(frag);

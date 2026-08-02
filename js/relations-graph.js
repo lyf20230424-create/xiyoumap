@@ -212,9 +212,10 @@
     // 拖拽
     // =============================================
     RelationsGraph.prototype._drag = function (svg) {
-        var sim = this.simulation;
+        var self = this;
         return d3.drag()
             .on('start', function (event, d) {
+                var sim = self.simulation;
                 if (!event.active && sim) sim.alphaTarget(0.3).restart();
                 d.fx = d.x;
                 d.fy = d.y;
@@ -224,6 +225,7 @@
                 d.fy = event.y;
             })
             .on('end', function (event, d) {
+                var sim = self.simulation;
                 if (!event.active && sim) sim.alphaTarget(0.1);
                 d.fx = null;
                 d.fy = null;
