@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>动态故事板预演 · 第12难收降八戒</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0d0a07; color:#e2d1b0; font-family:"Microsoft YaHei","Noto Serif SC",serif; display:flex; flex-direction:column; align-items:center; min-height:100vh; padding:20px; }
+  h1 { font-size:22px; color:#e8b84b; margin-bottom:6px; letter-spacing:3px; }
+  .sub { color:#a58a5e; font-size:13px; margin-bottom:20px; }
+  #stage { position:relative; width:960px; max-width:92vw; aspect-ratio:16/9; background:#000; border:2px solid #5a4426; border-radius:8px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.7); }
+  #stage img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; }
+  #stage img.active { opacity:1; }
+  #subtitle { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,.85)); color:#fff; font-size:20px; padding:40px 24px 18px; text-align:center; letter-spacing:2px; }
+  #narration { position:absolute; top:12px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.6); color:#e8b84b; font-size:13px; padding:6px 16px; border-radius:20px; letter-spacing:1px; white-space:nowrap; }
+  #progress { width:960px; max-width:92vw; height:4px; background:#2a2013; margin-top:14px; border-radius:2px; overflow:hidden; }
+  #progress-bar { height:100%; width:0; background:#e8b84b; transition:width .1s linear; }
+  #controls { display:flex; gap:12px; margin-top:16px; align-items:center; flex-wrap:wrap; justify-content:center; }
+  button { background:#3a2b1a; border:1px solid #8c6a3c; color:#e8b84b; padding:8px 20px; border-radius:6px; cursor:pointer; font-size:14px; font-family:inherit; }
+  button:hover { background:#5a4426; }
+  button.primary { background:#8c6a3c; color:#0d0a07; font-weight:bold; }
+  #shot-info { color:#a58a5e; font-size:13px; margin-top:10px; min-height:20px; }
+  .shot-tabs { display:flex; gap:4px; margin-top:10px; flex-wrap:wrap; justify-content:center; }
+  .shot-tab { padding:4px 10px; font-size:11px; background:#2a2013; border:1px solid #5a4426; border-radius:4px; color:#a58a5e; cursor:pointer; }
+  .shot-tab.active { background:#8c6a3c; color:#0d0a07; }
+</style>
+</head>
+<body>
+<h1>动态故事板预演 · 第12难「收降八戒」</h1>
+<div class="sub">8 镜头 · 90 秒 · 关键帧+转场+字幕+旁白（节奏预演，非最终视频）</div>
+
+<div id="stage">
+  <img id="f1" src="frames-12/S01.png">
+  <img id="f2" src="frames-12/S02.png">
+  <img id="f3" src="frames-12/S03.png">
+  <img id="f4" src="frames-12/S04.png">
+  <img id="f5" src="frames-12/S05.png">
+  <img id="f6" src="frames-12/S06.png">
+  <img id="f7" src="frames-12/S07.png">
+  <img id="f8" src="frames-12/S08.png">
+  <div id="narration"></div>
+  <div id="subtitle"></div>
+</div>
+<div id="progress"><div id="progress-bar"></div></div>
+<div id="controls">
+  <button id="play">▶ 播放预演</button>
+  <button id="pause">⏸ 暂停</button>
+  <button id="reset">↺ 重播</button>
+  <span style="color:#a58a5e;font-size:13px">旁白开</span><input type="checkbox" id="narrToggle" checked>
+</div>
+<div id="shot-info"></div>
+<div class="shot-tabs" id="shot-tabs"></div>
+
+<script>
+// 分镜数据（与 storyboard-12.json 一致）
+const SHOTS = [
+  { id:'S01', dur:6,  subtitle:'第12难 · 收降八戒', narration:'第12难 · 收降八戒。天蓬元帅调戏嫦娥，被贬下凡，错投猪胎——' },
+  { id:'S02', dur:10, subtitle:'高太公：那猪妖强娶小女……', narration:'栖身云栈洞的猪妖强娶我家高翠兰，搅得高老庄不得安宁。' },
+  { id:'S03', dur:12, subtitle:'悟空：包在俺老孙身上！', narration:'取经路过的高僧徒弟孙悟空闻言，拍胸脯应下：老高放心，包俺老孙身上！' },
+  { id:'S04', dur:12, subtitle:'盖头下……是张猴脸！', narration:'悟空摇身一变，化作翠兰模样。夜深人静，猪八戒兴冲冲前来——' },
+  { id:'S05', dur:12, subtitle:'八戒：娘子，俺背你回洞！', narration:'八戒背起新娘就往云栈洞走，却不知背上早换了块顽石！' },
+  { id:'S06', dur:12, subtitle:'八戒：你是何方妖怪！', narration:'到了云栈洞前，悟空现出本相。八戒这才知道中了计——' },
+  { id:'S07', dur:14, subtitle:'悟空：服不服？八戒：服了服了！', narration:'金箍棒对九齿钉耙，八戒哪里是齐天大圣的对手？几回合败下阵来，跪地请降——' },
+  { id:'S08', dur:12, subtitle:'赐名悟能 · 共赴西天', narration:'观音赐名悟能，八戒拜入佛门。师徒四人，继续西行——' }
+];
+const TOTAL = SHOTS.reduce((s,x)=>s+x.dur, 0);
+
+let currentShot = -1;
+let playing = false;
+let playTimer = null;
+let shotStart = 0;
+
+function renderShot(idx) {
+  currentShot = idx;
+  const sh = SHOTS[idx];
+  // 切图
+  document.querySelectorAll('#stage img').forEach((img,i)=>{
+    img.classList.toggle('active', i===idx);
+  });
+  document.getElementById('subtitle').textContent = sh.subtitle;
+  const narrOn = document.getElementById('narrToggle').checked;
+  document.getElementById('narration').textContent = narrOn ? sh.narration : '';
+  document.getElementById('shot-info').textContent = '镜头 ' + sh.id + ' · ' + sh.dur + 's · ' + sh.subtitle;
+  // tab 高亮
+  document.querySelectorAll('.shot-tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
+}
+
+function tick() {
+  if (!playing) return;
+  const now = Date.now();
+  const elapsed = (now - shotStart) / 1000;
+  const sh = SHOTS[currentShot];
+  const pct = (elapsed / sh.dur) * 100;
+  // 总进度
+  const globalStart = SHOTS.slice(0,currentShot).reduce((s,x)=>s+x.dur,0);
+  const globalPct = ((globalStart + elapsed) / TOTAL) * 100;
+  document.getElementById('progress-bar').style.width = globalPct + '%';
+  if (elapsed >= sh.dur) {
+    nextShot();
+  }
+}
+
+function nextShot() {
+  const next = currentShot + 1;
+  if (next >= SHOTS.length) { stop(); renderShot(0); document.getElementById('progress-bar').style.width='0%'; return; }
+  renderShot(next);
+  shotStart = Date.now();
+}
+
+function start() {
+  if (currentShot === -1) renderShot(0);
+  shotStart = Date.now();
+  playing = true;
+  document.getElementById('play').textContent = '▶ 播放中...';
+  playTimer = setInterval(tick, 100);
+}
+
+function stop() {
+  playing = false;
+  if (playTimer) clearInterval(playTimer);
+  playTimer = null;
+  document.getElementById('play').textContent = '▶ 播放预演';
+}
+
+function reset() {
+  stop();
+  renderShot(0);
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+document.getElementById('play').addEventListener('click', start);
+document.getElementById('pause').addEventListener('click', stop);
+document.getElementById('reset').addEventListener('click', reset);
+
+// 镜头 tab
+const tabs = document.getElementById('shot-tabs');
+SHOTS.forEach((sh,i)=>{
+  const b = document.createElement('button');
+  b.className = 'shot-tab';
+  b.textContent = sh.id;
+  b.addEventListener('click', ()=>{ stop(); renderShot(i); shotStart=Date.now(); });
+  tabs.appendChild(b);
+});
+
+// 初始显示
+renderShot(0);
+</script>
+</body>
+</html>
