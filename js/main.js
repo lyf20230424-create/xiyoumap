@@ -373,6 +373,23 @@
                 };
             }
 
+            // =============================================
+            // 妖魔族谱关系图（T24）
+            // =============================================
+            var rg = window.relationsGraph;
+            if (rg) {
+                rg.init();
+
+                // 点击带地图关联的妖怪节点 → 打开对应节点详情 + 居中
+                rg.onSelect = function(node) {
+                    var loc = journeyData.find(function(l) { return l.id === node.locationId; });
+                    if (loc) {
+                        showDetail({}, loc);
+                        centerOnNode(loc);
+                    }
+                };
+            }
+
             // 将地图视图居中平移到指定节点（保持当前缩放）
             function centerOnNode(loc) {
                 var svgNode = svgEl;

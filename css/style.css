@@ -837,6 +837,206 @@ body {
     transform: translateX(-50%) translateY(0);
 }
 
+/* ============ 妖魔族谱关系图 ============ */
+/* 触发器按钮 */
+.relation-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: linear-gradient(180deg, rgba(140,106,60,0.28) 0%, rgba(90,68,38,0.28) 100%);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--gold-bright);
+    font-size: 0.85em;
+    font-family: "Noto Serif SC", "SimSun", serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.relation-toggle:hover {
+    background: linear-gradient(180deg, rgba(140,106,60,0.45) 0%, rgba(90,68,38,0.45) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(232,184,75,0.25);
+}
+
+.relation-toggle-text {
+    font-family: "Ma Shan Zheng", "楷体", cursive;
+    font-size: 1.1em;
+    letter-spacing: 2px;
+}
+
+/* 居中弹窗 */
+.relation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 7, 4, 0.78);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.relation-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.relation-content {
+    background: var(--panel);
+    background-image: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 18%);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(140,106,60,0.2);
+    width: 780px;
+    max-width: 94vw;
+    max-height: 88vh;
+    padding: 24px 28px 26px;
+    position: relative;
+    transform: translateY(16px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.relation-modal.open .relation-content {
+    transform: translateY(0) scale(1);
+}
+
+.relation-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+    line-height: 1;
+    z-index: 10;
+}
+
+.relation-close:hover {
+    color: var(--gold-bright);
+    transform: scale(1.2);
+}
+
+.relation-header {
+    border-bottom: 1px solid rgba(140,106,60,0.4);
+    padding-bottom: 12px;
+    margin-bottom: 10px;
+}
+
+.relation-title {
+    font-family: "Ma Shan Zheng", "楷体", cursive;
+    font-size: 1.6em;
+    font-weight: 400;
+    color: var(--gold-bright);
+    letter-spacing: 3px;
+}
+
+.relation-sub {
+    display: block;
+    font-size: 0.78em;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 4px;
+    letter-spacing: 2px;
+}
+
+/* 图例 */
+.relation-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 10px 2px 4px;
+}
+
+.relation-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75em;
+    color: var(--text);
+}
+
+.relation-legend-item i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid rgba(0,0,0,0.5);
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+
+.relation-hint {
+    font-size: 0.72em;
+    color: var(--text-dim);
+    padding: 6px 2px 8px;
+    font-style: italic;
+}
+
+/* SVG */
+.relation-svg {
+    width: 100%;
+    height: 460px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(140,106,60,0.25);
+    border-radius: 10px;
+    cursor: grab;
+}
+
+.relation-svg:active {
+    cursor: grabbing;
+}
+
+/* 节点 */
+.relation-node {
+    cursor: pointer;
+}
+
+.relation-node circle {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: filter 0.2s, stroke-width 0.2s;
+}
+
+.relation-node circle:hover {
+    stroke: #fff;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 10px rgba(232,184,75,0.7));
+}
+
+.relation-node-name {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 700;
+    fill: var(--text);
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+}
+
+.relation-link {
+    pointer-events: none;
+}
+
+.relation-link-label {
+    font-family: "Noto Serif SC", serif;
+    fill: var(--text-dim);
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(18,14,10,0.85);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
 /* ============ 自定义滚动条 ============ */
 ::-webkit-scrollbar {
     width: 6px;
