@@ -263,6 +263,21 @@
 - **priority**: 中
 - **产出**: 评估结论 + 批量计划
 
+### T35: 生成角色主体图（Agnes AI）
+- **状态**: DONE
+- **描述**: 用 Agnes AI 生成角色主体图，将 URL 写入 JSON 文件
+- **依赖**: T34
+- **priority**: 高
+- **产出**: `assets/video/refs/`（3张PNG）+ characters.json/visual-elements.json 的 refImage 字段
+- **完成内容**:
+  - 用 Agnes AI (agnes-image-2.1-flash) 生成 唐僧/孙悟空/猪八戒 三张角色主体图（864x1152，国风水墨写实）
+  - refImage URL 写回 characters.json 三个角色
+  - refImage 同步到 visual-elements.json 三个角色
+  - 下载到本地 assets/video/refs/（tang-seng.png / sun-wukong.png / zhu-bajie.png）防外部URL失效
+- **验证**: 3 张 PNG 有效（864x1152）；JSON refImage 字段完整；本地文件存在
+- **提交**: b38d132
+- **待办**: 高翠兰/高太公/高才/沙僧 主体图待生成（非标志性角色，可后续批量）
+
 ### T34: 数据JSON化（v3.0 数据层）
 - **状态**: DONE
 - **描述**: 将 T27/T28 的 markdown 产出整理为 JSON 结构化文件，方便程序调用
@@ -276,7 +291,7 @@
 - **验证**: 两 JSON 解析 OK；结构字段全齐；占位符完整；模板填充沙僧成功；与 markdown 数据交叉一致
 
 ## 当前主任务
-- ID：T29（T28/T34 已 DONE，待开工）
+- ID：T29（T28/T34/T35 已 DONE，待开工）
 - 名称：分镜脚本
 - 下一步：T29 → T30 → T31 → T32 → T33
 - 完成标准：按各任务描述执行并验证

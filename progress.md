@@ -5,10 +5,21 @@
 
 ## 当前状态
 - 状态：进行中
-- 当前阶段：v3.0 八十一难 AI 视频化（T34 数据JSON化完成）
+- 当前阶段：v3.0 八十一难 AI 视频化（T35 角色主体图完成）
 - 最近更新：2026-08-02
 - 当前分支：master
 - 当前主任务 ID：T29（分镜脚本，待开工）
+
+## 最近一次完成（T35：生成角色主体图）
+- 完成内容：
+  1. 用 Agnes AI (agnes-image-2.1-flash) 生成 唐僧/孙悟空/猪八戒 三张角色主体图（864x1152，国风水墨写实风格）
+  2. refImage URL 写回 characters.json 三个角色
+  3. refImage 同步到 visual-elements.json 三个角色
+  4. 下载到本地 assets/video/refs/（tang-seng.png / sun-wukong.png / zhu-bajie.png）防外部 URL 失效
+- 验证：3 张 PNG 有效（864x1152）；JSON refImage 字段完整；本地文件存在
+- 提交：b38d132
+- 待办：高翠兰/高太公/高才/沙僧 主体图待生成（非标志性角色，可后续批量）
+- 备注：Agnes API key 用户已写入系统环境变量（AGNES_API_KEY），本会话需内联使用
 
 ## 最近一次完成（T34：数据JSON化）
 - 用户需求：将 T27/T28 产出整理为 JSON，方便程序调用
