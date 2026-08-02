@@ -20,7 +20,7 @@
       ],
       "keyPose": "扛九齿钉耙而立",
       "mood": "憨态中带凶相",
-      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/e57166471405400d8ec5295171c451b8.png"
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/13fa74dee4454437b6a7d4a7b0babf32.png"
     },
     {
       "id": "sun-wukong",
@@ -35,7 +35,7 @@
       ],
       "keyPose": "金箍棒立地、咧嘴嬉笑",
       "mood": "灵慧顽皮",
-      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/baf144e5b2124d30af7322d98bb50690.png"
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/605aaa3f6ec14dcdbe9aebf26e251f42.png"
     },
     {
       "id": "tang-seng",
@@ -50,7 +50,7 @@
       ],
       "keyPose": "合掌而立",
       "mood": "悲悯端庄",
-      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/e4073e3e9c2247a6970e1cfa94a96555.png"
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/9149e6a82d064c66b7ad3d66a2f8a8e0.png"
     },
     {
       "id": "gao-cuilan",
@@ -100,7 +100,8 @@
         "月牙铲"
       ],
       "keyPose": "岸上观望",
-      "mood": "沉稳"
+      "mood": "沉稳",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/a5b6651c9e824408a81e80b2df709609.png"
     }
   ],
   "scenes": [
