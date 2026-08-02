@@ -265,6 +265,11 @@
 
                 // 高亮当前节点
                 nodes.classed("active", function(n) { return n.id === loc.id; });
+
+                // 八十一难联动：聚焦对应难度条目
+                if (window.timeline) {
+                    window.timeline.focusLocation(loc.id);
+                }
             }
 
             function closeModal() {
@@ -346,6 +351,46 @@
             addCtrlBtn(0,  40, 30, "#5a4426", "+",  18, function() { svg.transition().call(zoom.scaleBy, 1.25); });
             addCtrlBtn(40, 40, 30, "#5a4426", "-",  18, function() { svg.transition().call(zoom.scaleBy, 0.8); });
             addCtrlBtn(80, 40, 30, "#8c6a3c", "复位", 12, function() { svg.transition().call(zoom.transform, d3.zoomIdentity); });
+
+            // =============================================
+            // 八十一难时间轴（T23）
+            // =============================================
+            var timeline = window.timeline;
+            if (timeline) {
+                timeline.init();
+
+                // 点击时间轴条目 → 定位地图节点 + 打开详情
+                timeline.onSelect = function(diff) {
+                    if (diff.locationId !== null && diff.locationId !== undefined) {
+                        var loc = journeyData.find(function(l) { return l.id === diff.locationId; });
+                        if (loc) {
+                            showDetail({}, loc);
+                            centerOnNode(loc);
+                        }
+                    } else {
+                        timeline._toast('此难为神魔空间/过渡事件，无对应地图节点');
+                    }
+                };
+            }
+
+            // 将地图视图居中平移到指定节点（保持当前缩放）
+            function centerOnNode(loc) {
+                var svgNode = svgEl;
+                if (!svgNode || !loc || !loc.position) return;
+                var w = svgNode.clientWidth || 1800;
+                var h = svgNode.clientHeight || 1200;
+                // 节点在 viewBox 坐标：map 组平移 (50, 110) + 节点自身坐标
+                var vx = 50 + loc.position.x;
+                var vy = 110 + loc.position.y;
+                // 保持当前缩放 k，平移使节点位于视口中心
+                var t = d3.zoomTransform(svgNode);
+                var tx = w / 2 - t.k * vx;
+                var ty = h / 2 - t.k * vy;
+                svg.transition().duration(500).call(
+                    zoom.transform,
+                    d3.zoomIdentity.translate(tx, ty).scale(t.k)
+                );
+            }
         }
 
         // 处理 DOM 加载竞态
