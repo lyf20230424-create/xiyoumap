@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0",
+  "style": "中国风精致动漫（国漫古风）",
+  "difficultyId": 12,
+  "scenes": [
+    {
+      "id": "scene-1",
+      "name": "高老庄村口",
+      "type": "村庄",
+      "timeOfDay": "night",
+      "description": "夜色中的土墙村落，青石板路，户户闭户，月挂梢头",
+      "mood": "诡异静谧",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n高老庄村口夜景：夜色中的土墙村落，青石板路延伸向村内，两盏红灯笼挂在村口木牌坊上，家家闭户，月挂树梢，薄雾笼罩，静谧中带着一丝诡异\n\n黄昏到深夜的过渡光线，冷暖对比，灯笼暖光与月光冷光交织\n\n画面纯净，无水印，无文字标注，构图大气，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/f96e7bccce074c458327ab40bcc6b31a.png"
+    },
+    {
+      "id": "scene-2",
+      "name": "高太公府宅",
+      "type": "宅院",
+      "timeOfDay": "night",
+      "description": "朱门大院，灯笼高挂，堂内愁云笼罩",
+      "mood": "焦灼压抑",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n高太公府宅夜景：唐代富户宅院，朱红大门，门楣高挂红灯笼，院内青砖影壁，堂屋门窗半掩透出昏黄灯光，气氛压抑凝重\n\n夜晚光线，灯笼暖光与月色冷光对比，宅院深广\n\n画面纯净，无水印，无文字标注，构图大气，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/e8e81cd0b20841c8b472a6029885cc88.png"
+    },
+    {
+      "id": "scene-3",
+      "name": "高翠兰闺房",
+      "type": "内室",
+      "timeOfDay": "night",
+      "description": "红烛纱帐，嫁妆陈设，夜半无人",
+      "mood": "幽静紧张",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n高翠兰闺房夜景：唐代女子闺房，红烛摇曳，纱帐低垂，梳妆台上置嫁妆首饰，绣床锦被，窗外月色透入，幽静而紧张\n\n烛光暖色为主，红色调浓郁，纱帐轻盈\n\n画面纯净，无水印，无文字标注，构图精致，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/0549049fcd51414fa1240a8d0931ff41.png"
+    },
+    {
+      "id": "scene-4",
+      "name": "云栈洞",
+      "type": "洞府",
+      "timeOfDay": "night",
+      "description": "福陵山腰洞府，洞口藤蔓缠绕，洞内黑气翻涌",
+      "mood": "阴森蛮荒",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n云栈洞夜景：福陵山腰的洞府，洞口藤蔓缠绕，巨石嶙峋，洞内黑气翻涌，洞外月冷风高，荒凉阴森\n\n冷月光为主，洞内黑气与洞口微光对比，山势险峻\n\n画面纯净，无水印，无文字标注，构图大气，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/d57b5b5b8a5c40d18b88adf50f6f4fa1.png"
+    },
+    {
+      "id": "scene-5",
+      "name": "云栈洞前旷地",
+      "type": "旷野",
+      "timeOfDay": "night",
+      "description": "山月高悬，乱石嶙峋，二人对峙的空旷地带",
+      "mood": "剑拔弩张",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n云栈洞前旷地夜景：山月高悬，乱石嶙峋铺满旷地，草木萧疏，月下开阔空荡，适合对峙的战场感\n\n冷月清辉，山石剪影层叠，气氛肃杀\n\n画面纯净，无水印，无文字标注，构图大气，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/713828234ff94a55917560559f662e84.png"
+    },
+    {
+      "id": "scene-6",
+      "name": "高老庄前大路",
+      "type": "大路",
+      "timeOfDay": "dawn",
+      "description": "师徒启程，朝阳初升，大道开阔",
+      "mood": "明朗开阔",
+      "prompt": "中国风精致动漫风格，古风场景概念图，东方美学，流畅线条，饱满色彩，8K高清，电影级质感\n\n高老庄前大路黎明：朝阳初升，金色霞光铺满乡间大道，路旁柳树新绿，远处村落剪影，空气清朗，豁然开朗\n\n黎明暖光，金色与橙色渐变天空，生机盎然\n\n画面纯净，无水印，无文字标注，构图大气，商用级场景设定图",
+      "refImage": "https://platform-outputs.agnes-ai.space/images/t2i/dee0734c927c4f8ab78ca3a2abf8f4f6.png"
+    }
+  ]
+}
