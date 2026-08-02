@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <!-- 旷地 -->
+    <path d="M0,185 Q200,175 400,183 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <!-- 金箍棒（左） -->
+    <path d="M90,60 L205,120" stroke="#3a3a3a" stroke-width="5" stroke-linecap="round"/>
+    <!-- 九齿钉耙（右） -->
+    <path d="M310,60 L205,120" stroke="#4a4a4a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M308,58 L316,66 M304,64 L320,72 M300,70 L324,78" stroke="#4a4a4a" stroke-width="2.5"/>
+    <!-- 对撞火花 -->
+    <g fill="none" stroke="#ff6b6b" stroke-width="2">
+      <circle cx="205" cy="120" r="10"/>
+      <path d="M205,104 L205,96 M205,136 L205,144 M187,120 L179,120 M223,120 L231,120 M190,104 L184,98 M220,136 L226,142"/>
+    </g>
+    <text x="205" y="90" font-size="11" fill="#ff6b6b" text-anchor="middle">对撞火花</text>
+    <!-- 运动轨迹：双兵相撞（红） -->
+    <path d="M95,75 Q150,95 195,115" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <path d="M305,75 Q250,95 215,115" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <!-- 特写切换框 -->
+    <rect x="70" y="30" width="120" height="75" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="210" y="35" width="120" height="70" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="70" y="26" font-size="9" fill="#ff6b6b">特写A</text>
+    <text x="210" y="30" font-size="9" fill="#ff6b6b">特写B</text>
+  </svg>

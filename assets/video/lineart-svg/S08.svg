@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <!-- 大路+朝阳 -->
+    <path d="M0,200 L400,150 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <circle cx="330" cy="45" r="22" fill="#e8e8e8" stroke="#aaa" stroke-width="1.5"/>
+    <!-- 四人简笔（一字排开西行） -->
+    <g stroke="#3a3a3a" stroke-width="2.4" fill="none" stroke-linecap="round">
+      <!-- 唐僧（前） -->
+      <circle cx="120" cy="95" r="11"/>
+      <path d="M120,106 L120,150 M120,108 L110,120 M120,108 L130,120 M120,150 L115,185 M120,150 L125,185"/>
+      <!-- 悟空（开路） -->
+      <circle cx="165" cy="100" r="10"/>
+      <path d="M165,110 L165,150 M165,112 L157,122 M165,112 L173,122 M165,150 L160,185 M165,150 L170,185"/>
+      <!-- 八戒（扛耙） -->
+      <ellipse cx="215" cy="108" rx="12" ry="9"/>
+      <path d="M215,117 L215,155 M215,155 L210,185 M215,155 L220,185"/>
+      <path d="M206,98 L226,165" stroke-width="3.5"/>   <!-- 扛钉耙 -->
+      <!-- 沙僧（殿后） -->
+      <circle cx="262" cy="105" r="10"/>
+      <path d="M262,115 L262,155 M262,117 L254,128 M262,117 L270,128 M262,155 L257,185 M262,155 L267,185"/>
+    </g>
+    <text x="120" y="95" font-size="8" fill="#777" text-anchor="middle">唐僧</text>
+    <text x="165" y="100" font-size="8" fill="#888" text-anchor="middle">悟空</text>
+    <text x="215" y="108" font-size="8" fill="#999" text-anchor="middle">八戒</text>
+    <text x="262" y="105" font-size="8" fill="#999" text-anchor="middle">沙僧</text>
+    <!-- 行动轨迹（红）：西行 -->
+    <path d="M80,190 Q150,182 220,188 Q290,194 350,186" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#redArrow)"/>
+    <text x="290" y="182" font-size="10" fill="#ff6b6b">西行</text>
+    <!-- 拉远+上升（蓝） -->
+    <path d="M200,222 L200,60" stroke="#4da3ff" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#blueArrow)"/>
+    <text x="208" y="140" font-size="10" fill="#4da3ff">拉远+上升</text>
+    <!-- 字幕 -->
+    <rect x="120" y="30" width="160" height="22" rx="3" fill="none" stroke="#888" stroke-width="1.2"/>
+    <text x="200" y="45" font-size="10" fill="#666" text-anchor="middle">赐名悟能 · 共赴西天</text>
+  </svg>

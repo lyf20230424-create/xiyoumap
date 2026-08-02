@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <!-- 高老庄村口：木牌坊+灯笼+青石板路 -->
+    <g stroke="#8a8a8a" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <path d="M40,40 L40,190"/>                    <!-- 左柱 -->
+      <path d="M120,40 L120,190"/>                   <!-- 右柱 -->
+      <path d="M30,40 Q80,20 130,40"/>               <!-- 牌坊顶 -->
+      <path d="M48,46 L112,46"/>                     <!-- 匾额 -->
+      <path d="M70,55 l-4,6 M70,55 l4,6"/>           <!-- 匾字 -->
+      <!-- 灯笼 -->
+      <circle cx="40" cy="70" r="9" stroke-width="2"/>
+      <path d="M40,61 l0,-6"/>
+      <circle cx="120" cy="70" r="9" stroke-width="2"/>
+      <path d="M120,61 l0,-6"/>
+      <!-- 青石板路 -->
+      <path d="M50,195 Q90,185 120,195 Q160,210 210,205"/>
+      <path d="M30,200 Q70,210 110,202"/>
+    </g>
+    <!-- 月亮 -->
+    <circle cx="330" cy="35" r="16" fill="#c9c9c9" stroke="#888" stroke-width="1.5"/>
+    <!-- 推近运镜（蓝） -->
+    <path d="M200,222 L200,60" stroke="#4da3ff" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#blueArrow)"/>
+    <text x="210" y="150" font-size="11" fill="#4da3ff">推近</text>
+  </svg>

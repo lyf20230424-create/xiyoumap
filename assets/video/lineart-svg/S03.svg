@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <g stroke="#c9c9c9" stroke-width="1.5" fill="none">
+      <rect x="15" y="15" width="370" height="180" rx="4"/>
+    </g>
+    <!-- 悟空（右，叉腰） -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <circle cx="280" cy="72" r="15"/>
+      <path d="M265,78 q-2,-6 2,-8"/>                <!-- 耳朵 -->
+      <path d="M295,78 q2,-6 -2,-8"/>
+      <path d="M280,87 L280,148"/>                   <!-- 身 -->
+      <path d="M280,92 L260,108"/>                   <!-- 叉腰左臂 -->
+      <path d="M280,92 L300,108"/>
+      <path d="M280,148 L272,195"/>                  <!-- 腿 -->
+      <path d="M280,148 L288,195"/>
+      <!-- 金箍 -->
+      <path d="M268,62 Q280,56 292,62" stroke-width="3"/>
+    </g>
+    <!-- 高太公（左，恳求） -->
+    <g stroke="#5a5a5a" stroke-width="2.2" fill="none" stroke-linecap="round">
+      <circle cx="120" cy="85" r="13"/>
+      <path d="M120,98 L120,155"/>
+      <path d="M120,105 Q100,115 94,128"/>
+      <path d="M120,105 Q140,115 146,128"/>
+      <path d="M120,155 L114,195"/>
+      <path d="M120,155 L126,195"/>
+    </g>
+    <!-- 动作：悟空拍胸脯（红） -->
+    <path d="M262,112 Q245,118 240,110 Q236,102 244,100" stroke="#ff6b6b" stroke-width="2.2" fill="none" stroke-dasharray="5,4" marker-end="url(#redArrow)"/>
+    <text x="280" y="60" font-size="9" fill="#777" text-anchor="middle">悟空</text>
+    <text x="120" y="85" font-size="9" fill="#999" text-anchor="middle">高太公</text>
+    <!-- 过肩镜头示意 -->
+    <path d="M30,60 L90,95" stroke="#4da3ff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#blueArrow)"/>
+    <text x="32" y="52" font-size="10" fill="#4da3ff">过肩</text>
+  </svg>

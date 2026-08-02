@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <!-- 地面+月 -->
+    <path d="M0,180 Q200,170 400,182 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <circle cx="340" cy="40" r="14" fill="#d9d9d9" stroke="#aaa" stroke-width="1.5"/>
+    <!-- 八戒背石头（中） -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <ellipse cx="195" cy="130" rx="32" ry="26"/>    <!-- 身 -->
+      <circle cx="205" cy="92" r="14"/>               <!-- 头 -->
+      <ellipse cx="199" cy="90" rx="5" ry="3.5"/>    <!-- 猪鼻 -->
+      <path d="M185,96 q3,-4 6,0"/>                   <!-- 嘴 -->
+      <!-- 背上石头 -->
+      <path d="M175,70 Q190,52 205,66 Q212,74 202,82 Q190,78 175,70 Z" stroke-width="2.2"/>
+      <text x="188" y="74" font-size="9" fill="#777">石</text>
+      <!-- 腿 -->
+      <path d="M172,152 L166,195"/>
+      <path d="M214,150 L220,195"/>
+    </g>
+    <!-- 动作：蹒跚前行（红） -->
+    <path d="M120,190 Q160,180 200,186 Q240,192 280,184" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#redArrow)"/>
+    <text x="250" y="178" font-size="11" fill="#ff6b6b">踉跄前行</text>
+    <text x="205" y="80" font-size="9" fill="#999" text-anchor="middle">八戒</text>
+    <!-- 跟随平移（蓝） -->
+    <path d="M80,210 L300,195" stroke="#4da3ff" stroke-width="2.2" fill="none" stroke-dasharray="6,4"/>
+    <text x="140" y="222" font-size="10" fill="#4da3ff">跟随平移</text>
+    <!-- 云栈洞方向 -->
+    <text x="330" y="120" font-size="10" fill="#aaa">云栈洞→</text>
+  </svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs>
+<marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/></marker>
+<marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/></marker>
+</defs>
+    <!-- 旷地乱石 -->
+    <path d="M0,180 Q80,170 160,180 Q250,188 340,178 L400,185 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <!-- 悟空（左）持棒 -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <circle cx="140" cy="80" r="15"/>
+      <path d="M140,95 L140,155"/>
+      <path d="M140,100 L125,112"/>
+      <path d="M140,100 L155,112"/>
+      <path d="M140,155 L132,195"/>
+      <path d="M140,155 L148,195"/>
+      <!-- 金箍棒（斜举） -->
+      <path d="M150,60 L185,130" stroke-width="4"/>
+    </g>
+    <!-- 八戒（右）举耙 -->
+    <g stroke="#4a4a4a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <ellipse cx="265" cy="135" rx="30" ry="24"/>
+      <circle cx="275" cy="97" r="13"/>
+      <ellipse cx="270" cy="95" rx="4.5" ry="3"/>
+      <!-- 九齿钉耙（竖举） -->
+      <path d="M250,70 L235,175" stroke-width="4"/>
+      <path d="M246,72 L254,72 M244,78 L256,78 M242,84 L258,84" stroke-width="2.5"/>
+      <path d="M240,180 L232,195"/>
+      <path d="M290,178 L298,195"/>
+    </g>
+    <!-- 动作：举兵对峙（红） -->
+    <path d="M160,120 Q185,108 210,118" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <text x="185" y="140" font-size="11" fill="#ff6b6b">对峙</text>
+    <text x="140" y="80" font-size="9" fill="#777" text-anchor="middle">悟空</text>
+    <text x="265" y="95" font-size="9" fill="#999" text-anchor="middle">八戒</text>
+    <!-- 环绕运镜（蓝） -->
+    <ellipse cx="205" cy="140" rx="105" ry="60" fill="none" stroke="#4da3ff" stroke-width="1.8" stroke-dasharray="8,6"/>
+    <text x="210" y="160" font-size="10" fill="#4da3ff">环绕</text>
+  </svg>
