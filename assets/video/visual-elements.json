@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.0",
+  "difficultyId": 12,
+  "name": "收降八戒",
+  "chapter": "第18-19回",
+  "location": "高老庄",
+  "logline": "天蓬元帅因调戏嫦娥被贬下凡错投猪胎，在福陵山云栈洞为妖，后入赘高老庄强娶高翠兰。悟空受高太公之请，变作高翠兰戏弄八戒，追至云栈洞大战，最终收服八戒赐名悟能，加入取经队伍。",
+  "characters": [
+    {
+      "id": "zhu-bajie",
+      "name": "猪八戒",
+      "role": "boss",
+      "iconic": true,
+      "species": "天蓬元帅转世猪精",
+      "appearance": "黑猪脸、长嘴大耳、獠牙外露、猪身人形、肚大腰圆",
+      "costume": "黑布直裰、腰系青丝绦、头裹黑布包头巾、脚蹬黑布鞋",
+      "props": ["九齿钉耙", "弯弓"],
+      "keyPose": "扛九齿钉耙而立",
+      "mood": "憨态中带凶相"
+    },
+    {
+      "id": "sun-wukong",
+      "name": "孙悟空",
+      "role": "protagonist",
+      "iconic": true,
+      "species": "花果山灵猴成精",
+      "appearance": "雷公嘴、火眼金睛（金瞳带红纹）、毛脸和尚、身形精悍矮小",
+      "costume": "金箍束发、锁子黄金甲、虎皮裙、内衬黄褐僧衣",
+      "props": ["金箍棒"],
+      "keyPose": "金箍棒立地、咧嘴嬉笑",
+      "mood": "灵慧顽皮"
+    },
+    {
+      "id": "tang-seng",
+      "name": "唐僧",
+      "role": "protagonist",
+      "iconic": true,
+      "species": "大唐高僧 · 金蝉子转世",
+      "appearance": "面如冠玉、慈眉善目、身形修长清癯",
+      "costume": "毗卢帽、锦襕袈裟（红底金线云纹）、内衬素白僧袍",
+      "props": ["九环锡杖"],
+      "keyPose": "合掌而立",
+      "mood": "悲悯端庄"
+    },
+    {
+      "id": "gao-cuilan",
+      "name": "高翠兰",
+      "role": "mortal",
+      "iconic": false,
+      "species": "高太公之女",
+      "appearance": "年轻村妇、秀丽端庄",
+      "costume": "红嫁衣或青布襦裙",
+      "props": [],
+      "keyPose": "娇羞低首",
+      "mood": "惊恐哀怨"
+    },
+    {
+      "id": "gao-taigong",
+      "name": "高太公",
+      "role": "mortal",
+      "iconic": false,
+      "species": "高老庄富户",
+      "appearance": "白发老者、富家员外",
+      "costume": "员外帽、绸缎长袍",
+      "props": [],
+      "keyPose": "愁眉拱手",
+      "mood": "焦灼无奈"
+    },
+    {
+      "id": "gao-cai",
+      "name": "高才",
+      "role": "mortal",
+      "iconic": false,
+      "species": "高家仆人",
+      "appearance": "机灵小厮",
+      "costume": "短褐布衣",
+      "props": [],
+      "keyPose": "陪侍侧立",
+      "mood": "机敏"
+    },
+    {
+      "id": "sha-seng",
+      "name": "沙僧",
+      "role": "protagonist",
+      "iconic": true,
+      "species": "卷帘大将转世",
+      "appearance": "蓝靛脸、红发、身长壮硕",
+      "costume": "黑僧袍",
+      "props": ["月牙铲"],
+      "keyPose": "岸上观望",
+      "mood": "沉稳"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-1",
+      "name": "高老庄村口",
+      "type": "村庄",
+      "description": "夜色中土墙村落，青石板路，户户闭户",
+      "mood": "诡异静谧",
+      "props": ["青石板路", "土墙", "闭户门扉"],
+      "timeOfDay": "night"
+    },
+    {
+      "id": "scene-2",
+      "name": "高太公府宅",
+      "type": "宅院",
+      "description": "朱门大院、灯笼高挂、堂内愁云",
+      "mood": "焦灼压抑",
+      "props": ["朱门", "红灯笼", "堂内桌椅"],
+      "timeOfDay": "night"
+    },
+    {
+      "id": "scene-3",
+      "name": "高翠兰闺房",
+      "type": "内室",
+      "description": "红烛纱帐、嫁妆陈设、夜半无人",
+      "mood": "幽静紧张",
+      "props": ["红烛", "纱帐", "嫁妆"],
+      "timeOfDay": "night"
+    },
+    {
+      "id": "scene-4",
+      "name": "云栈洞",
+      "type": "洞府",
+      "description": "福陵山腰洞府，洞口藤蔓，洞内黑气",
+      "mood": "阴森蛮荒",
+      "props": ["藤蔓", "黑气"],
+      "timeOfDay": "night"
+    },
+    {
+      "id": "scene-5",
+      "name": "云栈洞前旷地",
+      "type": "旷野",
+      "description": "山月高悬、乱石嶙峋、二人对峙",
+      "mood": "剑拔弩张",
+      "props": ["乱石", "山月"],
+      "timeOfDay": "night"
+    },
+    {
+      "id": "scene-6",
+      "name": "高老庄前大路",
+      "type": "大路",
+      "description": "师徒四人启程，朝阳初升",
+      "mood": "明朗开阔",
+      "props": ["朝阳", "大路"],
+      "timeOfDay": "dawn"
+    }
+  ],
+  "keyProps": [
+    {
+      "name": "九齿钉耙",
+      "owner": "猪八戒",
+      "importance": 3,
+      "description": "金光宝耙，九齿寒锋，天蓬遗宝"
+    },
+    {
+      "name": "金箍棒",
+      "owner": "孙悟空",
+      "importance": 3,
+      "description": "如意金箍棒，两端金箍中间玄铁"
+    },
+    {
+      "name": "锦襕袈裟/毗卢帽/禅杖",
+      "owner": "唐僧",
+      "importance": 3,
+      "description": "红底金线云纹袈裟，五佛冠毗卢帽，九环锡杖"
+    },
+    {
+      "name": "月牙铲",
+      "owner": "沙僧",
+      "importance": 2,
+      "description": "降妖宝杖"
+    },
+    {
+      "name": "红盖头/嫁衣",
+      "owner": "高翠兰",
+      "importance": 2,
+      "description": "悟空变翠兰时的关键道具"
+    },
+    {
+      "name": "高宅红灯笼",
+      "owner": "场景道具",
+      "importance": 1,
+      "description": "夜色高老庄氛围点"
+    },
+    {
+      "name": "婚宴酒食",
+      "owner": "场景道具",
+      "importance": 1,
+      "description": "被八戒吃掉"
+    }
+  ],
+  "colorPalette": {
+    "base": ["暗夜靛蓝", "水墨灰"],
+    "accent": ["昏黄灯火"],
+    "character": ["悟空金黄", "唐僧红金", "八戒灰黑"],
+    "overall": "中国水墨 + 暗夜对比，喜剧感靠八戒憨态动作呈现"
+  },
+  "cameraNotes": "夜景为主，突出灯火与月色对比",
+  "storyHooks": [
+    "悟空变作高翠兰、红盖头下露出猴脸 → 喜剧反转",
+    "八戒背「新娘」上路，背上却是石头/悟空 → 经典桥段",
+    "云栈洞前金箍棒 vs 九齿钉耙对撞 → 视觉高潮",
+    "八戒被收服、弃钉耙跪地 → 情感落点",
+    "师徒四人离庄、朝阳上路 → 结尾空镜"
+  ]
+}
