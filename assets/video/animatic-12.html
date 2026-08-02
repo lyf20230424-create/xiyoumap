@@ -51,6 +51,7 @@
   <button id="reset">↺ 重播</button>
   <span style="color:#a58a5e;font-size:13px">旁白</span><input type="checkbox" id="narrToggle" checked>
   <span style="color:#a58a5e;font-size:13px">运镜</span><input type="checkbox" id="kbToggle" checked>
+  <span style="color:#a58a5e;font-size:13px">配乐</span><input type="checkbox" id="musicToggle" checked>
 </div>
 <div id="shot-info"></div>
 <div class="shot-tabs" id="shot-tabs"></div>
@@ -68,6 +69,56 @@ const SHOTS = [
   { id:'S08', dur:12, subtitle:'赐名悟能 · 共赴西天', narration:'观音赐名悟能，八戒拜入佛门。师徒四人，继续西行——' }
 ];
 const TOTAL = SHOTS.reduce((s,x)=>s+x.dur, 0);
+
+// ==== Web Audio 配乐（古风五声音阶氛围音，零外部文件）====
+let audioCtx = null;
+let musicGain = null;
+let musicOn = false;
+const PENTA = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25]; // C D E G A 五声音阶
+
+function initAudio() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    musicGain = audioCtx.createGain();
+    musicGain.gain.value = 0.06;  // 低音量背景
+    musicGain.connect(audioCtx.destination);
+    scheduleMusic();
+  } catch(e) {}
+}
+
+function scheduleMusic() {
+  if (!audioCtx || !musicGain || !musicOn) return;
+  const now = audioCtx.currentTime;
+  // 每 1.5s 弹一个音符（五声音阶随机漫步）
+  let t = now + 0.1;
+  let last = 2;
+  for (let i=0; i<40; i++) {
+    const step = [1,-1][Math.floor(Math.random()*2)] * (Math.random()<0.7?1:2);
+    last = Math.max(0, Math.min(PENTA.length-1, last+step));
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = PENTA[last];
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.5, t+0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, t+1.4);
+    osc.connect(g); g.connect(musicGain);
+    osc.start(t); osc.stop(t+1.5);
+    t += 1.5;
+  }
+}
+
+function startMusic() {
+  initAudio();
+  musicOn = true;
+  if (audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+  if (audioCtx) scheduleMusic();
+}
+function stopMusic() {
+  musicOn = false;
+  // 让已排的淡出自然结束
+}
 
 let currentShot = -1;
 let playing = false;
@@ -140,6 +191,7 @@ function start() {
   if (currentShot === -1) renderShot(0);
   shotStart = Date.now();
   playing = true;
+  startMusic();
   document.getElementById('play').textContent = '▶ 播放中...';
   playTimer = setInterval(tick, 100);
 }
@@ -149,6 +201,7 @@ function stop() {
   if (playTimer) clearInterval(playTimer);
   playTimer = null;
   stopSpeech();
+  stopMusic();
   document.getElementById('play').textContent = '▶ 播放预演';
 }
 
@@ -170,6 +223,12 @@ SHOTS.forEach((sh,i)=>{
   b.textContent = sh.id;
   b.addEventListener('click', ()=>{ stop(); renderShot(i); shotStart=Date.now(); });
   tabs.appendChild(b);
+});
+
+// 配乐开关
+document.getElementById('musicToggle').addEventListener('change', (e)=>{
+  if (e.target.checked) startMusic();
+  else stopMusic();
 });
 
 // 初始显示
