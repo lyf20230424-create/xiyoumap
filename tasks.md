@@ -179,13 +179,21 @@
 - **priority**: 低
 
 ### T26: 唐僧取经动态卷轴播放模式（含孙悟空战斗轨迹动画）
-- **状态**: TODO
+- **状态**: DONE
 - **描述**: 动态卷轴滚动播放取经全程（起点→终点逐节点推进），含悟空战斗轨迹动画。适合演示/教学场景
 - **依赖**: T23
 - **priority**: 低
+- **完成内容**:
+  - 新增 `js/playback.js`：header「🎬 取经回放」按钮 + 底部控制条（▶/⏸、1x/2x/4x 倍速、🎯跟随、✕关闭）
+  - 主路径 stroke-dashoffset 渐进绘制（36s/1x），金色取经队标记沿路径行进（getPointAtLength）
+  - 逐节点点亮（.played 已走过 / .current 当前），进度条 + 第 N/31 站 · 地点名
+  - 悟空战斗轨迹：红色虚线（.battle-trail）与进度同步揭示；妖怪节点（.has-battle）红色虚线环标记，到达时爆裂动画（.battle-burst）
+  - 🎯 跟随模式：自动平移地图保持标记居中（复用 centerOnPosition）
+  - `main.js` 注入真实 SVG 引用实例化 window.Playback；centerOnNode 重构为 centerOnPosition
+- **验证**: node -c OK；CSS 198/198 平衡；DOM id 匹配无缺失；CSS 类交叉无缺失；真实浏览器(headless Edge)渲染确认 playback-toggle/bar/marker/battle-trail/play 全部存在，且 relation-node 48、difficulty-entry、relation/difficulty-toggle 无回归
 
 ## 当前主任务
-- ID：T24（DONE，2026-08-02 在 feature/v2-digital-humanities 分支完成）
-- 名称：妖魔族谱关系图
-- 下一步：T25（真实底图+D3投影，复杂度高建议后置）或先做 T20/T21/T22 快速项，或 T26（动态卷轴播放）
+- ID：T26（DONE，2026-08-02 在 feature/v2-digital-humanities 分支完成）
+- 名称：取经动态卷轴播放
+- 下一步：T25（真实底图+D3投影，复杂度高）或 T20/T21/T22 快速项（字体本地化/清理测试文件/进度指示），v2.0 四个扩展任务（T23-T26）已全部完成
 - 完成标准：按各任务描述执行并验证

@@ -8,7 +8,22 @@
 - 当前阶段：v2.0 数字人文扩展
 - 最近更新：2026-08-02
 - 当前分支：feature/v2-digital-humanities
-- 当前主任务 ID：T24（已 DONE），下一步 T26 或快速项
+- 当前主任务 ID：T26（已 DONE），v2.0 扩展 T23-T26 全部完成，下一步 T25 或快速项
+
+## 最近一次完成（T26：取经动态卷轴播放）
+- 完成内容：
+  1. 新增 `js/playback.js`：header「🎬 取经回放」按钮 + 底部控制条（▶/⏸ 播放暂停、1x/2x/4x 倍速、🎯 跟随、✕ 关闭）
+  2. 主路径 stroke-dashoffset 渐进绘制（1x 全程 36s），金色取经队标记沿路径行进（getPointAtLength）
+  3. 逐节点点亮（.played 已走过 / .current 当前），进度条 + 「第 N/31 站 · 地点名」
+  4. 悟空战斗轨迹：红色虚线（.battle-trail）与进度同步揭示；妖怪节点 .has-battle 红色虚线环标记，到达时 .battle-burst 爆裂动画
+  5. 🎯 跟随模式自动平移地图保持标记居中（复用 centerOnPosition）
+- 修改文件：index.html、css/style.css、js/main.js、js/playback.js（新增）
+- 验证命令与结果：
+  - `node -c` → 全部 OK
+  - CSS 括号平衡 → 198/198 平衡
+  - DOM id 匹配 → 无缺失；CSS 类交叉 → 无缺失
+  - 真实浏览器(headless Edge, --virtual-time-budget) → playback-toggle/bar/marker/battle-trail/play/fill 全部渲染成功；relation-node 48、difficulty-entry、relation/difficulty-toggle 无回归
+- 遇到的问题：无（本轮用真实浏览器验证，规避了 T24 的运行时 this 绑定 bug 重演）
 
 ## 最近一次完成（T24：妖魔族谱关系图）
 - 完成内容：
@@ -62,10 +77,10 @@
 - 无
 
 ## 下一步（按优先级）
-1. 检查 T23/T24 联动功能实际运行效果（需浏览器确认：无头浏览器不可用，静态验证已全通过）
-2. T26（唐僧取经动态卷轴播放模式）——T25（真实底图+D3投影）复杂度高，建议后置或单独讨论
-3. 先做 T20/T21/T22 快速项（字体本地化/清理测试文件/进度指示）
-4. 查看 README.md（未跟踪文件）是否需要完善更新
+1. T25（真实中国—西域地图底图 + D3 投影路线）——v2.0 唯一剩余扩展，复杂度高、涉及底图数据源/许可，建议单独讨论方案
+2. 转 T20/T21/T22 快速项（字体本地化/清理测试文件/进度指示）
+3. 合并 feature/v2-digital-humanities 分支回 master（v2.0 扩展 T23-T26 已完成）
+4. 检查 T23/T24/T26 实际运行效果（浏览器确认）
 
 ## 2026-08-02 用户确认项目定位：文学路线图（非地理地图）
 - 用户提出：本项目是「文学路线图」而非严格地理地图，因五行山/火焰山/狮驼岭等神魔空间不对应现实经纬度
