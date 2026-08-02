@@ -307,6 +307,19 @@
 - **验证**: 14 张 PNG 全部有效，尺寸正确，refImage 完整
 - **提交**: bb6346a
 
+### T38: 场景去人重生成 + 场景名语义化
+- **状态**: DONE
+- **描述**: 场景图混入人物，需去人重生成；场景文件名 scene-N 不直观需改名
+- **依赖**: T37
+- **priority**: 中
+- **产出**: 6 张去人场景图 + 语义化文件名
+- **完成内容**:
+  - 6 场景 prompt 统一加'空镜，画面纯净无任何人物'约束，重新生成全部场景图
+  - 场景文件名 scene-N.png → 语义化：scene-village-entrance/gao-mansion/cuilan-room/cloud-cave/cloud-cave-ground/gao-road
+  - scenes.json + visual-elements.json 场景 id 同步更新
+- **验证**: 6 张新图生成，场景 id 两文件一致
+- **提交**: a00f019
+
 ### T34: 数据JSON化（v3.0 数据层）
 - **状态**: DONE
 - **描述**: 将 T27/T28 的 markdown 产出整理为 JSON 结构化文件，方便程序调用
