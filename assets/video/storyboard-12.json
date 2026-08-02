@@ -28,8 +28,7 @@
         "refImages": [
           "scene-village-entrance"
         ]
-      },
-      "actId": "A1"
+      }
     },
     {
       "id": "S02",
@@ -57,8 +56,7 @@
           "gao-taigong",
           "gao-cai"
         ]
-      },
-      "actId": "A1"
+      }
     },
     {
       "id": "S03",
@@ -86,8 +84,7 @@
           "sun-wukong",
           "gao-taigong"
         ]
-      },
-      "actId": "A1"
+      }
     },
     {
       "id": "S04",
@@ -118,8 +115,7 @@
           "gao-cuilan",
           "hong-gai-tou"
         ]
-      },
-      "actId": "A2"
+      }
     },
     {
       "id": "S05",
@@ -147,8 +143,7 @@
           "zhu-bajie",
           "sun-wukong"
         ]
-      },
-      "actId": "A2"
+      }
     },
     {
       "id": "S06",
@@ -181,8 +176,7 @@
           "ru-yi-jin-gu-bang",
           "jiu-chi-ding-pa"
         ]
-      },
-      "actId": "A3"
+      }
     },
     {
       "id": "S07",
@@ -215,8 +209,7 @@
           "ru-yi-jin-gu-bang",
           "jiu-chi-ding-pa"
         ]
-      },
-      "actId": "A3"
+      }
     },
     {
       "id": "S08",
@@ -251,67 +244,7 @@
           "sha-seng",
           "jiu-chi-ding-pa"
         ]
-      },
-      "actId": "A4"
-    }
-  ],
-  "acts": [
-    {
-      "id": "A1",
-      "title": "第一幕 · 高老庄之厄",
-      "scenes": [
-        "scene-village-entrance",
-        "scene-gao-mansion"
-      ],
-      "shots": [
-        "S01",
-        "S02",
-        "S03"
-      ],
-      "role": "起·背景立约",
-      "subtitle": "高老庄之厄",
-      "music": "平静"
-    },
-    {
-      "id": "A2",
-      "title": "第二幕 · 变戏弄妖",
-      "scenes": [
-        "scene-cuilan-room"
-      ],
-      "shots": [
-        "S04",
-        "S05"
-      ],
-      "role": "承·喜剧反转",
-      "subtitle": "变戏弄妖",
-      "music": "俏皮"
-    },
-    {
-      "id": "A3",
-      "title": "第三幕 · 云栈洞之战",
-      "scenes": [
-        "scene-cloud-cave-ground"
-      ],
-      "shots": [
-        "S06",
-        "S07"
-      ],
-      "role": "转·冲突高潮",
-      "subtitle": "云栈洞之战",
-      "music": "紧张"
-    },
-    {
-      "id": "A4",
-      "title": "第四幕 · 收徒启程",
-      "scenes": [
-        "scene-gao-road"
-      ],
-      "shots": [
-        "S08"
-      ],
-      "role": "合·收尾",
-      "subtitle": "收徒启程",
-      "music": "开阔"
+      }
     }
   ]
 }
