@@ -2,205 +2,355 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>黑白故事板 · 第12难收降八戒（难点镜头）</title>
+<title>线稿关键帧 · 第12难收降八戒（8镜头）</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:#1a1a1a; color:#ddd; font-family:"Microsoft YaHei",sans-serif; padding:30px; }
-  h1 { text-align:center; color:#ccc; font-size:22px; margin-bottom:8px; }
-  .sub { text-align:center; color:#888; font-size:13px; margin-bottom:30px; }
-  .board { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:24px; max-width:1600px; margin:0 auto; }
-  .frame { background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.5); }
-  .frame svg { display:block; width:100%; height:auto; }
+  h1 { text-align:center; color:#eee; font-size:22px; margin-bottom:6px; letter-spacing:2px; }
+  .sub { text-align:center; color:#888; font-size:13px; margin-bottom:8px; }
+  .note { text-align:center; color:#a58a5e; font-size:12px; margin-bottom:26px; }
+  .board { display:grid; grid-template-columns:repeat(auto-fit,minmax(440px,1fr)); gap:26px; max-width:1700px; margin:0 auto; }
+  .frame { background:#fbf8f2; border-radius:6px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.55); }
+  .frame svg { display:block; width:100%; height:auto; background:#fbf8f2; }
   .meta { background:#222; padding:14px 18px; }
   .meta .title { font-size:15px; font-weight:bold; color:#fff; margin-bottom:6px; }
-  .meta .info { font-size:12px; color:#aaa; line-height:1.7; }
+  .meta .info { font-size:12px; color:#aaa; line-height:1.8; }
   .meta .info b { color:#e8b84b; }
-  .legend { text-align:center; color:#888; font-size:12px; margin-top:24px; }
+  .meta .info .act { color:#ff6b6b; }
+  .meta .info .cam { color:#4da3ff; }
+  .legend { display:flex; justify-content:center; gap:26px; color:#aaa; font-size:12px; margin-top:28px; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .legend .sw { width:26px; height:2px; display:inline-block; }
 </style>
 </head>
 <body>
-<h1>黑白故事板 · 第12难「收降八戒」</h1>
-<div class="sub">难点镜头预演（S04/S05/S07/S08）· 16:9 · 构图/角色位置/运镜示意</div>
+<h1>线稿关键帧 · 第12难「收降八戒」</h1>
+<div class="sub">8 镜头 · 构图/动作轨迹/运镜预演</div>
+<div class="note">🎨 黑白色松散手绘线稿（构图底图）· <span style="color:#ff6b6b">红箭头=动作轨迹</span> · <span style="color:#4da3ff">蓝箭头=运镜方向</span> · 主体形象由 T32 视频阶段参考图驱动</div>
 
 <div class="board">
 
-<!-- ============ S04 ============ -->
+<!-- ============ S01 空镜 ============ -->
 <div class="frame">
-  <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-    <!-- 场景：闺房 -->
-    <rect width="400" height="225" fill="#f5f0e8"/>
-    <!-- 窗棂 -->
-    <g stroke="#999" stroke-width="1.5" fill="none">
-      <rect x="20" y="15" width="70" height="60" rx="2"/>
-      <line x1="55" y1="15" x2="55" y2="75"/>
-      <line x1="20" y1="45" x2="90" y2="45"/>
+  <svg viewBox="0 0 400 225">
+    <!-- 高老庄村口：木牌坊+灯笼+青石板路 -->
+    <g stroke="#8a8a8a" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <path d="M40,40 L40,190"/>                    <!-- 左柱 -->
+      <path d="M120,40 L120,190"/>                   <!-- 右柱 -->
+      <path d="M30,40 Q80,20 130,40"/>               <!-- 牌坊顶 -->
+      <path d="M48,46 L112,46"/>                     <!-- 匾额 -->
+      <path d="M70,55 l-4,6 M70,55 l4,6"/>           <!-- 匾字 -->
+      <!-- 灯笼 -->
+      <circle cx="40" cy="70" r="9" stroke-width="2"/>
+      <path d="M40,61 l0,-6"/>
+      <circle cx="120" cy="70" r="9" stroke-width="2"/>
+      <path d="M120,61 l0,-6"/>
+      <!-- 青石板路 -->
+      <path d="M50,195 Q90,185 120,195 Q160,210 210,205"/>
+      <path d="M30,200 Q70,210 110,202"/>
     </g>
-    <!-- 纱帐 -->
-    <path d="M120,0 Q140,80 130,180" stroke="#999" stroke-width="2" fill="none" opacity="0.5"/>
-    <path d="M280,0 Q260,80 270,180" stroke="#999" stroke-width="2" fill="none" opacity="0.5"/>
-    <line x1="130" y1="180" x2="270" y2="180" stroke="#999" stroke-width="1.5"/>
-    <!-- 绣床 -->
-    <rect x="100" y="120" width="200" height="60" fill="#ddd" stroke="#999" stroke-width="1.5" rx="4"/>
-    <!-- 红烛 -->
-    <rect x="320" y="140" width="8" height="20" fill="#ccc"/>
-    <circle cx="324" cy="138" r="5" fill="#bbb"/>
-    <!-- 悟空变翠兰(坐床) -->
-    <g transform="translate(200,60)">
-      <circle cx="0" cy="0" r="22" fill="#bbb" stroke="#888" stroke-width="2"/>
-      <path d="M-14,-10 Q-8,-20 0,-20 Q8,-20 14,-10 L14,20 Q0,28 -14,20 Z" fill="#ccc" stroke="#888" stroke-width="1.5"/>
-      <!-- 红盖头 -->
-      <path d="M-20,-8 Q-6,-30 6,-28 Q20,-24 20,-6 Q0,-14 -20,-8 Z" fill="#999" stroke="#777" stroke-width="1.5"/>
-      <!-- 猴脸从盖头下探出 -->
-      <circle cx="-6" cy="-2" r="7" fill="#ddd" stroke="#888" stroke-width="1.5"/>
-      <circle cx="-2" cy="-14" r="3" fill="#999" stroke="#777" stroke-width="1"/>
-      <circle cx="-6" cy="-8" r="2" fill="#777"/>
-      <circle cx="-2" cy="-8" r="2" fill="#777"/>
-      <path d="M-6,-4 Q-2,-6 2,-4" stroke="#777" stroke-width="1" fill="none"/>
-    </g>
-    <!-- 运镜提示 -->
-    <path d="M200,225 L200,150" stroke="#666" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-    <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#666"/></marker></defs>
-    <text x="210" y="190" font-size="11" fill="#666">推近盖头→露猴脸</text>
-    <!-- 景别框 -->
-    <rect x="150" y="30" width="100" height="75" fill="none" stroke="#f00" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <text x="152" y="26" font-size="10" fill="#f00">85mm 近景</text>
+    <!-- 月亮 -->
+    <circle cx="330" cy="35" r="16" fill="#c9c9c9" stroke="#888" stroke-width="1.5"/>
+    <!-- 推近运镜（蓝） -->
+    <path d="M200,222 L200,60" stroke="#4da3ff" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#blueArrow)"/>
+    <text x="210" y="150" font-size="11" fill="#4da3ff">推近</text>
   </svg>
   <div class="meta">
-    <div class="title">S04 · 悟空变翠兰·红盖头露猴脸</div>
-    <div class="info">景别：近景 85mm ｜ 运镜：推近盖头→露出猴脸<br/>
-    <b>构图要点：</b>红盖头下猴脸半掩，红框为近景对焦区<br/>
-    <b>角色位置：</b>悟空(变翠兰)坐绣床中央偏左，盖头+猴脸为视觉中心</div>
+    <div class="title">S01 · 高老庄村口 · 空镜</div>
+    <div class="info">景别：远景空镜 35mm ｜ <span class="cam">运镜：缓慢推近</span><br/>构图：牌坊居中，青石板路延伸，灯笼两点提亮</div>
   </div>
 </div>
 
-<!-- ============ S05 ============ -->
+<!-- ============ S02 高太公愁诉 ============ -->
 <div class="frame">
-  <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-    <rect width="400" height="225" fill="#f5f0e8"/>
-    <!-- 月光地面 -->
-    <path d="M0,180 Q100,170 200,180 Q300,190 400,180 L400,225 L0,225 Z" fill="#eee" stroke="#ccc" stroke-width="1"/>
-    <!-- 远处山影 -->
-    <path d="M0,120 Q80,60 160,110 Q240,150 400,100 L400,180 L0,180 Z" fill="#ddd" opacity="0.6"/>
-    <!-- 月亮 -->
-    <circle cx="350" cy="35" r="18" fill="#ddd" stroke="#bbb" stroke-width="1"/>
-    <!-- 八戒背新娘(石头) -->
-    <g transform="translate(180,90)">
-      <!-- 八戒身体 -->
-      <ellipse cx="0" cy="45" rx="40" ry="30" fill="#bbb" stroke="#888" stroke-width="2"/>
-      <!-- 八戒头(猪) -->
-      <ellipse cx="8" cy="8" rx="18" ry="15" fill="#ccc" stroke="#888" stroke-width="2"/>
-      <ellipse cx="2" cy="6" rx="6" ry="4" fill="#999"/>
-      <circle cx="-4" cy="8" r="2" fill="#777"/>
-      <circle cx="0" cy="8" r="2" fill="#777"/>
-      <!-- 背上石头 -->
-      <path d="M-10,-25 Q0,-40 12,-28 Q18,-20 8,-14 Q-4,-12 -10,-25 Z" fill="#ddd" stroke="#999" stroke-width="1.5"/>
-      <text x="-2" y="-18" font-size="9" fill="#888">石</text>
-      <!-- 手臂前伸 -->
-      <path d="M-30,40 L-55,25" stroke="#888" stroke-width="6" stroke-linecap="round"/>
-      <path d="M30,40 L55,25" stroke="#888" stroke-width="6" stroke-linecap="round"/>
+  <svg viewBox="0 0 400 225">
+    <!-- 堂内背景 -->
+    <g stroke="#c9c9c9" stroke-width="1.5" fill="none">
+      <rect x="15" y="15" width="370" height="180" rx="4"/>
+      <path d="M60,15 L60,195"/>
+      <path d="M340,15 L340,195"/>
     </g>
+    <!-- 高太公（左，拱手） -->
+    <g stroke="#3a3a3a" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <circle cx="160" cy="75" r="14"/>              <!-- 头 -->
+      <path d="M146,85 l-6,8"/>                       <!-- 帽翅 -->
+      <path d="M160,89 L160,150"/>                    <!-- 身 -->
+      <path d="M160,100 Q135,112 128,125"/>          <!-- 拱手左臂 -->
+      <path d="M160,100 Q185,112 192,125"/>          <!-- 拱手右臂 -->
+      <path d="M160,150 Q150,180 148,195"/>          <!-- 腿 -->
+      <path d="M160,150 Q170,180 172,195"/>
+    </g>
+    <!-- 动作：拱手作揖（红） -->
+    <path d="M128,128 Q110,138 108,150 Q106,160 115,158" stroke="#ff6b6b" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#redArrow)"/>
+    <!-- 高才（右，侍立） -->
+    <g stroke="#5a5a5a" stroke-width="2.2" fill="none" stroke-linecap="round">
+      <circle cx="270" cy="90" r="10"/>
+      <path d="M270,100 L270,150"/>
+      <path d="M270,108 L258,130"/>
+      <path d="M270,108 L282,130"/>
+      <path d="M270,150 L264,195"/>
+      <path d="M270,150 L276,195"/>
+    </g>
+    <text x="160" y="75" font-size="9" fill="#777" text-anchor="middle">高太公</text>
+    <text x="270" y="90" font-size="9" fill="#999" text-anchor="middle">高才</text>
+    <!-- 微摇（蓝） -->
+    <path d="M230,205 Q200,210 230,215 Q260,220 230,225" stroke="#4da3ff" stroke-width="1.5" fill="none"/>
+    <text x="215" y="218" font-size="10" fill="#4da3ff">微摇</text>
+  </svg>
+  <div class="meta">
+    <div class="title">S02 · 高太公愁诉</div>
+    <div class="info">景别：中景 50mm ｜ <span class="cam">运镜：固定+微摇</span><br/><span class="act">动作：高太公拱手作揖（红）</span> ｜ 高才垂手侍立</div>
+  </div>
+</div>
+
+<!-- ============ S03 悟空应答 ============ -->
+<div class="frame">
+  <svg viewBox="0 0 400 225">
+    <g stroke="#c9c9c9" stroke-width="1.5" fill="none">
+      <rect x="15" y="15" width="370" height="180" rx="4"/>
+    </g>
+    <!-- 悟空（右，叉腰） -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <circle cx="280" cy="72" r="15"/>
+      <path d="M265,78 q-2,-6 2,-8"/>                <!-- 耳朵 -->
+      <path d="M295,78 q2,-6 -2,-8"/>
+      <path d="M280,87 L280,148"/>                   <!-- 身 -->
+      <path d="M280,92 L260,108"/>                   <!-- 叉腰左臂 -->
+      <path d="M280,92 L300,108"/>
+      <path d="M280,148 L272,195"/>                  <!-- 腿 -->
+      <path d="M280,148 L288,195"/>
+      <!-- 金箍 -->
+      <path d="M268,62 Q280,56 292,62" stroke-width="3"/>
+    </g>
+    <!-- 高太公（左，恳求） -->
+    <g stroke="#5a5a5a" stroke-width="2.2" fill="none" stroke-linecap="round">
+      <circle cx="120" cy="85" r="13"/>
+      <path d="M120,98 L120,155"/>
+      <path d="M120,105 Q100,115 94,128"/>
+      <path d="M120,105 Q140,115 146,128"/>
+      <path d="M120,155 L114,195"/>
+      <path d="M120,155 L126,195"/>
+    </g>
+    <!-- 动作：悟空拍胸脯（红） -->
+    <path d="M262,112 Q245,118 240,110 Q236,102 244,100" stroke="#ff6b6b" stroke-width="2.2" fill="none" stroke-dasharray="5,4" marker-end="url(#redArrow)"/>
+    <text x="280" y="60" font-size="9" fill="#777" text-anchor="middle">悟空</text>
+    <text x="120" y="85" font-size="9" fill="#999" text-anchor="middle">高太公</text>
+    <!-- 过肩镜头示意 -->
+    <path d="M30,60 L90,95" stroke="#4da3ff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#blueArrow)"/>
+    <text x="32" y="52" font-size="10" fill="#4da3ff">过肩</text>
+  </svg>
+  <div class="meta">
+    <div class="title">S03 · 悟空自信应答</div>
+    <div class="info">景别：中近景 过肩 35mm ｜ <span class="cam">运镜：过肩镜头</span><br/><span class="act">动作：悟空拍胸脯自信应答（红）</span></div>
+  </div>
+</div>
+
+<!-- ============ S04 红盖头露猴脸 ============ -->
+<div class="frame">
+  <svg viewBox="0 0 400 225">
+    <!-- 闺房背景 -->
+    <g stroke="#c9c9c9" stroke-width="1.5" fill="none">
+      <path d="M100,20 Q110,110 105,200" stroke-dasharray="4,3"/>
+      <path d="M300,20 Q290,110 295,200" stroke-dasharray="4,3"/>
+      <line x1="105" y1="200" x2="295" y2="200"/>
+      <rect x="40" y="150" width="320" height="45" rx="5"/>
+    </g>
+    <!-- 悟空变翠兰（坐床，盖头） -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <path d="M185,90 Q200,70 215,90 L215,170 Q200,180 185,170 Z"/>  <!-- 身 -->
+      <!-- 盖头 -->
+      <path d="M180,82 Q200,58 220,82 Q228,95 220,104 Q200,92 180,104 Z"/>
+      <!-- 盖头下的猴脸（半露） -->
+      <circle cx="200" cy="98" r="12"/>
+      <path d="M190,100 q2,-3 4,0"/>                   <!-- 猴嘴 -->
+      <circle cx="195" cy="94" r="2" fill="#3a3a3a" stroke="none"/>
+      <circle cx="205" cy="94" r="2" fill="#3a3a3a" stroke="none"/>
+    </g>
+    <!-- 动作：掀盖头露猴脸（红） -->
+    <path d="M160,80 Q150,66 138,70" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <text x="140" y="62" font-size="11" fill="#ff6b6b">掀盖头</text>
+    <!-- 近景对焦框（虚线框） -->
+    <rect x="160" y="55" width="80" height="70" fill="none" stroke="#ff6b6b" stroke-width="1.8" stroke-dasharray="4,3"/>
+    <!-- 推近运镜（蓝） -->
+    <path d="M200,222 L200,130" stroke="#4da3ff" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#blueArrow)"/>
+    <text x="208" y="175" font-size="10" fill="#4da3ff">推近盖头</text>
+  </svg>
+  <div class="meta">
+    <div class="title">S04 · 悟空变翠兰 · 红盖头露猴脸</div>
+    <div class="info">景别：近景 85mm ｜ <span class="cam">运镜：推近盖头→露猴脸</span><br/><span class="act">动作：盖头掀起露猴脸（红）</span> ｜ 红框=对焦区</div>
+  </div>
+</div>
+
+<!-- ============ S05 八戒背石头 ============ -->
+<div class="frame">
+  <svg viewBox="0 0 400 225">
+    <!-- 地面+月 -->
+    <path d="M0,180 Q200,170 400,182 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <circle cx="340" cy="40" r="14" fill="#d9d9d9" stroke="#aaa" stroke-width="1.5"/>
+    <!-- 八戒背石头（中） -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <ellipse cx="195" cy="130" rx="32" ry="26"/>    <!-- 身 -->
+      <circle cx="205" cy="92" r="14"/>               <!-- 头 -->
+      <ellipse cx="199" cy="90" rx="5" ry="3.5"/>    <!-- 猪鼻 -->
+      <path d="M185,96 q3,-4 6,0"/>                   <!-- 嘴 -->
+      <!-- 背上石头 -->
+      <path d="M175,70 Q190,52 205,66 Q212,74 202,82 Q190,78 175,70 Z" stroke-width="2.2"/>
+      <text x="188" y="74" font-size="9" fill="#777">石</text>
+      <!-- 腿 -->
+      <path d="M172,152 L166,195"/>
+      <path d="M214,150 L220,195"/>
+    </g>
+    <!-- 动作：蹒跚前行（红） -->
+    <path d="M120,190 Q160,180 200,186 Q240,192 280,184" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#redArrow)"/>
+    <text x="250" y="178" font-size="11" fill="#ff6b6b">踉跄前行</text>
+    <text x="205" y="80" font-size="9" fill="#999" text-anchor="middle">八戒</text>
+    <!-- 跟随平移（蓝） -->
+    <path d="M80,210 L300,195" stroke="#4da3ff" stroke-width="2.2" fill="none" stroke-dasharray="6,4"/>
+    <text x="140" y="222" font-size="10" fill="#4da3ff">跟随平移</text>
     <!-- 云栈洞方向 -->
-    <path d="M350,110 Q360,90 375,80" stroke="#999" stroke-width="1.5" fill="none"/>
-    <text x="360" y="100" font-size="10" fill="#888">云栈洞→</text>
-    <!-- 跟随运镜 -->
-    <path d="M80,210 L300,190" stroke="#666" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="150" y="220" font-size="11" fill="#666">跟随平移</text>
+    <text x="330" y="120" font-size="10" fill="#aaa">云栈洞→</text>
   </svg>
   <div class="meta">
     <div class="title">S05 · 八戒背新娘·背上是石头</div>
-    <div class="info">景别：中景 35mm ｜ 运镜：跟随平移<br/>
-    <b>构图要点：</b>八戒背石踉跄前行，背上是石头(悟空所变)<br/>
-    <b>角色位置：</b>八戒居中偏左，向云栈洞方向(右)走，月下剪影</div>
+    <div class="info">景别：中景 35mm ｜ <span class="cam">运镜：跟随平移</span><br/><span class="act">动作：八戒踉跄前行（红），背上是石头</span> ｜ 向云栈洞方向</div>
   </div>
 </div>
 
-<!-- ============ S07 ============ -->
+<!-- ============ S06 云栈洞对峙 ============ -->
 <div class="frame">
-  <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-    <rect width="400" height="225" fill="#f5f0e8"/>
-    <!-- 地面乱石 -->
-    <path d="M0,180 Q60,170 120,180 Q200,170 280,180 Q340,188 400,178 L400,225 L0,225 Z" fill="#eee" stroke="#ccc" stroke-width="1"/>
-    <!-- 悟空(左) 持金箍棒 -->
-    <g transform="translate(130,85)">
-      <circle cx="0" cy="0" r="18" fill="#ccc" stroke="#888" stroke-width="2"/>
-      <path d="M-12,10 L-8,55 L8,55 L12,10 Z" fill="#ddd" stroke="#999" stroke-width="1.5"/>
-      <!-- 金箍棒 -->
-      <line x1="20" y1="-20" x2="45" y2="40" stroke="#666" stroke-width="5"/>
-      <rect x="38" y="32" width="14" height="5" fill="#aaa" transform="rotate(-40 45 34)"/>
+  <svg viewBox="0 0 400 225">
+    <!-- 旷地乱石 -->
+    <path d="M0,180 Q80,170 160,180 Q250,188 340,178 L400,185 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <!-- 悟空（左）持棒 -->
+    <g stroke="#3a3a3a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <circle cx="140" cy="80" r="15"/>
+      <path d="M140,95 L140,155"/>
+      <path d="M140,100 L125,112"/>
+      <path d="M140,100 L155,112"/>
+      <path d="M140,155 L132,195"/>
+      <path d="M140,155 L148,195"/>
+      <!-- 金箍棒（斜举） -->
+      <path d="M150,60 L185,130" stroke-width="4"/>
     </g>
-    <!-- 八戒(右) 持钉耙 -->
-    <g transform="translate(270,90)">
-      <ellipse cx="0" cy="40" rx="32" ry="26" fill="#bbb" stroke="#888" stroke-width="2"/>
-      <ellipse cx="6" cy="8" rx="15" ry="13" fill="#ccc" stroke="#888" stroke-width="2"/>
-      <ellipse cx="0" cy="6" rx="5" ry="3.5" fill="#999"/>
-      <!-- 九齿钉耙 -->
-      <line x1="-25" y1="-20" x2="-45" y2="40" stroke="#666" stroke-width="5"/>
-      <path d="M-48,-22 L-38,-18 M-48,-18 L-38,-14 M-48,-14 L-38,-10" stroke="#777" stroke-width="2"/>
+    <!-- 八戒（右）举耙 -->
+    <g stroke="#4a4a4a" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <ellipse cx="265" cy="135" rx="30" ry="24"/>
+      <circle cx="275" cy="97" r="13"/>
+      <ellipse cx="270" cy="95" rx="4.5" ry="3"/>
+      <!-- 九齿钉耙（竖举） -->
+      <path d="M250,70 L235,175" stroke-width="4"/>
+      <path d="M246,72 L254,72 M244,78 L256,78 M242,84 L258,84" stroke-width="2.5"/>
+      <path d="M240,180 L232,195"/>
+      <path d="M290,178 L298,195"/>
     </g>
-    <!-- 对撞火花 -->
-    <circle cx="200" cy="120" r="8" fill="#fff" stroke="#999" stroke-width="1"/>
-    <path d="M195,110 L192,100 M205,110 L208,100 M200,130 L200,140" stroke="#999" stroke-width="1.5"/>
-    <text x="190" y="145" font-size="10" fill="#888">火花</text>
-    <!-- 特写框 -->
-    <rect x="60" y="30" width="120" height="70" fill="none" stroke="#f00" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <rect x="230" y="40" width="110" height="65" fill="none" stroke="#f00" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <text x="60" y="26" font-size="10" fill="#f00">特写A</text>
-    <text x="230" y="36" font-size="10" fill="#f00">特写B</text>
-    <!-- 环绕箭头 -->
-    <circle cx="200" cy="130" r="55" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="205" y="160" font-size="11" fill="#666">环绕</text>
+    <!-- 动作：举兵对峙（红） -->
+    <path d="M160,120 Q185,108 210,118" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <text x="185" y="140" font-size="11" fill="#ff6b6b">对峙</text>
+    <text x="140" y="80" font-size="9" fill="#777" text-anchor="middle">悟空</text>
+    <text x="265" y="95" font-size="9" fill="#999" text-anchor="middle">八戒</text>
+    <!-- 环绕运镜（蓝） -->
+    <ellipse cx="205" cy="140" rx="105" ry="60" fill="none" stroke="#4da3ff" stroke-width="1.8" stroke-dasharray="8,6"/>
+    <text x="210" y="160" font-size="10" fill="#4da3ff">环绕</text>
   </svg>
   <div class="meta">
-    <div class="title">S07 · 金箍棒vs九齿钉耙·收服</div>
-    <div class="info">景别：近景/特写交替 85mm ｜ 运镜：环绕+快剪+慢动作<br/>
-    <b>构图要点：</b>悟空(左)持金箍棒 vs 八戒(右)持九齿钉耙，中缝对撞火花<br/>
-    <b>角色位置：</b>对称对峙，红框为特写切换区，环绕运镜</div>
+    <div class="title">S06 · 云栈洞前对峙</div>
+    <div class="info">景别：中景 35mm ｜ <span class="cam">运镜：环绕镜头</span><br/><span class="act">动作：悟空举棒 vs 八戒举耙，对峙（红）</span></div>
   </div>
 </div>
 
-<!-- ============ S08 ============ -->
+<!-- ============ S07 双兵对撞 ============ -->
 <div class="frame">
-  <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-    <rect width="400" height="225" fill="#f5f0e8"/>
-    <!-- 大路 -->
-    <path d="M0,200 L400,150 L400,225 L0,225 Z" fill="#eee" stroke="#ccc" stroke-width="1"/>
-    <!-- 朝阳 -->
-    <circle cx="330" cy="40" r="25" fill="#ddd" stroke="#bbb" stroke-width="1"/>
-    <path d="M320,70 L310,90 M340,70 L350,90 M330,80 L330,100" stroke="#bbb" stroke-width="1.5"/>
-    <!-- 村落剪影 -->
-    <path d="M0,140 L0,170 L30,170 L30,145 L45,145 L45,170 L70,170 L70,150 L80,140 Z" fill="#ddd" opacity="0.7"/>
-    <!-- 师徒四人 -->
-    <g transform="translate(120,120)">
-      <!-- 唐僧(前) -->
-      <circle cx="0" cy="0" r="10" fill="#ccc" stroke="#888" stroke-width="1.5"/>
-      <path d="M-7,8 L-5,45 L5,45 L7,8 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
-      <!-- 悟空(开路左) -->
-      <circle cx="-25" cy="4" r="9" fill="#ccc" stroke="#888" stroke-width="1.5"/>
-      <path d="M-30,11 L-29,38 L-21,38 L-20,11 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
-      <!-- 八戒(扛耙) -->
-      <ellipse cx="25" cy="8" rx="11" ry="9" fill="#ccc" stroke="#888" stroke-width="1.5"/>
-      <path d="M20,15 L22,42 L30,42 L32,15 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
-      <line x1="22" y1="-5" x2="36" y2="40" stroke="#666" stroke-width="3"/>
-      <!-- 沙僧(后) -->
-      <circle cx="48" cy="12" r="9" fill="#ccc" stroke="#888" stroke-width="1.5"/>
-      <path d="M44,19 L45,42 L53,42 L54,19 Z" fill="#ddd" stroke="#999" stroke-width="1"/>
+  <svg viewBox="0 0 400 225">
+    <!-- 旷地 -->
+    <path d="M0,185 Q200,175 400,183 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <!-- 金箍棒（左） -->
+    <path d="M90,60 L205,120" stroke="#3a3a3a" stroke-width="5" stroke-linecap="round"/>
+    <!-- 九齿钉耙（右） -->
+    <path d="M310,60 L205,120" stroke="#4a4a4a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M308,58 L316,66 M304,64 L320,72 M300,70 L324,78" stroke="#4a4a4a" stroke-width="2.5"/>
+    <!-- 对撞火花 -->
+    <g fill="none" stroke="#ff6b6b" stroke-width="2">
+      <circle cx="205" cy="120" r="10"/>
+      <path d="M205,104 L205,96 M205,136 L205,144 M187,120 L179,120 M223,120 L231,120 M190,104 L184,98 M220,136 L226,142"/>
     </g>
+    <text x="205" y="90" font-size="11" fill="#ff6b6b" text-anchor="middle">对撞火花</text>
+    <!-- 运动轨迹：双兵相撞（红） -->
+    <path d="M95,75 Q150,95 195,115" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <path d="M305,75 Q250,95 215,115" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="6,4" marker-end="url(#redArrow)"/>
+    <!-- 特写切换框 -->
+    <rect x="70" y="30" width="120" height="75" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="210" y="35" width="120" height="70" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="70" y="26" font-size="9" fill="#ff6b6b">特写A</text>
+    <text x="210" y="30" font-size="9" fill="#ff6b6b">特写B</text>
+  </svg>
+  <div class="meta">
+    <div class="title">S07 · 金箍棒 vs 九齿钉耙 · 对撞</div>
+    <div class="info">景别：近景/特写交替 85mm ｜ <span class="cam">运镜：环绕+快剪+慢动作</span><br/><span class="act">动作：双兵对撞火花（红），运动轨迹标注</span></div>
+  </div>
+</div>
+
+<!-- ============ S08 四人启程 ============ -->
+<div class="frame">
+  <svg viewBox="0 0 400 225">
+    <!-- 大路+朝阳 -->
+    <path d="M0,200 L400,150 L400,225 L0,225 Z" stroke="#c9c9c9" stroke-width="1.5" fill="none"/>
+    <circle cx="330" cy="45" r="22" fill="#e8e8e8" stroke="#aaa" stroke-width="1.5"/>
+    <!-- 四人简笔（一字排开西行） -->
+    <g stroke="#3a3a3a" stroke-width="2.4" fill="none" stroke-linecap="round">
+      <!-- 唐僧（前） -->
+      <circle cx="120" cy="95" r="11"/>
+      <path d="M120,106 L120,150 M120,108 L110,120 M120,108 L130,120 M120,150 L115,185 M120,150 L125,185"/>
+      <!-- 悟空（开路） -->
+      <circle cx="165" cy="100" r="10"/>
+      <path d="M165,110 L165,150 M165,112 L157,122 M165,112 L173,122 M165,150 L160,185 M165,150 L170,185"/>
+      <!-- 八戒（扛耙） -->
+      <ellipse cx="215" cy="108" rx="12" ry="9"/>
+      <path d="M215,117 L215,155 M215,155 L210,185 M215,155 L220,185"/>
+      <path d="M206,98 L226,165" stroke-width="3.5"/>   <!-- 扛钉耙 -->
+      <!-- 沙僧（殿后） -->
+      <circle cx="262" cy="105" r="10"/>
+      <path d="M262,115 L262,155 M262,117 L254,128 M262,117 L270,128 M262,155 L257,185 M262,155 L267,185"/>
+    </g>
+    <text x="120" y="95" font-size="8" fill="#777" text-anchor="middle">唐僧</text>
+    <text x="165" y="100" font-size="8" fill="#888" text-anchor="middle">悟空</text>
+    <text x="215" y="108" font-size="8" fill="#999" text-anchor="middle">八戒</text>
+    <text x="262" y="105" font-size="8" fill="#999" text-anchor="middle">沙僧</text>
+    <!-- 行动轨迹（红）：西行 -->
+    <path d="M80,190 Q150,182 220,188 Q290,194 350,186" stroke="#ff6b6b" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#redArrow)"/>
+    <text x="290" y="182" font-size="10" fill="#ff6b6b">西行</text>
+    <!-- 拉远+上升（蓝） -->
+    <path d="M200,222 L200,60" stroke="#4da3ff" stroke-width="2.5" fill="none" stroke-dasharray="7,5" marker-end="url(#blueArrow)"/>
+    <text x="208" y="140" font-size="10" fill="#4da3ff">拉远+上升</text>
     <!-- 字幕 -->
-    <rect x="120" y="45" width="160" height="24" rx="4" fill="#fff" stroke="#888" stroke-width="1"/>
-    <text x="200" y="61" font-size="11" fill="#666" text-anchor="middle">赐名悟能 · 共赴西天</text>
-    <!-- 拉远上升 -->
-    <path d="M200,225 L200,150" stroke="#666" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="206" y="185" font-size="11" fill="#666">拉远+上升</text>
+    <rect x="120" y="30" width="160" height="22" rx="3" fill="none" stroke="#888" stroke-width="1.2"/>
+    <text x="200" y="45" font-size="10" fill="#666" text-anchor="middle">赐名悟能 · 共赴西天</text>
   </svg>
   <div class="meta">
     <div class="title">S08 · 师徒四人启程</div>
-    <div class="info">景别：远景 35mm ｜ 运镜：拉远+上升<br/>
-    <b>构图要点：</b>四人一字排开西行，唐僧前/悟空开路/八戒扛耙/沙僧殿后<br/>
-    <b>角色位置：</b>居中偏左，朝阳右上，字幕居中，大路延伸透视</div>
+    <div class="info">景别：远景 35mm ｜ <span class="cam">运镜：拉远+上升</span><br/><span class="act">动作：四人西行（红）</span> ｜ 唐僧前/悟空开路/八戒扛耙/沙僧殿后</div>
   </div>
 </div>
 
 </div>
-<div class="legend">■ 图例：白底=亮部｜灰=暗部｜红虚线框=特写/对焦区｜箭头=运镜方向</div>
+
+<!-- 箭头定义 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="redArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#ff6b6b"/>
+    </marker>
+    <marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4da3ff"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="legend">
+  <span><span class="sw" style="background:#3a3a3a"></span> 角色/道具线稿</span>
+  <span><span class="sw" style="background:#c9c9c9"></span> 场景轮廓</span>
+  <span><span class="sw" style="background:#ff6b6b"></span> 动作/运动轨迹</span>
+  <span><span class="sw" style="background:#4da3ff"></span> 运镜方向</span>
+  <span><span style="border:1px dashed #ff6b6b;padding:1px 4px">对焦/特写区</span></span>
+</div>
 </body>
 </html>
