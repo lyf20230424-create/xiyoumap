@@ -32,14 +32,35 @@
   - 闺房 16.7% 实际干净（红纱帐暖色）
 - 结论：肤色检测只能做参考，**最终以肉眼确认为准**
 
-## 五、生产路线（用户确认 2026-08-02）
-- **样片/A方案**：程序化 animatic 预演（关键帧+字幕+旁白TTS+转场+运镜），零成本看效果
-- **实际生产**：用其他更成熟的 AI 视频模型，**角色参考图 + 道具图 + 场景图（真实主体）+ 线稿关键帧（构图控制）→ AI 图生视频**
-- 主体一致性：真实主体图（角色/道具/场景）驱动长相，线稿关键帧只控制构图/运镜/动作
-- Agnes 视频 API 角色参考不可靠，仅用于测试，生产用其他模型
-
 ## 四、数据规范
 - `characters.json`：所有角色（主角+配角）用 role 区分（protagonist/mortal/boss）
 - `visual-elements.json`：characters 存角色定义，场景 characters 只引用角色 id
 - `scenes.json`：场景图数据（prompt + refImage）
 - 场景/角色/道具分层生成，视频合成时组合引用
+
+## 五、生产路线（用户确认 2026-08-02）
+- **样片/A方案**：程序化 animatic 预演（线稿关键帧+字幕+对白TTS+五声配乐+运镜），零成本看效果
+- **实际生产**：用其他更成熟的 AI 视频模型，**角色参考图 + 道具图 + 场景图（真实主体）+ 线稿关键帧（构图控制）→ AI 图生视频**
+- 主体一致性：真实主体图（角色/道具/场景）驱动长相，线稿关键帧只控制构图/运镜/动作
+- Agnes 视频 API 角色参考不可靠，仅用于测试，生产用其他模型
+- **关键帧**：只用线稿（SVG→PNG 构图控制），**不生成彩色关键帧**（对生产冗余）
+
+## 六、图床经验（2026-08-02）
+- **目标**：线稿构图图上传图床，video-config 里 lineart 直接有 URL 供 AI 视频 API 拉取
+- **免费图床测试结论**：
+  - catbox.moe ❌ 网络不可达（HTTP 000）
+  - 0x0.st ❌ 禁止上传（AI 机器人垃圾）
+  - sm.ms ❌ 需要 token（匿名被拒）
+  - **GitHub raw ✅ 可行**（需仓库 Public）
+- **GitHub raw 方案**：
+  - 仓库设 Public → raw URL 可匿名访问
+  - URL 格式：`https://raw.githubusercontent.com/{owner}/{repo}/master/{path}`
+  - 本项目：`lyf20230424-create/xiyoumap`，raw 返回 200
+- **注意**：仓库 Public 会公开全部内容（角色图/数据/代码），介意则只放线稿图进 Public 仓库
+
+## 七、视频配置 JSON（video-config-12.json）
+- 每镜头含：videoPrompt（英文 AI 视频提示词）+ promptElements（6要素）+ refs
+- refs 参考图：scene背景 / character主体 / prop道具 / lineart构图
+- 每参考图：type/id/name/path(本地)/url(远端)/role
+- 生产读此 JSON 即可调 AI 视频 API（需支持多参考图的模型）
+- 验证：23 个参考图 URL 全部可访问（场景/角色/道具/线稿）
