@@ -3,113 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>西游记取经路线地图</title>
+    <title>西游记 · 唐僧师徒取经路线图</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- 顶部标题栏 -->
         <header class="header">
-            <h1>西游记取经路线地图</h1>
-            <p class="subtitle">唐僧师徒四人西天取经之路</p>
+            <div class="header-inner">
+                <h1><span class="header-icon">📿</span> 西游记 · 唐僧师徒取经路线图</h1>
+                <p class="subtitle">从长安大唐气象，至西天灵山佛界 —— 点击地图节点查看沿途劫难与妖魔</p>
+            </div>
+
+            <!-- 图例 + 搜索 -->
+            <div class="header-tools">
+                <div class="legend">
+                    <div class="legend-items">
+                        <div class="legend-item"><span class="legend-dot dot-spirit"></span><span>精怪</span></div>
+                        <div class="legend-item"><span class="legend-dot dot-god"></span><span>神仙/妖仙</span></div>
+                        <div class="legend-item"><span class="legend-dot dot-animal"></span><span>动物</span></div>
+                        <div class="legend-item"><span class="legend-dot dot-devil"></span><span>魔王</span></div>
+                        <div class="legend-item"><span class="legend-dot dot-other"></span><span>其他</span></div>
+                        <div class="legend-item"><span class="legend-dot dot-start"></span><span>起点/终点</span></div>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="搜索地点或妖怪..." class="search-input">
+                    <button id="search-button" class="search-button">搜索</button>
+                    <button id="clear-search" class="clear-search" title="清除">×</button>
+                </div>
+            </div>
         </header>
 
+        <!-- 主交互区域 -->
         <div class="main-content">
             <div class="map-container">
-                <svg id="journey-map" width="1800" height="1200">
-                    <!-- 背景和装饰 -->
+                <svg id="journey-map" viewBox="0 0 1800 1200" preserveAspectRatio="xMidYMid meet">
                     <defs>
-                        <!-- 卷轴背景 -->
-                        <pattern id="parchment" patternUnits="userSpaceOnUse" width="100" height="100">
-                            <rect width="100" height="100" fill="#f4e8d0"/>
-                            <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="#d4c4a8" stroke-width="0.5" opacity="0.3"/>
+                        <!-- 卷轴纸张纹理 -->
+                        <pattern id="parchment" patternUnits="userSpaceOnUse" width="120" height="120">
+                            <rect width="120" height="120" fill="#1a120c"/>
+                            <path d="M0,0 L120,0 L120,120 L0,120 Z" fill="none" stroke="#2e2215" stroke-width="0.6" opacity="0.35"/>
+                            <circle cx="20" cy="40" r="0.8" fill="#3a2b1a" opacity="0.4"/>
+                            <circle cx="90" cy="90" r="1" fill="#3a2b1a" opacity="0.3"/>
                         </pattern>
 
                         <!-- 路径渐变 -->
                         <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#8b4513;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#daa520;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#8B5E3C"/>
+                            <stop offset="100%" stop-color="#D4A84B"/>
                         </linearGradient>
 
-                        <!-- 妖怪类型颜色 -->
+                        <!-- 妖怪类型颜色（SVG内用于渐变，但节点用纯色） -->
                         <linearGradient id="spirit" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#9932cc;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ba55d3;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#D9585E"/>
+                            <stop offset="100%" stop-color="#EF7A7F"/>
                         </linearGradient>
                         <linearGradient id="god" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#4169e1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#6495ed;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#E8A84B"/>
+                            <stop offset="100%" stop-color="#F0C060"/>
                         </linearGradient>
                         <linearGradient id="animal" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#228b22;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#32cd32;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#3FA56B"/>
+                            <stop offset="100%" stop-color="#5BC48B"/>
                         </linearGradient>
                         <linearGradient id="devil" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#dc143c;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff6347;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#7B4FD1"/>
+                            <stop offset="100%" stop-color="#9A6FE8"/>
                         </linearGradient>
                         <linearGradient id="other" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#696969;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#a9a9a9;stop-opacity:1" />
+                            <stop offset="0%" stop-color="#8A8A8A"/>
+                            <stop offset="100%" stop-color="#A8A8A8"/>
                         </linearGradient>
                     </defs>
 
-                    <!-- 背景层 -->
-                    <rect width="100%" height="100%" fill="url(#parchment)" />
+                    <!-- 背景 -->
+                    <rect width="1800" height="1200" fill="url(#parchment)" />
 
                     <!-- 装饰边框 -->
-                    <rect x="20" y="20" width="1760" height="1160" fill="none" stroke="#8b4513" stroke-width="3" rx="10"/>
-                    <rect x="30" y="30" width="1740" height="1140" fill="none" stroke="#daa520" stroke-width="1" rx="8"/>
+                    <rect x="20" y="20" width="1760" height="1160" fill="none" stroke="#8c6a3c" stroke-width="3" rx="10"/>
+                    <rect x="30" y="30" width="1740" height="1140" fill="none" stroke="#5a4426" stroke-width="1" rx="8"/>
+
+                    <!-- 四角装饰 -->
+                    <g fill="#c9a15a" opacity="0.7" font-family="serif">
+                        <text x="45" y="55" font-size="22">❦</text>
+                        <text x="1735" y="55" font-size="22">❦</text>
+                        <text x="45" y="1155" font-size="22">❦</text>
+                        <text x="1735" y="1155" font-size="22">❦</text>
+                    </g>
 
                     <!-- 标题装饰 -->
-                    <text x="600" y="60" text-anchor="middle" class="title-decoration">西 游 记</text>
-                    <text x="600" y="85" text-anchor="middle" class="subtitle-decoration">Journey to the West</text>
+                    <text x="600" y="70" text-anchor="middle" class="title-decoration">西 游 记</text>
+                    <text x="600" y="98" text-anchor="middle" class="subtitle-decoration">Journey to the West</text>
 
                     <!-- 地图容器 -->
-                    <g id="map" transform="translate(50, 100)">
-                        <!-- 路径将在这里绘制 -->
+                    <g id="map" transform="translate(50, 110)">
                         <g id="paths"></g>
-                        <!-- 节点将在这里绘制 -->
                         <g id="nodes"></g>
                     </g>
                 </svg>
-            </div>
-
-            <!-- 图例 -->
-            <div class="legend">
-                <h3>妖怪类型</h3>
-                <div class="legend-items">
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: url(#spirit)"></div>
-                        <span>精怪</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: url(#god)"></div>
-                        <span>神仙/妖仙</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: url(#animal)"></div>
-                        <span>动物</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: url(#devil)"></div>
-                        <span>魔王</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: url(#other)"></div>
-                        <span>其他</span>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- 详情弹窗 -->
         <div id="detail-modal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <button id="modal-close" class="modal-close" aria-label="关闭">✕</button>
+                <div class="modal-header">
+                    <span id="modal-chapter" class="modal-chapter"></span>
+                    <h2 id="modal-title" class="modal-title"></h2>
+                </div>
                 <div class="modal-body">
-                    <h2 id="modal-title"></h2>
-                    <div id="modal-info"></div>
+                    <div class="panel-section">
+                        <span class="panel-label">📍 地点类型</span>
+                        <p id="modal-type" class="panel-text"></p>
+                    </div>
+                    <div class="panel-section">
+                        <span class="panel-label">📖 简介</span>
+                        <p id="modal-desc" class="panel-text"></p>
+                    </div>
+                    <div class="panel-section">
+                        <span class="panel-label">👹 主要妖魔/对手</span>
+                        <ul id="modal-demons" class="panel-list demon-list"></ul>
+                    </div>
+                    <div class="panel-section">
+                        <span class="panel-label">📜 剧情概要</span>
+                        <p id="modal-summary" class="panel-summary"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="panel-motto">历经八十一难 · 方得正果</span>
                 </div>
             </div>
         </div>
@@ -118,31 +145,5 @@
     <script src="js/data.js"></script>
     <script src="js/tooltip.js"></script>
     <script src="js/main.js"></script>
-
-    <!-- 调试信息 -->
-    <div id="debug" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 9999;">
-        <div>d3 loaded: <span id="d3-status">Loading...</span></div>
-        <div>journeyData length: <span id="data-length">Loading...</span></div>
-        <div>tooltip loaded: <span id="tooltip-status">Loading...</span></div>
-    </div>
-    <script>
-        // 调试信息
-        window.addEventListener('load', function() {
-            document.getElementById('d3-status').textContent = typeof d3 !== 'undefined' ? 'Yes' : 'No';
-            document.getElementById('data-length').textContent = typeof journeyData !== 'undefined' ? journeyData.length : 'N/A';
-            document.getElementById('tooltip-status').textContent = typeof tooltip !== 'undefined' ? 'Yes' : 'No';
-        });
-    </script>
-
-    <!-- 调试信息 -->
-    <div id="debug" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 9999;">
-        <div>journeyData length: <span id="data-length">Loading...</span></div>
-        <div>d3 loaded: <span id="d3-status">Loading...</span></div>
-    </div>
-    <script>
-        // 调试信息
-        document.getElementById('data-length').textContent = window.journeyData ? window.journeyData.length : 'N/A';
-        document.getElementById('d3-status').textContent = typeof d3 !== 'undefined' ? 'Yes' : 'No';
-    </script>
 </body>
 </html>

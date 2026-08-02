@@ -1,4 +1,4 @@
-// 提示框组件
+// 提示框组件 - 深色水墨主题
 class Tooltip {
     constructor() {
         this.tooltip = d3.select("body")
@@ -6,21 +6,16 @@ class Tooltip {
             .attr("class", "tooltip")
             .style("opacity", 0)
             .style("position", "absolute")
-            .style("background", "rgba(0, 0, 0, 0.8)")
-            .style("color", "#fff")
-            .style("padding", "10px")
-            .style("border-radius", "5px")
-            .style("font-size", "14px")
             .style("pointer-events", "none")
-            .style("z-index", "1000");
+            .style("z-index", 2000);
     }
 
     show(event, text) {
         this.tooltip
             .style("opacity", 1)
             .html(text)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 28) + "px");
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 30) + "px");
     }
 
     hide() {

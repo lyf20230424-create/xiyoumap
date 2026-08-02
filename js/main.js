@@ -1,353 +1,360 @@
-// 主逻辑 - D3.js 可视化
-// 浏览器环境中直接使用全局变量
-const journeyData = window.journeyData;
-const tooltip = window.tooltip;
+// 主逻辑 - D3.js 西游记取经路线地图可视化
+// 深色水墨主题 + 贝塞尔路线 + 右侧详情面板
 
-console.log('journeyData length:', journeyData.length);
+(function() {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', function() {
-    // 设置 SVG 容器
-    const svg = d3.select("#journey-map");
-    const mapGroup = svg.select("#map");
-    const pathsGroup = mapGroup.select("#paths");
-    const nodesGroup = mapGroup.select("#nodes");
-
-    // 地图尺寸 - 响应式调整
-    function getMapDimensions() {
-        const width = Math.min(window.innerWidth - 40, 1500);
-        const height = Math.min(window.innerHeight - 300, 1000);
-
-        // 根据屏幕大小动态调整
-        if (window.innerWidth <= 768) {
-            return { width: width * 0.8, height: height * 0.6 };
-        } else if (window.innerWidth <= 1024) {
-            return { width: width * 0.9, height: height * 0.8 };
-        } else {
-            return { width: width, height: height };
+    function init() {
+        if (typeof window.journeyData === 'undefined') {
+            console.error('journeyData 未加载！');
+            return;
         }
-    }
-
-    let currentMapSize = getMapDimensions();
-
-    // 缩放和平移
-    const zoom = d3.zoom()
-        .scaleExtent([0.5, 3])
-        .translateExtent([[-currentMapSize.width, -currentMapSize.height],
-                        [currentMapSize.width * 2, currentMapSize.height * 2]])
-        .on("zoom", function(event) {
-            mapGroup.attr("transform", event.transform);
-        });
-
-    // 触摸设备支持
-    if ('ontouchstart' in window) {
-        svg.style('touch-action', 'none');
-    }
-
-    svg.call(zoom);
-
-    // 绘制路径
-    const path = d3.line()
-        .x(d => d.position.x)
-        .y(d => d.position.y)
-        .curve(d3.curveMonotoneX)
-        .context(null);
-
-    // 创建路径数据
-    const pathData = journeyData.map(d => d.position);
-
-    // 添加路径到 SVG
-    pathsGroup.append("path")
-        .datum(pathData)
-        .attr("class", "path path-animated")
-        .attr("d", path)
-        .style("stroke", "url(#pathGradient)")
-        .style("stroke-width", 3)
-        .style("fill", "none")
-        .style("opacity", 0.7);
-
-    // 创建节点
-    const nodes = nodesGroup.selectAll(".location-node")
-        .data(journeyData)
-        .enter()
-        .append("g")
-        .attr("class", d => "location-node " + getLocationTypeClass(d))
-        .on("click", showDetail)
-        .on("mouseover", function(event, d) {
-            // 创建悬停文本
-            const hoverText = `<strong>${d.name}</strong><br/>${d.description}`;
-            tooltip.show(event, hoverText);
-
-            // 高亮路径
-            highlightPath(d.id);
-        })
-        .on("mouseout", function(event) {
-            tooltip.hide();
-            resetHighlight();
-        });
-
-    // 添加圆形节点
-    nodes.append("circle")
-        .attr("r", d => d.type === "起点" || d.type === "终点" ? 12 : 8)
-        .attr("cx", d => d.position.x)
-        .attr("cy", d => d.position.y);
-
-    // 添加地点名称
-    nodes.append("text")
-        .attr("x", d => d.position.x)
-        .attr("y", d => d.position.y + 20)
-        .text(d => d.name)
-        .style("font-size", d => d.name.length > 4 ? "10px" : "12px");
-
-    // 添加序号
-    nodes.append("text")
-        .attr("x", d => d.position.x)
-        .attr("y", d => d.position.y - 15)
-        .attr("text-anchor", "middle")
-        .style("font-size", "10px")
-        .style("fill", "#666")
-        .text(d => d.id);
-
-    // 获取地点类型类名
-    function getLocationTypeClass(location) {
-        if (location.type === "起点" || location.type === "终点") {
-            return location.type.toLowerCase();
+        if (typeof window.tooltip === 'undefined') {
+            console.error('tooltip 未加载！');
+            return;
+        }
+        if (typeof d3 === 'undefined') {
+            console.error('d3 未加载！');
+            return;
         }
 
-        // 检查是否有妖怪
-        if (location.demons.length > 0) {
-            // 根据第一个妖怪的类型返回类名
-            const demon = location.demonsWithTypes[0];
-            switch (demon.type) {
-                case "精怪": return "spirit";
-                case "神仙/妖仙": return "god";
-                case "动物": return "animal";
-                case "魔王": return "devil";
-                default: return "other";
+        console.log('journeyData length:', window.journeyData.length);
+
+        function setupMap() {
+            var journeyData = window.journeyData;
+            var tooltipInstance = window.tooltip;
+
+            // =============================================
+            // SVG 容器
+            // =============================================
+            var svgEl = document.getElementById("journey-map");
+            if (!svgEl) {
+                console.error("SVG element #journey-map not found!");
+                return;
             }
-        }
 
-        return "other";
-    }
+            var svg = d3.select("#journey-map");
+            var mapGroup = svg.select("#map");
+            var pathsGroup = mapGroup.select("#paths");
+            var nodesGroup = mapGroup.select("#nodes");
 
-    // 高亮路径
-    function highlightPath(locationId) {
-        // 高亮当前节点到终点的路径
-        const endIndex = journeyData.findIndex(d => d.id === locationId);
-        const highlightedPath = journeyData.slice(0, endIndex + 1).map(d => d.position);
+            if (pathsGroup.empty() || nodesGroup.empty()) {
+                console.error("Required SVG groups not found!");
+                return;
+            }
 
-        // 更新主路径
-        pathsGroup.select(".path")
-            .datum(highlightedPath)
-            .attr("d", path)
-            .style("stroke-width", 5)
-            .style("opacity", 1);
-    }
+            console.log('SVG ready — paths:', !pathsGroup.empty(), 'nodes:', !nodesGroup.empty());
 
-    // 重置高亮
-    function resetHighlight() {
-        pathsGroup.select(".path")
-            .datum(pathData)
-            .attr("d", path)
-            .style("stroke-width", 3)
-            .style("opacity", 0.7);
-    }
+            // =============================================
+            // 缩放
+            // =============================================
+            var zoom = d3.zoom()
+                .scaleExtent([0.5, 3])
+                .on("zoom", function(event) {
+                    mapGroup.attr("transform", event.transform);
+                });
 
-    // 显示详情弹窗
-    function showDetail(event, d) {
-        const modal = document.getElementById("detail-modal");
-        const modalTitle = document.getElementById("modal-title");
-        const modalInfo = document.getElementById("modal-info");
+            svg.call(zoom);
 
-        // 设置标题
-        modalTitle.innerHTML = `${d.name} <span style="font-size: 0.6em; color: #666;">(#${d.id})</span>`;
-
-        // 设置内容
-        let content = `
-            <div class="info-section">
-                <h4>📍 地点类型</h4>
-                <p>${d.type}</p>
-            </div>
-        `;
-
-        if (d.description) {
-            content += `
-                <div class="info-section">
-                    <h4>📖 简介</h4>
-                    <p>${d.description}</p>
-                </div>
-            `;
-        }
-
-        if (d.demons.length > 0) {
-            content += `
-                <div class="info-section">
-                    <h4>👹 妖怪</h4>
-                    <ul class="demon-list">
-            `;
-            d.demonsWithTypes.forEach(demon => {
-                content += `<li>${demon.name} <span style="color: #666; font-size: 0.9em;">(${demon.type})</span></li>`;
+            // =============================================
+            // 路径 — 贝塞尔曲线（水墨山川起伏感）
+            // =============================================
+            var pathPoints = journeyData.map(function(d) {
+                return [d.position.x, d.position.y];
             });
-            content += `
-                    </ul>
-                </div>
-            `;
-        }
 
-        if (d.events.length > 0) {
-            content += `
-                <div class="info-section">
-                    <h4>📜 关键事件</h4>
-                    <ul class="event-list">
-            `;
-            d.events.forEach(event => {
-                content += `<li>${event}</li>`;
+            // 平滑曲线，营造山川起伏
+            var lineGenerator = d3.line()
+                .curve(d3.curveCatmullRom.alpha(0.5));
+
+            // 发光底层
+            pathsGroup.append("path")
+                .datum(pathPoints)
+                .attr("class", "path path-glow")
+                .attr("d", lineGenerator);
+
+            // 主路径
+            pathsGroup.append("path")
+                .datum(pathPoints)
+                .attr("class", "path path-main")
+                .attr("d", lineGenerator);
+
+            // 流动虚线
+            pathsGroup.append("path")
+                .datum(pathPoints)
+                .attr("class", "path path-pulse")
+                .attr("d", lineGenerator);
+
+            console.log('Bezier route drawn with', pathPoints.length, 'points');
+
+            // =============================================
+            // 妖怪类型 → 颜色映射（深色主题配色）
+            // =============================================
+            var typeColorMap = {
+                "精怪":     "#D9585E",
+                "神仙/妖仙": "#E8A84B",
+                "动物":     "#3FA56B",
+                "魔王":     "#7B4FD1",
+                "其他":     "#8A8A8A"
+            };
+
+            function getLocationColor(d) {
+                if (d.type === "起点" || d.type === "终点") return "#FFD700";
+                if (d.demonsWithTypes && d.demonsWithTypes.length > 0) {
+                    var t = d.demonsWithTypes[0].type;
+                    return typeColorMap[t] || "#8A8A8A";
+                }
+                return "#8A8A8A";
+            }
+
+            function getLocationType(d) {
+                if (d.demonsWithTypes && d.demonsWithTypes.length > 0) {
+                    return d.demonsWithTypes[0].type;
+                }
+                return d.type;
+            }
+
+            // =============================================
+            // 节点
+            // =============================================
+            var nodes = nodesGroup.selectAll(".location-node")
+                .data(journeyData)
+                .enter()
+                .append("g")
+                .attr("class", "location-node")
+                .attr("data-id", function(d) { return d.id; })
+                .on("click", showDetail)
+                .on("mouseover", function(event, d) {
+                    var html = "<strong>" + d.name + "</strong><br/>" +
+                        (d.chapter ? d.chapter + "<br/>" : "") + d.description;
+                    tooltipInstance.show(event, html);
+                    highlightPath(d.id);
+                })
+                .on("mouseout", function(event) {
+                    tooltipInstance.hide();
+                    resetHighlight();
+                });
+
+            // 外圈光环
+            nodes.append("circle")
+                .attr("class", "node-ring")
+                .attr("cx", function(d) { return d.position.x; })
+                .attr("cy", function(d) { return d.position.y; })
+                .attr("r", function(d) {
+                    return (d.type === "起点" || d.type === "终点") ? 22 : 17;
+                })
+                .attr("fill", "none")
+                .attr("stroke", getLocationColor)
+                .attr("opacity", 0.45);
+
+            // 主体圆
+            nodes.append("circle")
+                .attr("class", "node-circle")
+                .attr("cx", function(d) { return d.position.x; })
+                .attr("cy", function(d) { return d.position.y; })
+                .attr("r", function(d) {
+                    return (d.type === "起点" || d.type === "终点") ? 15 : 11;
+                })
+                .attr("fill", getLocationColor);
+
+            // 内圈高光
+            nodes.append("circle")
+                .attr("class", "node-highlight")
+                .attr("cx", function(d) { return d.position.x - 3.5; })
+                .attr("cy", function(d) { return d.position.y - 3.5; })
+                .attr("r", function(d) {
+                    return (d.type === "起点" || d.type === "终点") ? 5 : 3.5;
+                });
+
+            // 序号
+            nodes.append("text")
+                .attr("class", "node-id")
+                .attr("x", function(d) { return d.position.x; })
+                .attr("y", function(d) { return d.position.y - 24; })
+                .attr("text-anchor", "middle")
+                .text(function(d) { return d.id; });
+
+            // 地名
+            nodes.append("text")
+                .attr("class", "node-name")
+                .attr("x", function(d) { return d.position.x; })
+                .attr("y", function(d) { return d.position.y + 28; })
+                .attr("text-anchor", "middle")
+                .attr("font-size", function(d) { return d.name.length > 4 ? "12px" : "14px"; })
+                .text(function(d) { return d.name; });
+
+            console.log('Nodes created:', nodes.size());
+
+            // =============================================
+            // 路径高亮
+            // =============================================
+            function updatePath(layer, segment, width, opacity) {
+                pathsGroup.select(layer)
+                    .datum(segment)
+                    .attr("d", lineGenerator)
+                    .attr("stroke-width", width)
+                    .attr("opacity", opacity);
+            }
+
+            function highlightPath(locationId) {
+                var idx = journeyData.findIndex(function(d) { return d.id === locationId; });
+                if (idx === -1) return;
+
+                var segment = journeyData.slice(0, idx + 1).map(function(d) {
+                    return [d.position.x, d.position.y];
+                });
+
+                updatePath(".path-main", segment, 6, 1);
+                updatePath(".path-glow", segment, 16, 0.2);
+                updatePath(".path-pulse", segment, 3, 1);
+            }
+
+            function resetHighlight() {
+                updatePath(".path-main", pathPoints, 4, 0.85);
+                updatePath(".path-glow", pathPoints, 12, 0.12);
+                updatePath(".path-pulse", pathPoints, 2, 0.55);
+            }
+
+            // =============================================
+            // 详情弹窗（居中模态）
+            // =============================================
+            var modal = document.getElementById("detail-modal");
+            var modalChapter = document.getElementById("modal-chapter");
+            var modalTitle = document.getElementById("modal-title");
+            var modalType = document.getElementById("modal-type");
+            var modalDesc = document.getElementById("modal-desc");
+            var modalDemons = document.getElementById("modal-demons");
+            var modalSummary = document.getElementById("modal-summary");
+
+            function showDetail(event, d) {
+                var loc = journeyData.find(function(l) { return l.id === d.id; });
+                if (!loc) { console.error("Location " + d.id + " not found"); return; }
+
+                // 章节
+                modalChapter.textContent = loc.chapter || "取经途中";
+
+                // 标题
+                modalTitle.textContent = loc.name + " · " + (loc.type === "起点" ? "出发" : loc.type === "终点" ? "到达" : "第" + loc.id + "难");
+
+                // 类型
+                modalType.textContent = loc.type + (getLocationType(loc) !== loc.type ? " · " + getLocationType(loc) : "");
+
+                // 简介
+                modalDesc.textContent = loc.description || "（无简介）";
+
+                // 妖怪
+                modalDemons.innerHTML = "";
+                if (loc.demonsWithTypes && loc.demonsWithTypes.length > 0) {
+                    loc.demonsWithTypes.forEach(function(dm) {
+                        var li = document.createElement("li");
+                        li.innerHTML = dm.name + ' <span class="demon-type">(' + dm.type + ')</span>';
+                        modalDemons.appendChild(li);
+                    });
+                } else {
+                    var empty = document.createElement("li");
+                    empty.textContent = "（此站无妖阻路）";
+                    empty.style.color = "#a58a5e";
+                    modalDemons.appendChild(empty);
+                }
+
+                // 概要
+                modalSummary.textContent = loc.summary || "（暂无剧情概要）";
+
+                // 打开弹窗
+                modal.classList.add("open");
+
+                // 高亮当前节点
+                nodes.classed("active", function(n) { return n.id === loc.id; });
+            }
+
+            function closeModal() {
+                modal.classList.remove("open");
+                nodes.classed("active", false);
+                resetHighlight();
+            }
+
+            document.getElementById("modal-close").addEventListener("click", closeModal);
+
+            // 点击遮罩关闭
+            modal.addEventListener("click", function(e) {
+                if (e.target === modal) closeModal();
             });
-            content += `
-                    </ul>
-                </div>
-            `;
+
+            // ESC 关闭
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape") closeModal();
+            });
+
+            // =============================================
+            // 搜索
+            // =============================================
+            var searchInput   = document.getElementById("search-input");
+            var searchButton  = document.getElementById("search-button");
+            var clearSearch   = document.getElementById("clear-search");
+
+            function performSearch() {
+                var term = searchInput.value.toLowerCase().trim();
+                if (!term) {
+                    nodes.classed("highlighted", false).classed("dimmed", false);
+                    return;
+                }
+                nodes.classed("dimmed", true)
+                    .classed("highlighted", function(d) {
+                        var nameMatch = d.name.toLowerCase().indexOf(term) !== -1;
+                        var demonMatch = d.demons.some(function(dn) {
+                            return dn.toLowerCase().indexOf(term) !== -1;
+                        });
+                        var summaryMatch = (d.summary || "").toLowerCase().indexOf(term) !== -1;
+                        return nameMatch || demonMatch || summaryMatch;
+                    });
+
+                var hl = d3.selectAll(".location-node.highlighted");
+                if (hl.size() === 1) {
+                    showDetail({}, hl.data()[0]);
+                }
+            }
+
+            searchButton.addEventListener("click", performSearch);
+            clearSearch.addEventListener("click", function() {
+                searchInput.value = "";
+                nodes.classed("highlighted", false).classed("dimmed", false);
+            });
+            searchInput.addEventListener("keypress", function(e) {
+                if (e.key === "Enter") performSearch();
+            });
+
+            // =============================================
+            // 缩放控件
+            // =============================================
+            var controls = svg.append("g")
+                .attr("class", "zoom-controls")
+                .attr("transform", "translate(1690, 80)");
+
+            function addCtrlBtn(y, w, h, fill, text, fontSize, cb) {
+                controls.append("rect")
+                    .attr("y", y).attr("width", w).attr("height", h)
+                    .attr("fill", fill).attr("rx", 5)
+                    .attr("cursor", "pointer").on("click", cb);
+                controls.append("text")
+                    .attr("x", w / 2).attr("y", y + h * 0.72)
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "#fff").attr("font-size", fontSize + "px")
+                    .attr("cursor", "pointer").text(text)
+                    .on("click", cb);
+            }
+
+            addCtrlBtn(0,  40, 30, "#5a4426", "+",  18, function() { svg.transition().call(zoom.scaleBy, 1.25); });
+            addCtrlBtn(40, 40, 30, "#5a4426", "-",  18, function() { svg.transition().call(zoom.scaleBy, 0.8); });
+            addCtrlBtn(80, 40, 30, "#8c6a3c", "复位", 12, function() { svg.transition().call(zoom.transform, d3.zoomIdentity); });
         }
 
-        modalInfo.innerHTML = content;
-        modal.style.display = "block";
-
-        // 添加动画效果
-        nodes.classed("active", function(node) {
-            return node.id === d.id;
-        });
-    }
-
-    // 关闭弹窗
-    document.querySelector(".close").onclick = function() {
-        document.getElementById("detail-modal").style.display = "none";
-        nodes.classed("active", false);
-    };
-
-    // 点击弹窗外部关闭
-    window.onclick = function(event) {
-        const modal = document.getElementById("detail-modal");
-        if (event.target == modal) {
-            modal.style.display = "none";
-            nodes.classed("active", false);
+        // 处理 DOM 加载竞态
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupMap);
+        } else {
+            setupMap();
         }
-    };
-
-    // 响应式调整地图尺寸
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(function() {
-            updateMapSize();
-        }, 250);
-    });
-
-    function updateMapSize() {
-        const newSize = getMapDimensions();
-
-        // 更新 SVG 尺寸
-        svg.attr("viewBox", `0 0 ${newSize.width} ${newSize.height}`);
-
-        // 调整路径数据比例
-        const scaleFactor = newSize.width / currentMapSize.width;
-
-        // 重新绘制路径
-        const newPath = d3.line()
-            .x(d => d.position.x * scaleFactor)
-            .y(d => d.position.y * scaleFactor)
-            .curve(d3.curveMonotoneX);
-
-        pathsGroup.select(".path")
-            .datum(journeyData.map(d => ({
-                x: d.position.x * scaleFactor,
-                y: d.position.y * scaleFactor
-            })))
-            .attr("d", newPath);
-
-        // 更新节点位置
-        nodes.attr("transform", function(d) {
-            return `translate(${d.position.x * scaleFactor}, ${d.position.y * scaleFactor})`;
-        });
-
-        // 更新缩放控制按钮位置
-        const controlsX = newSize.width - 150;
-        controls.attr("transform", `translate(${controlsX}, 40)`);
-
-        currentMapSize = newSize;
     }
 
-    // 添加缩放控制按钮
-    const controls = svg.append("g")
-        .attr("class", "zoom-controls")
-        .attr("transform", "translate(1050, 40)");
-
-    // 放大按钮
-    controls.append("rect")
-        .attr("width", 40)
-        .attr("height", 30)
-        .attr("fill", "#8b4513")
-        .attr("rx", 5)
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.scaleBy, 1.2);
-        });
-
-    controls.append("text")
-        .attr("x", 20)
-        .attr("y", 20)
-        .attr("text-anchor", "middle")
-        .style("fill", "white")
-        .style("font-size", "16px")
-        .text("+")
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.scaleBy, 1.2);
-        });
-
-    // 缩小按钮
-    controls.append("rect")
-        .attr("y", 40)
-        .attr("width", 40)
-        .attr("height", 30)
-        .attr("fill", "#8b4513")
-        .attr("rx", 5)
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.scaleBy, 0.8);
-        });
-
-    controls.append("text")
-        .attr("x", 20)
-        .attr("y", 60)
-        .attr("text-anchor", "middle")
-        .style("fill", "white")
-        .style("font-size", "16px")
-        .text("-")
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.scaleBy, 0.8);
-        });
-
-    // 重置按钮
-    controls.append("rect")
-        .attr("y", 40)
-        .attr("width", 40)
-        .attr("height", 30)
-        .attr("fill", "#daa520")
-        .attr("rx", 5)
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.transform, d3.zoomIdentity);
-        });
-
-    controls.append("text")
-        .attr("x", 20)
-        .attr("y", 40)
-        .attr("text-anchor", "middle")
-        .style("fill", "white")
-        .style("font-size", "12px")
-        .text("重置")
-        .attr("cursor", "pointer")
-        .on("click", function() {
-            svg.transition().call(zoom.transform, d3.zoomIdentity);
-        });
-});
+    init();
+})();
