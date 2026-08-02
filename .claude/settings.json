@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/load-long-task.sh\"",
+            "shell": "bash",
+            "timeout": 15,
+            "statusMessage": "加载任务看板状态..."
+          }
+        ]
+      }
+    ]
+  }
+}

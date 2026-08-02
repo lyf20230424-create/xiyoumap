@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>任务看板 · 西游记取经路线地图</title>
+  <style>
+    :root {
+      --bg: #120e0a;
+      --card: #1a120c;
+      --border: #8c6a3c;
+      --border-dim: #5a4426;
+      --text: #e2d1b0;
+      --muted: #a58a5e;
+      --gold: #c9a15a;
+      --gold-bright: #e8b84b;
+      --done: #3ecf8e;
+      --doing: #4c8dff;
+      --blocked: #ff6b6b;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Serif SC", "SimSun", serif;
+      background: var(--bg);
+      background-image: radial-gradient(ellipse at 50% 0%, rgba(140,106,60,0.15) 0%, transparent 60%);
+      color: var(--text);
+      padding: 24px;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; margin: 0 0 4px; color: var(--gold-bright); letter-spacing: 2px; }
+    .meta { color: var(--muted); font-size: 0.875rem; margin-bottom: 24px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .stat .label { color: var(--muted); font-size: 0.75rem; }
+    .stat .value { font-size: 1.4rem; font-weight: 600; }
+    .progress-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .progress-bar {
+      height: 10px;
+      background: var(--border-dim);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-bar > div {
+      height: 100%;
+      background: linear-gradient(90deg, #3ecf8e, #2dd4a8);
+      border-radius: 999px;
+    }
+    .focus {
+      background: var(--card);
+      border: 1px solid var(--doing);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .section { margin-bottom: 28px; }
+    .section h2 {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0 0 12px;
+      border-bottom: 1px solid var(--border-dim);
+      padding-bottom: 6px;
+    }
+    .card-list { display: flex; flex-direction: column; gap: 8px; }
+    .task-card {
+      background: var(--card);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.875rem;
+    }
+    .task-card .name { font-weight: 600; color: var(--text); }
+    .task-card .desc { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+    .task-card .prio {
+      float: right;
+      font-size: 0.7rem;
+      padding: 1px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-dim);
+      color: var(--gold);
+    }
+    .task-card.done { border-left-color: var(--done); opacity: 0.75; }
+    .task-card.doing { border-left-color: var(--doing); }
+    .task-card.blocked { border-left-color: var(--blocked); }
+    .task-card.todo { border-left-color: var(--gold); }
+    .empty { color: var(--muted); font-style: italic; }
+    a { color: var(--gold-bright); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📜 任务看板 · 西游记取经路线地图</h1>
+    <div class="meta">自动维护 · 与 board.md / tasks.md / progress.md 同步</div>
+
+    <!-- 统计 -->
+    <div class="summary">
+      <div class="stat"><div class="label">总任务</div><div class="value">21</div></div>
+      <div class="stat"><div class="label">已完成</div><div class="value" style="color:var(--done)">19</div></div>
+      <div class="stat"><div class="label">进行中</div><div class="value" style="color:var(--doing)">0</div></div>
+      <div class="stat"><div class="label">阻塞</div><div class="value" style="color:var(--blocked)">0</div></div>
+    </div>
+
+    <!-- 进度 -->
+    <div class="progress-wrap">
+      <div style="display:flex;justify-content:space-between;font-size:0.875rem">
+        <span>完成进度</span><span>90%</span>
+      </div>
+      <div class="progress-bar"><div style="width:90%"></div></div>
+    </div>
+
+    <!-- 当前焦点 -->
+    <div class="focus"><div>当前焦点：<strong>无进行中任务</strong> · 待选 T20（字体本地化）</div></div>
+
+    <!-- 待办 -->
+    <div class="section">
+      <h2>📋 待办（TODO）</h2>
+      <div class="card-list">
+        <div class="task-card todo">
+          <span class="prio">中</span>
+          <div class="name">T20 · 本地化 Google 字体</div>
+          <div class="desc">下载 Ma Shan Zheng / Noto Serif SC 到 fonts/，改 @font-face，实现完全离线</div>
+        </div>
+        <div class="task-card todo">
+          <span class="prio">低</span>
+          <div class="name">T21 · 清理未跟踪的测试/调试文件</div>
+          <div class="desc">debug-test.html、demo.html、test.html 等确认去留并提交</div>
+        </div>
+        <div class="task-card todo">
+          <span class="prio">低</span>
+          <div class="name">T22 · 添加取经进度指示</div>
+          <div class="desc">进度条 / 当前第几难指示，增强叙事感</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 已完成 -->
+    <div class="section">
+      <h2>✅ 已完成（DONE · 19）</h2>
+      <div class="card-list">
+        <div class="task-card done"><span class="prio">中</span><div class="name">T19 · 详情显示改为居中弹窗</div><div class="desc">遮罩/ESC 关闭、淡入缩放</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T18 · 深色水墨主题升级</div><div class="desc">贝塞尔曲线、书法字体、回目/概要、数据修正</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T17 · 修正路线方向为从低到高</div><div class="desc">长安底 → 灵山顶，登山布局</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T16 · 心电图风格路线 + 放大节点</div><div class="desc">锯齿阶梯曲线（后被贝塞尔取代）</div></div>
+        <div class="task-card done"><span class="prio">低</span><div class="name">T15 · 完善文档</div><div class="desc">README</div></div>
+        <div class="task-card done"><span class="prio">低</span><div class="name">T14 · 创建测试和演示页面</div><div class="desc">测试页面</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T13 · 实现搜索功能</div><div class="desc">地点/妖怪/概要搜索</div></div>
+        <div class="task-card done"><span class="prio">低</span><div class="name">T12 · 优化山形地图视觉效果</div><div class="desc">已由 T16/T18 吸收</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T11 · 创建山形地图布局</div><div class="desc">已由 T17 登山布局取代</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T10 · 优化页面布局和响应式设计</div><div class="desc">多设备适配</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T09 · 修复地图显示问题</div><div class="desc">渐变、节点颜色、数据错误</div></div>
+        <div class="task-card done"><span class="prio">低</span><div class="name">T08 · 优化和测试</div><div class="desc">交互细节完善</div></div>
+        <div class="task-card done"><span class="prio">低</span><div class="name">T07 · 添加妖怪类型图例</div><div class="desc">5 类颜色图例</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T06 · 实现交互功能</div><div class="desc">点击详情/悬浮高亮/缩放/路径高亮</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T05 · 使用 D3.js 绘制路线图</div><div class="desc">SVG 路径与节点</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T04 · 设计古典风格 CSS 样式</div><div class="desc">卷轴风格</div></div>
+        <div class="task-card done"><span class="prio">中</span><div class="name">T03 · 创建基础 HTML 框架</div><div class="desc">主页面结构</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T02 · 设计数据结构</div><div class="desc">journeyData / demonTypes / demonsWithTypes</div></div>
+        <div class="task-card done"><span class="prio">高</span><div class="name">T01 · 提取取经路线数据</div><div class="desc">31 个地点 + 妖怪 + 事件</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
