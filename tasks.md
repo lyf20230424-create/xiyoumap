@@ -129,10 +129,15 @@
 - **priority**: 中
 
 ### T21: 清理未跟踪的测试/调试文件
-- **状态**: TODO
+- **状态**: DONE
 - **描述**: 仓库根目录有多个未跟踪文件(debug-test.html、demo.html、test.html、simple-d3-test.html、svg-transform-test.html、README.md)，需确认哪些保留、哪些删除，统一提交
 - **依赖**: 无
 - **priority**: 低
+- **完成内容**:
+  - 删除 4 个开发期调试残留：debug-test.html / simple-d3-test.html / svg-transform-test.html / demo.html
+  - 保留：note.txt（原始需求提示词）、test.html（正式功能测试页）
+  - 完善 README.md：补 v2.0 三功能（八十一难时间轴/妖魔族谱关系图/取经动态回放）、更新文件结构、使用说明、更新日志 v2.0.0
+  - 提交 fa746a2，工作区完全干净（无未跟踪/修改文件）
 
 ### T22: 添加取经进度指示
 - **状态**: TODO
@@ -193,7 +198,7 @@
 - **验证**: node -c OK；CSS 198/198 平衡；DOM id 匹配无缺失；CSS 类交叉无缺失；真实浏览器(headless Edge)渲染确认 playback-toggle/bar/marker/battle-trail/play 全部存在，且 relation-node 48、difficulty-entry、relation/difficulty-toggle 无回归
 
 ## 当前主任务
-- ID：T26（DONE，2026-08-02 在 feature/v2-digital-humanities 分支完成）
-- 名称：取经动态卷轴播放
-- 下一步：T25（真实底图+D3投影，复杂度高）或 T20/T21/T22 快速项（字体本地化/清理测试文件/进度指示），v2.0 四个扩展任务（T23-T26）已全部完成
+- ID：T21（DONE，2026-08-02 完成）
+- 名称：清理未跟踪测试文件
+- 下一步：T20（字体本地化）/ T22（取经进度指示）等快速项，或 T25（真实底图+D3投影）
 - 完成标准：按各任务描述执行并验证
