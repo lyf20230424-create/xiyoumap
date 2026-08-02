@@ -390,15 +390,39 @@
                 };
             }
 
+            // =============================================
+            // 取经动态卷轴播放（T26）
+            // =============================================
+            if (typeof window.Playback === 'function') {
+                window.playback = new window.Playback({
+                    data: journeyData,
+                    svg: svg,
+                    mapGroup: mapGroup,
+                    pathMain: pathsGroup.select(".path-main"),
+                    pathPulse: pathsGroup.select(".path-pulse"),
+                    nodes: nodes,
+                    centerFn: function(position) {
+                        // 复用居中逻辑：节点 viewBox 坐标 → 视口居中
+                        if (window.__centerSVG) window.__centerSVG(position);
+                    }
+                });
+            }
+
             // 将地图视图居中平移到指定节点（保持当前缩放）
             function centerOnNode(loc) {
+                if (!loc || !loc.position) return;
+                centerOnPosition(loc.position);
+            }
+
+            // 按 viewBox 坐标居中（供播放器跟随使用）
+            function centerOnPosition(position) {
                 var svgNode = svgEl;
-                if (!svgNode || !loc || !loc.position) return;
+                if (!svgNode || !position) return;
                 var w = svgNode.clientWidth || 1800;
                 var h = svgNode.clientHeight || 1200;
                 // 节点在 viewBox 坐标：map 组平移 (50, 110) + 节点自身坐标
-                var vx = 50 + loc.position.x;
-                var vy = 110 + loc.position.y;
+                var vx = 50 + position.x;
+                var vy = 110 + position.y;
                 // 保持当前缩放 k，平移使节点位于视口中心
                 var t = d3.zoomTransform(svgNode);
                 var tx = w / 2 - t.k * vx;
@@ -408,6 +432,9 @@
                     d3.zoomIdentity.translate(tx, ty).scale(t.k)
                 );
             }
+
+            // 暴露给播放器
+            window.__centerSVG = centerOnPosition;
         }
 
         // 处理 DOM 加载竞态
