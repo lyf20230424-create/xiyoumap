@@ -5,10 +5,19 @@
 
 ## 当前状态
 - 状态：进行中
-- 当前阶段：v2.0 数字人文扩展
+- 当前阶段：v2.0 数字人文扩展（T26 修复收尾）
 - 最近更新：2026-08-02
 - 当前分支：feature/v2-digital-humanities
-- 当前主任务 ID：T26（已 DONE），v2.0 扩展 T23-T26 全部完成，下一步 T25 或快速项
+- 当前主任务 ID：T26（已修复），v2.0 扩展 T23-T26 全部完成
+
+## 最近一次修复（T26 播放器三问题 + 八十一难完整对应）
+- 用户反馈：①没有爆裂动画 ②没有自动弹窗 ③八十一难没和路线图完整对应
+- 修复内容：
+  1. 爆裂动画：实测 CSS 无法动画 SVG 的 `r` 属性（headless Edge 下 animationName 被解析但 r 不变）→ 改用 d3.transition 驱动半径扩张+淡出，结束后自动 remove（同时修复 :last-child 删除 bug）
+  2. 自动弹窗：播放器到达节点时通过 onVisit 回调调用 showDetail
+  3. 八十一难↔路线图：locationId 支持数组；长安(id1)→难5、两界山(id3)并入难8（[3,2]）；地图节点新增难数标签 .node-diff（30/31 节点标注难号，浮屠山为修行处合理留空）；timeline/main 全面适配 toLocArray/locIds
+  4. 节点脉动改 JS 驱动（d3.transition），规避 CSS transform 对 SVG 的不稳支持
+- 验证：node -c 全部 OK；CSS 199/199 平衡；locationId 全部有效；真实浏览器(headless Edge)确认 node-diff 31 个标签渲染、抽查长安→5/五行山→8/两界山→8/鹰愁涧→9/高老庄→12 正确，playback/relation/difficulty 无回归
 
 ## 最近一次完成（T26：取经动态卷轴播放）
 - 完成内容：
