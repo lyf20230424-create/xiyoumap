@@ -43,7 +43,7 @@
           "id": "S01",
           "name": "线稿构图-S01",
           "path": "lineart-png/S01.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S01.png",
           "role": "composition"
         }
       ]
@@ -101,7 +101,7 @@
           "id": "S02",
           "name": "线稿构图-S02",
           "path": "lineart-png/S02.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S02.png",
           "role": "composition"
         }
       ]
@@ -159,7 +159,7 @@
           "id": "S03",
           "name": "线稿构图-S03",
           "path": "lineart-png/S03.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S03.png",
           "role": "composition"
         }
       ]
@@ -226,7 +226,7 @@
           "id": "S04",
           "name": "线稿构图-S04",
           "path": "lineart-png/S04.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S04.png",
           "role": "composition"
         }
       ]
@@ -284,7 +284,7 @@
           "id": "S05",
           "name": "线稿构图-S05",
           "path": "lineart-png/S05.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S05.png",
           "role": "composition"
         }
       ]
@@ -360,7 +360,7 @@
           "id": "S06",
           "name": "线稿构图-S06",
           "path": "lineart-png/S06.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S06.png",
           "role": "composition"
         }
       ]
@@ -436,7 +436,7 @@
           "id": "S07",
           "name": "线稿构图-S07",
           "path": "lineart-png/S07.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S07.png",
           "role": "composition"
         }
       ]
@@ -521,10 +521,16 @@
           "id": "S08",
           "name": "线稿构图-S08",
           "path": "lineart-png/S08.png",
-          "url": null,
+          "url": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/assets/video/lineart-png/S08.png",
           "role": "composition"
         }
       ]
     }
-  ]
+  ],
+  "refHost": {
+    "host": "github-raw",
+    "repo": "lyf20230424-create/xiyoumap",
+    "branch": "master",
+    "baseUrl": "https://raw.githubusercontent.com/lyf20230424-create/xiyoumap/master/"
+  }
 }
