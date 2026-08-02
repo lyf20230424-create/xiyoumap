@@ -118,7 +118,7 @@
   ],
   "scenes": [
     {
-      "id": "scene-1",
+      "id": "scene-village-entrance",
       "name": "高老庄村口",
       "type": "村庄",
       "description": "夜色中土墙村落，青石板路，户户闭户",
@@ -131,7 +131,7 @@
       "timeOfDay": "night"
     },
     {
-      "id": "scene-2",
+      "id": "scene-gao-mansion",
       "name": "高太公府宅",
       "type": "宅院",
       "description": "朱门大院、灯笼高挂、堂内愁云",
@@ -161,7 +161,7 @@
       ]
     },
     {
-      "id": "scene-3",
+      "id": "scene-cuilan-room",
       "name": "高翠兰闺房",
       "type": "内室",
       "description": "红烛纱帐、嫁妆陈设、夜半无人",
@@ -181,7 +181,7 @@
       ]
     },
     {
-      "id": "scene-4",
+      "id": "scene-cloud-cave",
       "name": "云栈洞",
       "type": "洞府",
       "description": "福陵山腰洞府，洞口藤蔓，洞内黑气",
@@ -193,7 +193,7 @@
       "timeOfDay": "night"
     },
     {
-      "id": "scene-5",
+      "id": "scene-cloud-cave-ground",
       "name": "云栈洞前旷地",
       "type": "旷野",
       "description": "山月高悬、乱石嶙峋、二人对峙",
@@ -205,7 +205,7 @@
       "timeOfDay": "night"
     },
     {
-      "id": "scene-6",
+      "id": "scene-gao-road",
       "name": "高老庄前大路",
       "type": "大路",
       "description": "师徒四人启程，朝阳初升",
