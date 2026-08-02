@@ -263,8 +263,20 @@
 - **priority**: 中
 - **产出**: 评估结论 + 批量计划
 
+### T34: 数据JSON化（v3.0 数据层）
+- **状态**: DONE
+- **描述**: 将 T27/T28 的 markdown 产出整理为 JSON 结构化文件，方便程序调用
+- **依赖**: T27, T28
+- **priority**: 高
+- **产出**: `assets/video/visual-elements.json` + `characters.json` + `read-data.js`
+- **完成内容**:
+  - visual-elements.json：第12难视觉元素结构化（schemaVersion/difficultyId/characters/scenes/keyProps/colorPalette/storyHooks）
+  - characters.json：角色库结构化（styleKeywords/promptTemplate.common 含占位符 + 三角色卡含锚点与完整 prompt + notes）
+  - read-data.js：程序调用示例——读取JSON、按难取角色、按名取提示词、按type过滤、模板填充新角色（沙僧演示）
+- **验证**: 两 JSON 解析 OK；结构字段全齐；占位符完整；模板填充沙僧成功；与 markdown 数据交叉一致
+
 ## 当前主任务
-- ID：T29（T28 已 DONE，待开工）
+- ID：T29（T28/T34 已 DONE，待开工）
 - 名称：分镜脚本
 - 下一步：T29 → T30 → T31 → T32 → T33
 - 完成标准：按各任务描述执行并验证

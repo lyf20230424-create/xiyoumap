@@ -5,10 +5,19 @@
 
 ## 当前状态
 - 状态：进行中
-- 当前阶段：v3.0 八十一难 AI 视频化（T28 完成）
+- 当前阶段：v3.0 八十一难 AI 视频化（T34 数据JSON化完成）
 - 最近更新：2026-08-02
 - 当前分支：master
 - 当前主任务 ID：T29（分镜脚本，待开工）
+
+## 最近一次完成（T34：数据JSON化）
+- 用户需求：将 T27/T28 产出整理为 JSON，方便程序调用
+- 完成内容：
+  1. `visual-elements.json`：第12难视觉元素结构化（schemaVersion/difficultyId/name/chapter/location/logline/characters 7人/scenes 6场/keyProps 7件/colorPalette/storyHooks）
+  2. `characters.json`：角色库结构化（styleKeywords/promptTemplate.common 含全部占位符 + 3角色卡含 id/type/锚点/完整 prompt + notes）
+  3. `read-data.js`：程序调用示例——读取JSON、按难取角色、按名取提示词、按type过滤、模板填充新角色（沙僧演示成功）
+- 验证：两 JSON 解析 OK、结构字段全齐、占位符完整、模板填充沙僧成功、与 markdown 交叉一致
+- 提交：78e88ba
 
 ## 最近一次完成（T28：角色库设计）
 - 完成内容：
