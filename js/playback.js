@@ -188,6 +188,7 @@
         this.playing = false;
         if (this._timer) this._timer.stop();
         this._timer = null;
+        this._stopPulse();
         this._updatePlayBtn();
     };
 
@@ -266,6 +267,10 @@
             if (cur) {
                 this.label.textContent = '第 ' + (idx + 1) + ' / ' + this.data.length + ' 站 · ' + cur.name;
                 if (cur.demons && cur.demons.length > 0) this._burst(cur);
+                // 到达节点自动弹出详情
+                if (this.onVisit) this.onVisit(cur);
+                this._stopPulse();
+                this._pulse();
                 if (this.follow && this.centerFn) this.centerFn(cur.position);
             }
         }
@@ -273,23 +278,32 @@
 
     // =============================================
     // 战斗爆裂（悟空战斗轨迹动画）
+    // 用 d3.transition 驱动 r 动画（CSS 动画无法驱动 SVG 几何属性 r）
     // =============================================
     Playback.prototype._burst = function (d) {
-        var self = this;
-        this.burstLayer.append('circle')
+        var circle = this.burstLayer.append('circle')
+            .attr('class', 'battle-burst')
             .attr('cx', d.position.x)
             .attr('cy', d.position.y)
             .attr('r', 6)
-            .attr('class', 'battle-burst');
-        setTimeout(function () {
-            self.burstLayer.selectAll('.battle-burst:last-child').remove();
-        }, 900);
+            .attr('fill', 'none')
+            .attr('stroke', '#d93b4a')
+            .attr('stroke-width', 2);
+
+        // 半径从 6 扩张到 34 并淡出；结束后自动删除自身
+        circle.transition()
+            .duration(900)
+            .ease(d3.easeCubicOut)
+            .attr('r', 34)
+            .attr('stroke-opacity', 0)
+            .on('end', function () { circle.remove(); });
     };
 
     // =============================================
     // 复位可视化
     // =============================================
     Playback.prototype._resetVisuals = function () {
+        this._stopPulse();
         this.progress = 0;
         this._startProg = 0;
         this.currentIdx = -1;
@@ -307,6 +321,28 @@
 
     Playback.prototype._updatePlayBtn = function () {
         this.playBtn.textContent = this.playing ? '⏸' : '▶';
+    };
+
+    // 当前节点脉动（JS 驱动，替代 CSS transform 动画对 SVG 的不稳支持）
+    Playback.prototype._pulse = function () {
+        var self = this;
+        if (!this.playing) return;
+        var circle = this.mapGroup.select('.location-node.current .node-circle');
+        if (circle.empty()) { this._pulseTimer = setTimeout(function(){ self._pulse(); }, 120); return; }
+        var base = circle.attr('r');
+        circle.transition()
+            .duration(600).ease(d3.easeQuadOut)
+            .attr('r', base * 1.35)
+            .transition()
+            .duration(600).ease(d3.easeQuadIn)
+            .attr('r', base)
+            .on('end', function () { self._pulseTimer = setTimeout(function(){ self._pulse(); }, 80); });
+    };
+
+    Playback.prototype._stopPulse = function () {
+        if (this._pulseTimer) { clearTimeout(this._pulseTimer); this._pulseTimer = null; }
+        var circle = this.mapGroup.select('.location-node.current .node-circle');
+        if (!circle.empty()) circle.interrupt();
     };
 
     Playback.prototype._indexAt = function (p) {

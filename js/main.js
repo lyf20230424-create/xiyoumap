@@ -183,7 +183,26 @@
                 .attr("font-size", function(d) { return d.name.length > 4 ? "12px" : "14px"; })
                 .text(function(d) { return d.name; });
 
+            // 难数标签（在节点上标注对应的八十一难号，未对应则显示编号）
+            nodes.append("text")
+                .attr("class", "node-diff")
+                .attr("x", function(d) { return d.position.x + 14; })
+                .attr("y", function(d) { return d.position.y - 14; })
+                .attr("text-anchor", "middle")
+                .attr("font-size", 10)
+                .text(function(d) { return getNodeDifficultyLabel(d); });
+
             console.log('Nodes created:', nodes.size());
+
+            // 根据节点 id 反查其对应的八十一难（返回逗号分隔难号，无则空）
+            function getNodeDifficultyLabel(d) {
+                if (typeof window.difficulties === 'undefined') return '';
+                var diffs = window.difficulties.filter(function(x) {
+                    var ids = Array.isArray(x.locationId) ? x.locationId : (x.locationId === null ? [] : [x.locationId]);
+                    return ids.indexOf(d.id) !== -1;
+                });
+                return diffs.length > 0 ? diffs.map(function(x) { return x.id; }).join('·') : '';
+            }
 
             // =============================================
             // 路径高亮
@@ -361,8 +380,9 @@
 
                 // 点击时间轴条目 → 定位地图节点 + 打开详情
                 timeline.onSelect = function(diff) {
-                    if (diff.locationId !== null && diff.locationId !== undefined) {
-                        var loc = journeyData.find(function(l) { return l.id === diff.locationId; });
+                    var ids = toLocArray(diff.locationId);
+                    if (ids.length > 0) {
+                        var loc = journeyData.find(function(l) { return l.id === ids[0]; });
                         if (loc) {
                             showDetail({}, loc);
                             centerOnNode(loc);
@@ -382,13 +402,14 @@
 
                 // 点击带地图关联的妖怪节点 → 打开对应节点详情 + 居中
                 rg.onSelect = function(node) {
-                    var loc = journeyData.find(function(l) { return l.id === node.locationId; });
+                    var ids = toLocArray(node.locationId);
+                    if (ids.length === 0) return;
+                    var loc = journeyData.find(function(l) { return l.id === ids[0]; });
                     if (loc) {
                         showDetail({}, loc);
                         centerOnNode(loc);
                     }
-                };
-            }
+                };            }
 
             // =============================================
             // 取经动态卷轴播放（T26）
@@ -404,6 +425,10 @@
                     centerFn: function(position) {
                         // 复用居中逻辑：节点 viewBox 坐标 → 视口居中
                         if (window.__centerSVG) window.__centerSVG(position);
+                    },
+                    onVisit: function(loc) {
+                        // 到达节点自动弹出详情
+                        showDetail({}, loc);
                     }
                 });
             }
@@ -412,6 +437,12 @@
             function centerOnNode(loc) {
                 if (!loc || !loc.position) return;
                 centerOnPosition(loc.position);
+            }
+
+            // locationId 兼容单值与数组，统一返回数组
+            function toLocArray(locId) {
+                if (locId === null || locId === undefined) return [];
+                return Array.isArray(locId) ? locId : [locId];
             }
 
             // 按 viewBox 坐标居中（供播放器跟随使用）

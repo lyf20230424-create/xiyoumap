@@ -329,6 +329,19 @@ body {
     fill: var(--gold-bright);
 }
 
+/* 难数标签（八十一难对应标注） */
+.node-diff {
+    font-size: 10px;
+    font-weight: 700;
+    fill: var(--gold);
+    opacity: 0.85;
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(18,14,10,0.8);
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
+
 /* 悬停节点发光 */
 .location-node:hover .node-ring {
     opacity: 1;

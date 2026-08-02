@@ -107,7 +107,7 @@
             var entry = document.createElement('div');
             entry.className = 'difficulty-entry';
 
-            var hasLoc = diff.locationId !== null && diff.locationId !== undefined;
+            var hasLoc = locIds(diff).length > 0;
 
             entry.innerHTML =
                 '<span class="difficulty-entry-dot" style="' + (hasLoc ? 'background:' + dotColor(diff) + ';' : '') + '"></span>' +
@@ -161,7 +161,9 @@
 
     // 聚焦：按地图节点 locationId，找出对应难度并聚焦；无对应则提示
     Timeline.prototype.focusLocation = function (locId) {
-        var hits = this.data.filter(function (d) { return d.locationId === locId; });
+        var hits = this.data.filter(function (d) {
+            return locIds(d).indexOf(locId) !== -1;
+        });
         if (hits.length === 0) {
             this._toast('该地点不在八十一难名单内（如妖怪路线串联地）');
             return;
@@ -169,7 +171,7 @@
         this.activeLocId = locId;
         // 高亮所有对应条目
         this.items.forEach(function (item) {
-            var match = item.data.locationId === locId;
+            var match = locIds(item.data).indexOf(locId) !== -1;
             item.entry.classList.toggle('loc-linked', match);
         });
         // 聚焦第一个对应难度
@@ -223,6 +225,12 @@
     // =============================================
     // 模块级工具函数
     // =============================================
+    // locationId 兼容单值与数组，统一返回数组
+    function locIds(d) {
+        if (d.locationId === null || d.locationId === undefined) return [];
+        return Array.isArray(d.locationId) ? d.locationId : [d.locationId];
+    }
+
     function pad(n) {
         return (n < 10 ? '0' : '') + n;
     }
@@ -239,8 +247,12 @@
     }
 
     function locName(d) {
-        var loc = (window.journeyData || []).filter(function (x) { return x.id === d.locationId; })[0];
-        return loc ? loc.name : ('地点#' + d.locationId);
+        var ids = locIds(d);
+        var names = ids.map(function (id) {
+            var loc = (window.journeyData || []).filter(function (x) { return x.id === id; })[0];
+            return loc ? loc.name : ('地点#' + id);
+        });
+        return names.join('·');
     }
 
     // 暴露到全局（仿 tooltip.js 模式）
